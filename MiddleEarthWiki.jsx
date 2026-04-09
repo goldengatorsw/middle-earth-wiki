@@ -1,0 +1,531 @@
+import { useState, useEffect, useRef } from "react";
+
+const C = {
+  bg: "#0d0b08", s1: "#191410", s2: "#222018", s3: "#2c2a1e",
+  bd: "#383020", g: "#c8a44a", gl: "#e6cc84", gd: "#7a6030",
+  tx: "#ede3cc", dm: "#9a8a6a", mt: "#5a4e38", re: "#8b2828"
+};
+
+const st = { fontFamily: "'Crimson Text', Georgia, serif" };
+const hn = { fontFamily: "'Cinzel', 'Times New Roman', serif" };
+
+const PARTY = [
+  { id: "borin", name: 'Borin "The Tall" Ironjaw', player: "Josh", race: "Dwarf Warden", emoji: "⚒️",
+    tag: "Pragmatic, fatherly. Fights for his family back home.",
+    bio: "Borin negotiated 2,000 gold from Mayor Graf before agreeing to anything, carried young Leah on his back until she fell asleep on his shoulders, and once hid behind a dead cow from three trolls while privately noting that urinating on himself was \"warm and comforting.\" He misses his wife and kids. Every burned farmstead reminds him why.",
+    facts: ["Negotiated 2,000 gold + shield + horses from Mayor Graf after the Battle of Bree","Carried Leah miles through the wilderness — waved until out of sight, then ran","Rumor of the Earth: touch the ground to sense orcs within 3 miles (once per rest)","Horic's Iron Hand Fang: +1 warhammer, DC 13 crowd-control on all nearby targets","Has a wife and children at home — every civilian death is personal"],
+    funny: ["Named a palm-leaf rain hat 'Leafster' and carried it through a thunderstorm","Urinated on himself hiding from trolls — noted it was 'actually warm and comforting'","Picked up Mungo and threw him at Gilgamesh to break up a fight (Gilgamesh caught him)"],
+    arc: "Borin fights for his family. He is the party's anchor — pragmatic, decent, quietly terrified that orcs are reaching places they were never supposed to reach." },
+  { id: "carl", name: "Carl Pickthron", player: "Tyler", race: "Human Fighter (Champion)", emoji: "🪓",
+    tag: "Brave to the point of recklessness. Carries grief loudly.",
+    bio: "Carl was drunk at the Prancing Pony talking about Mungo before the battle. He voluntarily served as living alligator bait because he trusted the party with his life. He declared \"Listen here, you stupid witch — you're not even a wizard!\" right before the crit that triggered Maldwin's phase 2.",
+    facts: ["Crits on 19-20 with extra damage dice equal to proficiency bonus","Holds the Horn of the Ruins (echolocation — 3D map of surroundings when blown loudly)","Accidentally knocked Dudo unconscious with his greataxe over a Horn dispute — sent to the barn","Volunteered as living alligator bait in the swamp; 15 gators converged and he was hauled back","'Listen here, you stupid witch — you're not even a wizard!' — pre-crit speech vs Maldwin"],
+    funny: ["Crashed through the farmhouse fence at full sprint trying to pole vault — created a party-sized hole","Slumped onto Borin when poisoned mead hit while he was driving the wagon","Picked verbal fights with bandit captors until poked with a spear and knocked unconscious"],
+    arc: "Carl is brave and loud about his grief. He runs toward danger as fast as his legs carry him." },
+  { id: "dudo", name: "Dudo Maggot", player: "Calvin", race: "Halfling (Hobbit) Rogue", emoji: "🗡️",
+    tag: "Tiny, lethal, almost certainly the party's most dangerous member.",
+    bio: "Dudo is 3 feet tall, regularly rolls stealth 26, and wrote \"Santa's Little Helper\" on Tyr's forehead while he meditated — said nothing, and let the party return to Bree before Finn the blacksmith noticed. He skied off the back of a moving wagon during a rainstorm using a rope and a cooking pan for fun.",
+    facts: ["Stealth 26 — described as becoming 'one with the shadows'","Nat 20 sneak attack up through an orc's groin — the campaign's most dramatic opening kill","Jet-black dagger found inside a troll's thigh (+1 to hit, Constitution save on hit)","His blood activated Maldwin's bone altar — multiplied significantly on contact","Sword fell during ceiling climb, hit Tyr's neck, Tyr went to 0 HP from friendly fire"],
+    funny: ["Wrote 'Santa's Little Helper' on Tyr's forehead while meditating — Finn the blacksmith noticed in Bree","Skied off the moving wagon during a rainstorm using a rope and cooking pan — graceful success","Fashioned a walking stick from a smashed dresser panel after his knee injury — halfling height"],
+    arc: "Dudo is the party's quiet lethal engine. The blood altar responding specifically to his blood is a thread that hasn't been pulled yet." },
+  { id: "gilgamesh", name: "Gilgamesh Artemis", player: "Aaron / AP", race: "Elf Scholar / Archer", emoji: "🏹",
+    tag: "Artist. Tactician. The only one conscious during the mead incident.",
+    bio: "Gilgamesh built a fully camouflaged sniper nest on the mayor's roof before the Battle of Bree, then painted it Nat 20 after the battle so it permanently looks like part of the architecture. He holds the Ring of Mending, which has revived party members at least four times.",
+    facts: ["Ring of Mending: revive 1 downed to 1 HP (1/long rest); cure poison (2/day)","Shortbow +6 (awarded as hunt prize from Mayor Graf)","Barrel explosion: cooking fuel off the roof + torch = gate destroyed + 15-20 orcs gone","One of only two who resisted the poisoned mead (Con save 17+ at disadvantage, with Tyr)","Watched Mungo kill three orcs in the burning farmhouse from 200 feet — saw bodies drop silently"],
+    funny: ["Got buzzed 'investigating' the farmstead wine barrel — Tyr's arrow then punctured it","Nearly fell off the mayor's 3-story roof building his sniper nest (acrobatics 14 — barely)","Protested Elrond giving Tyr the Palantir key ring — Elrond gave it to Tyr anyway"],
+    arc: "Gilgamesh brings an elf's long perspective. He knows something about the Dol Guldur corruption he hasn't said." },
+  { id: "mayo", name: "Mayo (May O.)", player: "Alec", race: "Dwarf Warden / Healer", emoji: "🛡️",
+    tag: "The reliable backbone. Makes sure things don't fall apart.",
+    bio: "Mayo pumped the artesian well after the farmstead battle while still wounded at ~4 HP. They ran 30 feet across the room to slam the wardrobe shut on emerging zombies during Maldwin's fight (strength 12 — barely). Cool under pressure. Quietly keeps the party alive.",
+    facts: ["Protection fighting style: impose disadvantage on attacks against adjacent allies","Ran 30 feet to slam the wardrobe shut mid-fight — strength 12, barely — prevented a zombie wave","Con save 21 operating the well pump at ~4 HP after the farmstead battle","Went down to a zombie bite in the stump — death save Nat 20 — stabilized at 1 HP","Let Tyr stand on her shoulders to reach the ceiling node"],
+    funny: ["Was woken by Tyr placing his feet on her face while she slept in the wagon","Tried repeatedly to tame an evil wolf using animal handling — it refused every time","Mungo kept nudging the wagon horses faster when she told him to slow down, grinning"],
+    arc: "Mayo is the party's quiet indispensable. The unglamorous calls — shut the wardrobe, pump the water — are always Mayo." },
+  { id: "mungo", name: "Mungo Grubb", player: "Jesse (DM)", race: "Hobbit Treasure Hunter", emoji: "🔪",
+    tag: "More dangerous than he looks. Much more.",
+    bio: "Mungo is a cheerful hobbit who used to be a burglar and has a personal friendship with Beorn the skin-changer. He eliminated three orcs silently inside a burning farmhouse — kills witnessed only as bodies dropping from windows. He threw a dagger while completely blind, running, on disadvantage, and hit Maldwin in the side of the head for the killing blow.",
+    facts: ["Former burglar — Beorn caught him stealing and they became genuine friends over 7 years","Silent triple kill inside the burning farmhouse — Gilgamesh watched from 200 feet, never heard a sound","Catapulted to the ceiling by Tyr + Borin (strength check 24 + 21) to reach the ceiling node","Blind dagger throw, running, on disadvantage — hit Maldwin in the head. The killing blow.","Nat 20 stealth recorded multiple times throughout the campaign"],
+    funny: ["Health potion turned 'nasty yellow' after dipping a sanitizing finger in it","Kept nudging the wagon horses faster after being told to slow down, grinning","Yelled 'FOR CARL!' charging up a ravine cliff at the goblin that just dropped Carl"],
+    arc: "Mungo is the campaign's wild card — cheerful, lethal, loyal, connected to Beorn in ways the party doesn't fully understand." },
+  { id: "tyr", name: "Tyr", player: "Gabe", race: "Human Ranger of the North", emoji: "⚔️",
+    tag: "Elrond knows his name. Aragorn files reports about him.",
+    bio: "Tyr is a Dunedain Ranger — one of the hidden guardians of the north. Elrond had heard of him through Aragorn before the party arrived at Rivendell. He carries the Iron of Death, a Numenorean greatsword made by his ancestors found in Maldwin's sacrifice pile. He has stated explicitly in character that he will touch the Palantir.",
+    facts: ["Ranger of the North (Dunedain) — Aragorn personally files reports on him to Elrond","Iron of Death: Numenorean greatsword, bane vs. orcs and trolls, bonus action attack","Holds the silver ring key to the Palantir lockbox in Lake Town (given by Elrond)","Said in character: 'For sure gonna touch that Palantir' — despite Elrond's explicit warning","Shouted 'FUCK YOU!' at three trolls (speed 40) and sprinted into the night (speed 25)"],
+    funny: ["Shouted 'FUCK YOU!' at three trolls — they gave chase at 40 speed vs his 25 — session cliffhanger","Had 'Santa's Little Helper' on his forehead — discovered in Bree by Finn the blacksmith","Beorn: 'You should have known better. A black obsidian pendant — nothing more obvious of a cursed item.'"],
+    arc: "Tyr carries the weight of Numenorean heritage. He leads, he navigates, he fights. And he is going to touch the Palantir." }
+];
+
+const NPCS = [
+  { id: "halvar", name: "Halvar Greycloak", status: "Alive", role: "Ranger Commander", emoji: "🏹", loc: "Bree area", first: "Session 3", desc: "Commander of Grey Watch Hollow. Marched all 5 of his rangers to Bree's defense when the party delivered the intercepted orc message. Seven Rangers of the North together at once was unprecedented and immediately boosted morale." },
+  { id: "graf", name: "Mayor Graf Woodfoot", status: "Alive", role: "Mayor of Bree", emoji: "🏛️", loc: "Bree", first: "Session 3", desc: "Practical and grateful. Commissioned the party after the Battle of Bree. Paid 2,000 gold (negotiated by Borin), provided horses and a letter to Elrond. Warned larger threats exist in the wider world." },
+  { id: "finn", name: "Finn", status: "Alive", role: "Blacksmith's Assistant, Bree", emoji: "⚒️", loc: "Bree", first: "Session 3", desc: "Young blacksmith's assistant mass-producing short swords for Bree's defense. First person to notice 'Santa's Little Helper' written on Tyr's forehead during the return march." },
+  { id: "barliman", name: "Barliman Butterbur", status: "Alive", role: "Innkeeper, The Prancing Pony", emoji: "🍺", loc: "Bree", first: "Session 5", desc: "Deeply decent innkeeper, deeply shaken by the battle. Gave useful intel about Rivendell elves ('noble but genuinely kind') vs. Wood Elves ('more standoffish'). Even 300 orcs is 'a small band' by fortress standards." },
+  { id: "beorn", name: "Beorn", status: "Alive", role: "Skin-changer — Mysterious Ally", emoji: "🐻", loc: "Unknown", first: "Session 5 (revealed)", desc: "A being who shifts between human and massive bear form. Known personally to Mungo from 7 years ago. Rescued the party from the briar-patch camp by killing all six bandits alone in the dark. Destroyed the second orc wave on the 30th." },
+  { id: "elrond", name: "Elrond Half-elven", status: "Alive", role: "Lord of Rivendell", emoji: "⭐", loc: "Rivendell", first: "Session 13", desc: "Ancient, grave, deeply knowledgeable. Had already heard of the party through Aragorn. Tasked them with retrieving the Palantir from Lake Town. Inscribed Tyr's sword personally. Gave Tyr the key ring over Gilgamesh's objection. Assembling a council: Gandalf, Aragorn, and Saruman." },
+  { id: "leah", name: "Leah", status: "Alive — Safe", role: "Young Survivor", emoji: "🌿", loc: "Weaver Cottage (hills off East Road)", first: "Session 6", desc: "Young girl whose family was slaughtered by orcs. Borin carried her on his back until she fell asleep on his shoulders. Now permanently with aunt Eowyn and uncle Halrick Weaver. Gave Borin a quiet hug before he left." },
+  { id: "eli", name: "Eli the Tinker", status: "HOSTILE — At Large", role: "Enemy Operative", emoji: "⚠️", loc: "Unknown", first: "Session 10.2", desc: "Appeared helpful. Was lying. Distributed cursed obsidian pendants, engineered capture via poisoned mead, offered a 'join or die' ultimatum. Escaped with the Black Speech booklet before Beorn arrived. Reports to an unknown 'boss.'" },
+  { id: "maldwin", name: "Maldwin", status: "DECEASED", role: "The Last Sea Warden", emoji: "💀", loc: "The Stump (destroyed)", first: "Session 15", desc: "A human centuries old — once a healer, driven mad by grief. Planted a Valinor seed in a swamp stump and fed it blood for 19 winters to build a zombie army aimed at Rivendell. Killed by Mungo's blind dagger throw. The party was two days from Rivendell the whole time." },
+  { id: "ben", name: "Ben", status: "DECEASED", role: "Civilian Companion", emoji: "💀", loc: "The Stump (deceased)", first: "Session 14", desc: "19 years old. Brother of Tom — the boy drawn in the village lottery and sacrificed. When he saw Maldwin, he charged without words and without hesitation. Killed instantly. He died doing the only thing he had left to do." },
+  { id: "mez", name: "Mez", status: "UNKNOWN", role: "Innkeeper, Sacrificial Village", emoji: "❓", loc: "Unknown — village raided", first: "Session 13", desc: "Innkeeper of the unnamed sacrificial village. Meek, traumatized, grateful for kindness. His wife was sacrificed five moons before the party arrived. Status unknown after the bat swarm raided the village." },
+  { id: "bonkey", name: "Bonkey", status: "UNKNOWN", role: "Water-Fetcher, Sacrificial Village", emoji: "❓", loc: "Unknown — village raided", first: "Session 13", desc: "The only villager permitted outside — assigned to fetch water. Found by the party muttering 'just gotta make it through another night.' Led them unknowingly to the village. Status unknown after the bat raid." }
+];
+
+const LOCATIONS = [
+  { id: "bree", name: "Bree", emoji: "🏘️", status: "Standing — recovering", desc: "A crossroads town. Site of the Battle of Bree. Home of the Prancing Pony. Most people don't know the Rangers exist.", facts: ["~175 orcs killed; ~75 townspeople dead","Gate was destroyed and rebuilt","Mayor Graf, Barliman, Finn, and Whitman are based here"] },
+  { id: "chetwood", name: "The Chetwood Ruins", emoji: "🏚️", status: "Cleared", desc: "The campaign's starting location. Cellar connects to the orc tunnel network. Horn of the Ruins and Ring of Mending found here.", facts: ["Horn of the Ruins found here","Ring of Mending retrieved from an underground pool","Beorn was monitoring orc activity here — his footprints were the 'Vanisher' mystery"] },
+  { id: "rivendell", name: "Rivendell (Imladris)", emoji: "⭐", status: "Safe — party departed", desc: "'A bowl of peace, tucked beneath the immense shoulders of the mountains.' Healing pool cleared every ailment. Elrond gave them their mission.", facts: ["Healing pool cleared every wound, ailment, curse, and scar for everyone","Elrond inscribed Tyr's sword personally (+1 to hit)","Party's horses stabled here — sent back on Elrond's advice","Everyone except Gilgamesh fell unconscious during the informal drinking contest"] },
+  { id: "farmstead", name: "The Farmstead Valley", emoji: "🔥", status: "Cleared — house burned", desc: "A civilian farmstead used by Red Claw orcs as a fortified position. Dudo burned it. Mungo killed three orcs silently inside.", facts: ["Black Speech booklet found on the Chieftain's body here","Beneath the barn: tunnels leading east toward troll country","Leah's family was killed here — she survived in the barn loft"] },
+  { id: "stump", name: "The Corrupted Stump", emoji: "🌿", status: "Cleared — destroyed", desc: "An 80-100 foot corrupted tree stump on a lake island. Bone altar, zombie wardrobe, Maldwin's quarters. The party was two days from Rivendell the entire time.", facts: ["Dudo's blood activated the bone altar — multiplied on contact","A BOAT was tied to the far side THE ENTIRE TIME. Carl had seen it. Said nothing.","All zombies dropped when Dudo carved the ceiling node free with a Nat 20"] },
+  { id: "mountains", name: "The Misty Mountains", emoji: "⛰️", status: "⚠️ CURRENT LOCATION", desc: "The party is ascending the High Pass heading northeast toward Lake Town. ~1,000 feet elevation. Session 18 opens mid-initiative against two owlbears.", facts: ["Orc ping within 3 miles at dusk camp (living or carried by bats — unknown)","Giant bat creatures observed flying north carrying humanoid corpses","Two owlbears at camp — one hit for 20 damage — SESSION 18 OPENS HERE 🔴"] }
+];
+
+const SESSIONS = [
+  { num: "1-2", title: "The Beginning", date: "Day 1", summary: "Annual hunt at the Prancing Pony. The Chetwood Ruins investigated. Orc tunnel network discovered underground. Ring of Mending retrieved from an underground pool. Horn of the Ruins found. Someone yelled 'Echo' into the abyss — hundreds of orcs gave chase. Narrow escape. Party split: Borin/Mayo/Mungo west to warn Bree; Tyr/Carl/Gilgamesh/Dudo east to Grey Watch Hollow." },
+  { num: "3", title: "The Night March", date: "Days 2-3", summary: "Tyr led a 15-mile night march to Grey Watch Hollow. Orc ambush — intercepted message revealed attack moved to the 27th. Wolf pack at camp — chieftain escaped with 2 HP. Dudo wrote 'Santa's Little Helper' on Tyr's forehead while he meditated. Halvar Greycloak marched 5 rangers to Bree." },
+  { num: "4", title: "The Battle of Bree", date: "Day 3 (27th)", summary: "~250-300 orcs attacked Bree in formation. ~175 killed; ~75 townspeople dead. Gilgamesh's barrel explosion destroyed the gate and 15-20 orcs simultaneously. Borin negotiated 2,000 gold + shield + horses from Mayor Graf. Black Speech booklet found on the Chieftain's body. Party formally commissioned." },
+  { num: "5", title: "Morning After / Mungo Returns", date: "Day 4", summary: "Mungo returned alive — revealed as taken by Beorn, a skin-changer who knew him personally from 7 years ago. Beorn was the 'Vanisher' behind the disappearing bodies in Sessions 1-2. Party's destination confirmed: Rivendell, ~150 miles east." },
+  { num: "6", title: "The Road East", date: "Days 5-6", summary: "Dudo skied off the wagon during a rainstorm using a cooking pan. Lightning fire red herring investigated. Leah ('Isabel' at first) found on the road — family slaughtered by orcs. Borin separated to escort her; rest charged the farmstead. Both horses hit by orc arrows. Combat begins." },
+  { num: "7", title: "The Farmstead Battle", date: "Day 7", summary: "Dudo lit fire arrows — the building burned to stone walls. Mungo slipped inside and silently killed three orcs (seen only as bodies dropping from windows). Tyr killed the Chieftain with a greatsword throw. Mayo saved the barn with a bucket brigade while still wounded." },
+  { num: "8", title: "Into the Hill", date: "Days 7-8", summary: "Orc tunnels discovered beneath the barn floor. Party followed them east to a troll cave. Tyr was spotted by returning trolls, shouted 'FUCK YOU!' at three trolls (speed 40), and sprinted into the night (speed 25). Session cliffhanger." },
+  { num: "9.1", title: "The Walk to the Weavers (Borin's Arc)", date: "Day 7 (parallel)", summary: "Borin's solo arc played in parallel. Carried Leah on his back when her legs gave out — she fell asleep on his shoulders. Delivered her safely to the Weavers. Rolled a dirty 20 at dusk — saw smoke column 10 miles away in the direction of the party." },
+  { num: "9.2", title: "The Troll Fight / Borin Returns", date: "Days 7-8", summary: "Three trolls killed in the cave. Jet-black dagger found inside one troll's thigh (body had grown flesh around it). Halrick gifted Borin a +1 warhammer as thanks. Borin returned through a thunderstorm, named his palm-leaf rain hat 'Leafster,' hid behind a dead cow from the trolls, and rejoined the party." },
+  { num: "10.2", title: "The Long Night After", date: "Days 8-9", summary: "Horn of the Ruins conflict: Carl grabbed it back, swung his greataxe at Dudo, accidentally knocked him unconscious and broke his kneecap. Carl sent to the barn. Borin physically placed them face-to-face and forced reconciliation. Ravine ambush — Carl's liver wound. Eli the Tinker appeared with the recovered wagon." },
+  { num: "11", title: "The Tinker's Teeth", date: "Days 9-10", summary: "Eli distributed cursed obsidian pendants. Poisoned mead from bandit merchants. Party captured — imprisoned in a pit. Overheard: Eli's organization searched for a specific item in Bree; reports to 'the boss.' 'Join or die' ultimatum. Beorn arrived, killed all six bandits alone in the dark. Eli escaped with the Black Speech booklet." },
+  { num: "12", title: "The Last Road to Rivendell", date: "Days 10-12", summary: "Corrupted wolves producing toxic green mist (do NOT burn these). Illusory waterfall entrance to Rivendell. The healing pool cleared every ailment, wound, and scar any party member carried." },
+  { num: "13", title: "The Last Homely House", date: "Days 12-13", summary: "Elrond revealed: the Enemy possesses a Palantir and used it to locate the Bree stone — explaining the entire orc assault. Mission: travel to Lake Town (~300 miles) and retrieve it. Tyr given the key ring — response: 'For sure gonna touch that Palantir.' Party fully equipped. Then: sacrificial village found at the Misty Mountain foot. Lottery witnessed. A 16-year-old boy sacrificed. Salted pork feast used to escape." },
+  { num: "14", title: "Into the Green Dark", date: "Days 13-14", summary: "Fled the village through swampy terrain. Alligator ambush — Mungo grappled underwater; Gilgamesh critical saved him. Dead Marshes water hazard: ghostly faces paralyzed viewers. Ben (Tom's brother, 19 years old) joined. Carl volunteered as living alligator bait — 15 gators converged; hauled back in time." },
+  { num: "15", title: "Blood for Bloom", date: "Day 14", summary: "The Stump. Bone altar: Dudo's blood activated it, multiplied on contact. Zombie combat. Ben charged Maldwin the instant he saw him — no words — killed instantly. Two-phase Maldwin fight. 'Listen here, you stupid witch — you're not even a wizard!' Mungo: blind dagger throw, running, disadvantage — hit Maldwin in the head. The killing blow." },
+  { num: "16", title: "The Seed of the Fallen Trees", date: "Days 14-15", summary: "Second zombie wave through the walls. Dudo's sword fell during ceiling climb — hit Tyr's neck — Tyr went to 0 HP from friendly fire. Mungo catapulted to ceiling by Tyr + Borin (strength 24 + 21). Dudo carved the node free with a Nat 20 — all zombies dropped instantly. Tyr found the Iron of Death in the weapon pile. Party leveled up." },
+  { num: "17.2", title: "Out of the Stump, Into the Mountains", date: "Day 15", summary: "Discovery: a boat was tied to the far side of the stump THE ENTIRE TIME. Carl had seen it. Said nothing. Borin nearly drowned under the weight of his gold — Mayo dove in. Mountain ascent. Giant bat creatures flying north with humanoid corpses. Orc ping within 3 miles. Two owlbears at camp — one hit for 20 damage by Tyr's arrow. Session ends mid-initiative. 🔴" }
+];
+
+const ITEMS = [
+  { name: "Iron of Death", holder: "Tyr", hostile: false, emoji: "⚔️", desc: "Numenorean greatsword made by Tyr's ancestors. Found in Maldwin's pile of weapons from 19 winters of village sacrifices. Bane vs. orcs and trolls. Bonus action attack.", q: "How did Tyr's ancestral sword end up in a remote swamp wizard's sacrifice pile?" },
+  { name: "Ring of Mending", holder: "Gilgamesh", hostile: false, emoji: "💍", desc: "The party's most critical defensive item. Retrieved by Carl from a pool in the Chetwood Ruins in Sessions 1-2. Has revived party members from 0 HP at least four times. Revive 1 downed creature to 1 HP (once/long rest). Cure poison (2/day).", q: "Why was a healing ring in a Red Claw orc tunnel pool? Still unexplained." },
+  { name: "Jet-Black Dagger", holder: "Dudo", hostile: false, emoji: "🗡️", desc: "Ancient ~4-5 inch black blade, no runes, unknown make. Found inside a troll's thigh in Session 10.2 — the body had grown flesh around it. +1 to hit; Constitution save on hit.", q: "Who made this? How did it get inside a troll? Why is it perfectly sized for a halfling?" },
+  { name: "Horn of the Ruins", holder: "Carl (primary)", hostile: false, emoji: "📯", desc: "Found in the Chetwood Ruins. When blown clearly (Performance DC ~12+), the blower perceives a 3D echolocation map of surroundings within ~15-20 feet. Only the blower perceives this.", q: "Carl blew it at Mungo's disappearance site and wept while holding the note. Ownership caused the most dramatic intra-party conflict of the campaign." },
+  { name: "Black Speech Booklet", holder: "ELI — STOLEN", hostile: true, emoji: "📖", desc: "Found on the Orc Chieftain's body in Session 7. Written in Black Speech. First half: written orders. Second half: maps with X markings. Stolen by Eli in Session 11.", q: "Confirms Red Claw orcs received written orders from a literate authority. Currently in enemy hands." },
+  { name: "Corrupted Seed Pod", holder: "Party (Mungo retrieved it)", hostile: false, emoji: "🌱", desc: "A foot-tall gray pod. Tyr's Nat 20 lore check identified it as corrupted lineage of the Two Trees of Valinor. Maldwin found it in Dol Guldur's ruins, planted it, and fed it blood for 19 winters.", q: "Being brought to Elrond. The tree the party fought inside is dead. There are likely more seeds." }
+];
+
+const MYSTERIES = [
+  "Who is the true mastermind behind the village's 19-winter sacrifice pact? The players believe it was Maldwin — but was Maldwin the instrument rather than the hand?",
+  "What does the Black Speech booklet actually say? It's in Eli's hands now.",
+  "Where is Eli the Tinker — and who is 'the boss' he reports to?",
+  "What happened to the sacrificial village after the bat raid? Are Mez, Tyndell, and Bonkey alive?",
+  "What are the giant bat creatures, and what are they connected to?",
+  "Are the orcs Borin pinged in the mountains living — or corpses carried by the bats?",
+  "What will happen when Tyr touches the Palantir? He has stated in character that he absolutely will.",
+  "Why did the blood altar respond specifically to Dudo's blood?",
+  "Is the master of Lake Town already compromised? Elrond feared it was possible.",
+  "How did Tyr's ancestral Numenorean sword (Iron of Death) end up in Maldwin's sacrifice pile?"
+];
+
+const FUNNY = [
+  { who: "Dudo", s: "3", t: "Wrote 'Santa's Little Helper' on Tyr's forehead while he meditated — discovered by Finn the blacksmith in Bree" },
+  { who: "Borin", s: "9.2", t: "Named his palm-leaf rain hat 'Leafster' and carried it through a thunderstorm" },
+  { who: "Borin", s: "9.2", t: "Urinated on himself hiding from trolls — noted it was 'actually warm and somewhat comforting'" },
+  { who: "Dudo", s: "6", t: "Skied off the moving wagon during a rainstorm using a rope and cooking pan — graceful acrobatics success" },
+  { who: "Carl", s: "14", t: "Voluntarily served as living alligator bait — waded into a lake with 15 gators converging, trusted the party to haul him back" },
+  { who: "Borin", s: "10.2", t: "Picked up Mungo and threw him at Gilgamesh (caught him). Then physically placed Carl and Dudo facing each other to force reconciliation." },
+  { who: "Carl", s: "15", t: "'Listen here, you stupid witch — you're not even a wizard!' — right before the crit that triggered Maldwin's phase 2" },
+  { who: "Mungo", s: "10.2", t: "Yelled 'FOR CARL!' charging up a ravine cliff at the goblin that just dropped Carl" },
+  { who: "Party", s: "17.1", t: "There was a BOAT tied to the far side of the stump THE ENTIRE TIME. Carl had seen it. Said nothing." },
+  { who: "Tyr", s: "8", t: "Shouted 'FUCK YOU!' at three trolls with 40 movement speed, then sprinted into the night with 25" },
+  { who: "Borin", s: "17.2", t: "Nearly drowned in the alligator lake under the weight of his own gold — Mayo dove in after him" }
+];
+
+const GREATEST = [
+  { who: "Mungo", s: "15", t: "Threw a dagger while completely blind, running across the room, on disadvantage — hit Maldwin in the side of the head. The killing blow." },
+  { who: "Tyr", s: "7", t: "Killed the Orc Chieftain with a greatsword throw, then shouted 'FUCK YOU!' at three trolls and sprinted into the night with them in pursuit" },
+  { who: "Dudo", s: "3", t: "Nat 20 Sneak Attack — short sword up through an orc's groin. The campaign's most dramatic opening kill." },
+  { who: "Gilgamesh", s: "4", t: "Barrel explosion — cooking fuel off the roof, torch dropped — gate destroyed and 15-20 orcs gone simultaneously" },
+  { who: "Borin", s: "9.1", t: "Carried Leah on his back until she fell asleep on his shoulders. Waved until out of sight. Then ran." },
+  { who: "Mayo", s: "15", t: "Ran 30 feet and slammed the wardrobe shut on the zombie horde — strength 12, barely — prevented a fight-ending wave" },
+  { who: "Beorn", s: "11", t: "Arrived at the briar-patch camp, killed all six bandits alone in the dark, lifted the stone grate, pulled Mungo out first" },
+  { who: "Mungo", s: "7", t: "Slipped alone into the burning farmhouse. Three orcs dropped from windows silently. Gilgamesh watched from 200 feet and never heard a sound." },
+  { who: "Mungo+Tyr+Borin", s: "16", t: "'You think you can throw me up there?' — catapulted to ceiling, strength 24+21, node carved free, all zombies dropped" }
+];
+
+const AI_SYS = `You are the AI assistant for "Wanderings In Middle Earth Wiki" — a D&D campaign set in Tolkien's Middle-earth. You know all player-facing events through Session 17.2. Party: Borin (Josh, Dwarf Warden), Carl (Tyler, Human Fighter/Champion), Dudo (Calvin, Halfling Rogue), Gilgamesh (Aaron, Elf archer), Mayo (Alec, Dwarf healer), Mungo (Jesse/DM, Hobbit treasure hunter), Tyr (Gabe, Human Ranger of the North). Current status: Party ascending Misty Mountains toward Lake Town. Session 18 opens mid-initiative vs two owlbears (one hit for 20 damage). Mission from Elrond: retrieve the Palantir from Lake Town before the Enemy can use it. Tyr holds the key ring and has stated he will touch the stone. Key facts: Red Claw orc army destroyed at Bree (Session 4). Maldwin killed by Mungo's blind dagger throw (Session 15). Ben (civilian, 19 years old) was killed by Maldwin when he charged him. Black Speech booklet stolen by Eli the Tinker. Village sacrifice mastermind may not have been Maldwin alone. Be helpful, accurate, immersive. Only share player-facing knowledge.`;
+
+async function askClaude(messages) {
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 800, system: AI_SYS, messages }) });
+    const data = await res.json();
+    return data.content?.[0]?.text || "The wiki spirits are unavailable right now.";
+  } catch { return "Could not reach the AI. Please try again."; }
+}
+
+async function sGet(k) { try { const r = await window.storage.get(k); return r ? JSON.parse(r.value) : null; } catch { return null; } }
+async function sSet(k, v) { try { await window.storage.set(k, JSON.stringify(v)); } catch {} }
+
+function Cin({ ch, sz = 13, col, extra = {} }) { return <span style={{ fontFamily: "'Cinzel','Times New Roman',serif", fontSize: sz, color: col || C.gl, letterSpacing: "0.06em", ...extra }}>{ch}</span>; }
+function Badge({ label, col }) { return <span style={{ background: col + "22", color: col, border: `1px solid ${col}44`, borderRadius: 3, padding: "2px 8px", fontSize: 10, fontFamily: "'Cinzel',serif", letterSpacing: "0.06em" }}>{label}</span>; }
+function SBadge({ s }) {
+  if (s.includes("DECEASED")) return <Badge label="Deceased" col={C.re} />;
+  if (s.includes("UNKNOWN")) return <Badge label="Unknown" col={C.gd} />;
+  if (s.includes("HOSTILE")) return <Badge label="Hostile" col={C.re} />;
+  return <Badge label="Alive" col="#4a8a46" />;
+}
+
+function Card({ children, onClick, extra = {} }) {
+  const [hov, setHov] = useState(false);
+  return <div onClick={onClick} onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)} style={{ background: C.s2, border: `1px solid ${hov && onClick ? C.gd : C.bd}`, borderRadius: 8, padding: "13px 15px", cursor: onClick ? "pointer" : "default", transition: "border-color 0.15s", marginBottom: 10, ...extra }}>{children}</div>;
+}
+
+function Coll({ title, children, open: def = false }) {
+  const [open, setOpen] = useState(def);
+  return <div style={{ borderTop: `1px solid ${C.bd}` }}>
+    <button onClick={() => setOpen(!open)} style={{ width: "100%", background: "none", border: "none", padding: "9px 0", display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer" }}>
+      <Cin ch={title} sz={11} col={C.gd} extra={{ letterSpacing: "0.1em" }} />
+      <span style={{ color: C.gd, fontSize: 13 }}>{open ? "▲" : "▼"}</span>
+    </button>
+    {open && <div style={{ paddingBottom: 12, fontFamily: "'Crimson Text',serif", fontSize: 15, color: C.tx, lineHeight: 1.7 }}>{children}</div>}
+  </div>;
+}
+
+function Back({ onClick, label = "Back" }) { return <button onClick={onClick} style={{ background: "none", border: `1px solid ${C.bd}`, color: C.dm, padding: "5px 13px", borderRadius: 5, cursor: "pointer", marginBottom: 14, fontFamily: "'Cinzel',serif", fontSize: 11, letterSpacing: "0.06em" }}>← {label}</button>; }
+function PH({ title, sub }) { return <div style={{ padding: "18px 16px 12px", borderBottom: `1px solid ${C.bd}`, marginBottom: 12 }}><div style={{ fontFamily: "'Cinzel',serif", fontSize: 22, color: C.gl, letterSpacing: "0.07em" }}>{title}</div>{sub && <div style={{ color: C.dm, fontSize: 14, marginTop: 3, fontFamily: "'Crimson Text',serif" }}>{sub}</div>}</div>; }
+function PW({ children }) { return <div style={{ padding: "0 0 16px", maxWidth: 700, margin: "0 auto" }}>{children}</div>; }
+function txt(s, sz = 15, col) { return { fontFamily: "'Crimson Text',serif", fontSize: sz, color: col || C.tx, lineHeight: 1.7 }; }
+
+function Home({ go }) {
+  return <PW>
+    <PH title="Wanderings In Middle Earth" sub="Campaign Wiki — Through Session 17.2" />
+    <div style={{ padding: "0 16px" }}>
+      <Card extra={{ background: "#1e3a5a33", border: `1px solid #2a5a8a44`, marginBottom: 12 }}>
+        <Cin ch="CURRENT STATUS" sz={10} col={C.gd} extra={{ letterSpacing: "0.12em", display: "block", marginBottom: 6 }} />
+        <div style={txt(15, 15, C.gl)}>The party ascends the Misty Mountains heading northeast toward Lake Town. ~1,000 feet elevation. <strong>Session 18 opens mid-initiative against two owlbears</strong> — one already hit for 20 damage.</div>
+      </Card>
+      <Card extra={{ background: "#3a280033", border: `1px solid ${C.g}33`, marginBottom: 12 }}>
+        <Cin ch="PRIMARY MISSION" sz={10} col={C.gd} extra={{ letterSpacing: "0.12em", display: "block", marginBottom: 6 }} />
+        <div style={txt(15)}>Retrieve the <span style={{ color: C.gl }}>Palantir</span> from under the master's hall in Lake Town, as tasked by Elrond. Tyr holds the silver ring key. <span style={{ color: C.g }}>Tyr has stated in character that he will touch the stone.</span></div>
+      </Card>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 9, marginBottom: 14 }}>
+        {[["Party", "7 adventurers", "party"], ["NPCs", "Who you've met", "npcs"], ["Locations", "Places visited", "locations"], ["Sessions", "17 logged", "sessions"], ["Items", "Notable gear", "items"], ["Mysteries", "Open questions", "mysteries"]].map(([t, s, p]) => (
+          <Card key={p} onClick={() => go(p)} extra={{ textAlign: "center", padding: "10px 6px" }}>
+            <div style={{ fontFamily: "'Cinzel',serif", fontSize: 13, color: C.gl, marginBottom: 2 }}>{t}</div>
+            <div style={{ color: C.dm, fontSize: 12, fontFamily: "'Crimson Text',serif" }}>{s}</div>
+          </Card>
+        ))}
+      </div>
+      <button onClick={() => go("ai")} style={{ width: "100%", background: C.gd + "33", border: `1px solid ${C.gd}`, color: C.gl, padding: 12, borderRadius: 7, cursor: "pointer", fontFamily: "'Cinzel',serif", fontSize: 13, letterSpacing: "0.06em" }}>🔮  Ask the Wiki AI</button>
+    </div>
+  </PW>;
+}
+
+function Party({ edits, onSave }) {
+  const [sel, setSel] = useState(null);
+  const c = sel ? PARTY.find(p => p.id === sel) : null;
+
+  if (c) {
+    const [editMode, setEditMode] = useState(false);
+    const note = (edits[c.id] || {}).note || "";
+    const [draft, setDraft] = useState(note);
+    return <PW>
+      <div style={{ padding: "16px 16px 0" }}><Back onClick={() => setSel(null)} label="Party" /></div>
+      <div style={{ padding: "0 16px" }}>
+        <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 14 }}>
+          <div style={{ fontSize: 36 }}>{c.emoji}</div>
+          <div>
+            <div style={{ fontFamily: "'Cinzel',serif", fontSize: 18, color: C.gl }}>{c.name}</div>
+            <div style={{ color: C.dm, fontSize: 13, fontFamily: "'Crimson Text',serif" }}>{c.player} · {c.race}</div>
+          </div>
+        </div>
+        <Card extra={{ marginBottom: 10 }}>
+          <div style={{ ...txt(15, 15, C.gl), fontStyle: "italic", marginBottom: 8 }}>"{c.tag}"</div>
+          <div style={txt()}>{c.bio}</div>
+        </Card>
+        <Coll title="KEY FACTS" open><ul style={{ paddingLeft: 18 }}>{c.facts.map((f, i) => <li key={i} style={{ marginBottom: 5 }}>{f}</li>)}</ul></Coll>
+        <Coll title="FUNNY MOMENTS"><ul style={{ paddingLeft: 18 }}>{c.funny.map((f, i) => <li key={i} style={{ marginBottom: 5 }}>{f}</li>)}</ul></Coll>
+        <Coll title="CHARACTER ARC"><div>{c.arc}</div></Coll>
+        <div style={{ marginTop: 16, borderTop: `1px solid ${C.bd}`, paddingTop: 14 }}>
+          <Cin ch="YOUR NOTES (saves permanently)" sz={10} col={C.gd} extra={{ letterSpacing: "0.12em", display: "block", marginBottom: 8 }} />
+          {editMode ? <div>
+            <textarea value={draft} onChange={e => setDraft(e.target.value)} style={{ width: "100%", background: C.s3, border: `1px solid ${C.bd}`, color: C.tx, borderRadius: 5, padding: "8px 10px", fontFamily: "'Crimson Text',serif", fontSize: 15, minHeight: 80, resize: "vertical" }} placeholder="Add notes about your character..." />
+            <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
+              <button onClick={async () => { await onSave(c.id, draft); setEditMode(false); }} style={{ background: C.gd, border: "none", color: C.bg, padding: "6px 14px", borderRadius: 5, cursor: "pointer", fontFamily: "'Cinzel',serif", fontSize: 11 }}>Save</button>
+              <button onClick={() => { setDraft(note); setEditMode(false); }} style={{ background: "none", border: `1px solid ${C.bd}`, color: C.dm, padding: "6px 14px", borderRadius: 5, cursor: "pointer", fontFamily: "'Cinzel',serif", fontSize: 11 }}>Cancel</button>
+            </div>
+          </div> : <div onClick={() => setEditMode(true)} style={{ background: C.s3, border: `1px solid ${C.bd}`, borderRadius: 5, padding: "9px 11px", cursor: "text", minHeight: 44, fontFamily: "'Crimson Text',serif", fontSize: 15, color: note ? C.tx : C.mt, lineHeight: 1.6 }}>{note || "Click to add your own notes about this character..."}</div>}
+        </div>
+      </div>
+    </PW>;
+  }
+
+  return <PW>
+    <PH title="The Party" sub="Seven adventurers on an increasingly dangerous road" />
+    <div style={{ padding: "0 16px" }}>{PARTY.map(p => <Card key={p.id} onClick={() => setSel(p.id)}>
+      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        <div style={{ fontSize: 28 }}>{p.emoji}</div>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontFamily: "'Cinzel',serif", fontSize: 14, color: C.gl }}>{p.name}</div>
+          <div style={{ color: C.dm, fontSize: 13, fontFamily: "'Crimson Text',serif" }}>{p.player} · {p.race}</div>
+          <div style={{ fontFamily: "'Crimson Text',serif", fontSize: 14, color: C.tx, marginTop: 3, fontStyle: "italic" }}>{p.tag}</div>
+        </div>
+        <span style={{ color: C.gd, fontSize: 20 }}>›</span>
+      </div>
+    </Card>)}</div>
+  </PW>;
+}
+
+function Npcs() {
+  const [sel, setSel] = useState(null);
+  const n = sel ? NPCS.find(x => x.id === sel) : null;
+  if (n) return <PW>
+    <div style={{ padding: "16px 16px 0" }}><Back onClick={() => setSel(null)} label="NPCs" /></div>
+    <div style={{ padding: "0 16px" }}>
+      <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 10 }}>
+        <div style={{ fontSize: 30 }}>{n.emoji}</div>
+        <div><div style={{ fontFamily: "'Cinzel',serif", fontSize: 18, color: C.gl }}>{n.name}</div><div style={{ color: C.dm, fontSize: 13, fontFamily: "'Crimson Text',serif" }}>{n.role}</div></div>
+      </div>
+      <div style={{ marginBottom: 10 }}><SBadge s={n.status} /></div>
+      <Card extra={{ marginBottom: 10 }}><div style={txt()}>{n.desc}</div></Card>
+      <div style={{ color: C.dm, fontSize: 13, fontFamily: "'Crimson Text',serif" }}>Location: {n.loc} · First seen: {n.first}</div>
+    </div>
+  </PW>;
+
+  const grps = [["Allies", x => x.status === "Alive" || x.status.includes("Safe")], ["Hostile", x => x.status.includes("HOSTILE")], ["Unknown Status", x => x.status.includes("UNKNOWN")], ["Deceased", x => x.status.includes("DECEASED")]];
+  return <PW>
+    <PH title="NPCs" sub="Everyone the party has encountered" />
+    <div style={{ padding: "0 16px" }}>{grps.map(([label, filter]) => {
+      const list = NPCS.filter(filter);
+      if (!list.length) return null;
+      return <div key={label}>
+        <Cin ch={label.toUpperCase()} sz={10} col={C.gd} extra={{ letterSpacing: "0.12em", display: "block", margin: "14px 0 8px" }} />
+        {list.map(n => <Card key={n.id} onClick={() => setSel(n.id)}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <div style={{ fontSize: 22 }}>{n.emoji}</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontFamily: "'Cinzel',serif", fontSize: 13, color: C.gl }}>{n.name}</div>
+              <div style={{ color: C.dm, fontSize: 12, fontFamily: "'Crimson Text',serif" }}>{n.role}</div>
+            </div>
+            <SBadge s={n.status} />
+          </div>
+        </Card>)}
+      </div>;
+    })}</div>
+  </PW>;
+}
+
+function Locs() {
+  const [sel, setSel] = useState(null);
+  const loc = sel ? LOCATIONS.find(l => l.id === sel) : null;
+  if (loc) return <PW>
+    <div style={{ padding: "16px 16px 0" }}><Back onClick={() => setSel(null)} label="Locations" /></div>
+    <div style={{ padding: "0 16px" }}>
+      <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 10 }}>
+        <div style={{ fontSize: 30 }}>{loc.emoji}</div>
+        <div><div style={{ fontFamily: "'Cinzel',serif", fontSize: 18, color: C.gl }}>{loc.name}</div><div style={{ color: C.dm, fontSize: 13, fontFamily: "'Crimson Text',serif" }}>{loc.status}</div></div>
+      </div>
+      <Card extra={{ marginBottom: 10 }}><div style={txt()}>{loc.desc}</div></Card>
+      {loc.facts.map((f, i) => <div key={i} style={{ fontFamily: "'Crimson Text',serif", fontSize: 15, color: C.tx, lineHeight: 1.6, marginBottom: 6, paddingLeft: 12, borderLeft: `2px solid ${C.gd}` }}>{f}</div>)}
+    </div>
+  </PW>;
+
+  return <PW>
+    <PH title="Locations" sub="Places the party has been" />
+    <div style={{ padding: "0 16px" }}>{LOCATIONS.map(l => <Card key={l.id} onClick={() => setSel(l.id)}>
+      <div style={{ display: "flex", gap: 11, alignItems: "flex-start" }}>
+        <div style={{ fontSize: 26 }}>{l.emoji}</div>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontFamily: "'Cinzel',serif", fontSize: 14, color: C.gl }}>{l.name}</div>
+          <div style={{ color: l.status.includes("CURRENT") ? C.re : C.dm, fontSize: 12, fontFamily: "'Crimson Text',serif", marginBottom: 4 }}>{l.status}</div>
+          <div style={{ fontFamily: "'Crimson Text',serif", fontSize: 14, color: C.tx, lineHeight: 1.6 }}>{l.desc.slice(0, 90)}…</div>
+        </div>
+        <span style={{ color: C.gd, fontSize: 20 }}>›</span>
+      </div>
+    </Card>)}</div>
+  </PW>;
+}
+
+function Sessions() {
+  const [sel, setSel] = useState(null);
+  const s = sel ? SESSIONS.find(x => x.num === sel) : null;
+  if (s) return <PW>
+    <div style={{ padding: "16px 16px 0" }}><Back onClick={() => setSel(null)} label="Sessions" /></div>
+    <div style={{ padding: "0 16px" }}>
+      <Cin ch={`SESSION ${s.num} · ${s.date}`} sz={11} col={C.gd} extra={{ letterSpacing: "0.1em", display: "block", marginBottom: 5 }} />
+      <div style={{ fontFamily: "'Cinzel',serif", fontSize: 20, color: C.gl, marginBottom: 14 }}>{s.title}</div>
+      <Card><div style={{ fontFamily: "'Crimson Text',serif", fontSize: 16, color: C.tx, lineHeight: 1.75 }}>{s.summary}</div></Card>
+    </div>
+  </PW>;
+
+  return <PW>
+    <PH title="Session Log" sub="Every session condensed — tap for full summary" />
+    <div style={{ padding: "0 16px" }}>{SESSIONS.map(s => <Card key={s.num} onClick={() => setSel(s.num)}>
+      <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+        <div style={{ fontFamily: "'Cinzel',serif", fontSize: 11, color: C.gd, minWidth: 36, marginTop: 2, letterSpacing: "0.05em" }}>{s.num}</div>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontFamily: "'Cinzel',serif", fontSize: 14, color: C.gl }}>{s.title}</div>
+          <div style={{ color: C.dm, fontSize: 12, fontFamily: "'Crimson Text',serif", marginBottom: 4 }}>{s.date}</div>
+          <div style={{ fontFamily: "'Crimson Text',serif", fontSize: 14, color: C.tx, lineHeight: 1.6 }}>{s.summary.slice(0, 100)}…</div>
+        </div>
+        <span style={{ color: C.gd, fontSize: 20 }}>›</span>
+      </div>
+    </Card>)}</div>
+  </PW>;
+}
+
+function Items() {
+  return <PW>
+    <PH title="Items of Note" sub="Significant gear — who has it and what it does" />
+    <div style={{ padding: "0 16px" }}>{ITEMS.map((it, i) => <Card key={i}>
+      <div style={{ display: "flex", gap: 11, alignItems: "flex-start" }}>
+        <div style={{ fontSize: 28 }}>{it.emoji}</div>
+        <div>
+          <div style={{ fontFamily: "'Cinzel',serif", fontSize: 14, color: C.gl }}>{it.name}</div>
+          <div style={{ color: it.hostile ? C.re : C.gd, fontSize: 12, fontFamily: "'Crimson Text',serif", marginBottom: 6 }}>Held by: {it.holder}</div>
+          <div style={{ fontFamily: "'Crimson Text',serif", fontSize: 15, color: C.tx, lineHeight: 1.65, marginBottom: 6 }}>{it.desc}</div>
+          {it.q && <div style={{ background: C.s3, borderRadius: 4, padding: "6px 10px", fontFamily: "'Crimson Text',serif", fontSize: 13, color: C.dm, fontStyle: "italic" }}>❓ {it.q}</div>}
+        </div>
+      </div>
+    </Card>)}</div>
+  </PW>;
+}
+
+function Mysteries() {
+  return <PW>
+    <PH title="Open Mysteries" sub="Questions the party hasn't answered yet" />
+    <div style={{ padding: "0 16px" }}>{MYSTERIES.map((m, i) => <Card key={i}>
+      <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+        <div style={{ fontFamily: "'Cinzel',serif", fontSize: 20, color: C.gd, minWidth: 24 }}>{i + 1}</div>
+        <div style={{ fontFamily: "'Crimson Text',serif", fontSize: 15, color: C.tx, lineHeight: 1.7 }}>{m}</div>
+      </div>
+    </Card>)}</div>
+  </PW>;
+}
+
+function Moments() {
+  const [tab, setTab] = useState("epic");
+  const list = tab === "epic" ? GREATEST : FUNNY;
+  return <PW>
+    <PH title="Moments" sub="The plays that defined the campaign" />
+    <div style={{ padding: "0 16px" }}>
+      <div style={{ display: "flex", gap: 8, marginBottom: 14 }}>
+        {[["epic", "Epic Moments"], ["funny", "Funny Moments"]].map(([id, label]) => <button key={id} onClick={() => setTab(id)} style={{ flex: 1, background: tab === id ? C.gd : C.s2, border: `1px solid ${tab === id ? C.gd : C.bd}`, color: tab === id ? C.bg : C.dm, padding: "8px", borderRadius: 6, cursor: "pointer", fontFamily: "'Cinzel',serif", fontSize: 11, letterSpacing: "0.06em" }}>{label}</button>)}
+      </div>
+      {list.map((m, i) => <Card key={i}>
+        <Cin ch={`${m.who} · Session ${m.s}`} sz={11} col={tab === "epic" ? C.g : C.dm} extra={{ display: "block", marginBottom: 5 }} />
+        <div style={{ fontFamily: "'Crimson Text',serif", fontSize: 15, color: C.tx, lineHeight: 1.7 }}>{m.t}</div>
+      </Card>)}
+    </div>
+  </PW>;
+}
+
+function Suggestions({ sugs, onAdd }) {
+  const [text, setText] = useState("");
+  const [player, setPlayer] = useState("");
+  return <PW>
+    <PH title="Player Suggestions" sub="Ideas and feedback for the DM — saves permanently" />
+    <div style={{ padding: "0 16px" }}>
+      <Card extra={{ marginBottom: 14 }}>
+        <Cin ch="SUBMIT A SUGGESTION" sz={10} col={C.gd} extra={{ letterSpacing: "0.12em", display: "block", marginBottom: 10 }} />
+        <input value={player} onChange={e => setPlayer(e.target.value)} placeholder="Your name (optional)" style={{ width: "100%", background: C.s3, border: `1px solid ${C.bd}`, color: C.tx, borderRadius: 5, padding: "8px 10px", fontFamily: "'Crimson Text',serif", fontSize: 14, marginBottom: 8 }} />
+        <textarea value={text} onChange={e => setText(e.target.value)} placeholder="Story ideas, items you want, NPCs to revisit, anything for the DM…" style={{ width: "100%", background: C.s3, border: `1px solid ${C.bd}`, color: C.tx, borderRadius: 5, padding: "8px 10px", fontFamily: "'Crimson Text',serif", fontSize: 14, minHeight: 80, resize: "vertical", marginBottom: 10 }} />
+        <button onClick={() => { if (text.trim()) { onAdd({ text, player: player || "Anonymous", date: new Date().toLocaleDateString() }); setText(""); setPlayer(""); } }} style={{ width: "100%", background: C.gd, border: "none", color: C.bg, padding: 11, borderRadius: 6, cursor: "pointer", fontFamily: "'Cinzel',serif", fontSize: 12, letterSpacing: "0.06em" }}>Submit Suggestion</button>
+      </Card>
+      {sugs.length === 0 ? <div style={{ textAlign: "center", padding: "20px 0", fontFamily: "'Crimson Text',serif", fontSize: 15, color: C.mt, fontStyle: "italic" }}>No suggestions yet — be the first.</div>
+        : [...sugs].reverse().map((s, i) => <Card key={i}>
+          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
+            <Cin ch={s.player} sz={11} col={C.g} />
+            <Cin ch={s.date} sz={10} col={C.mt} />
+          </div>
+          <div style={{ fontFamily: "'Crimson Text',serif", fontSize: 15, color: C.tx, lineHeight: 1.65 }}>{s.text}</div>
+        </Card>)}
+    </div>
+  </PW>;
+}
+
+function AiPage() {
+  const [msgs, setMsgs] = useState([]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const ref = useRef(null);
+  useEffect(() => { if (ref.current) ref.current.scrollTop = ref.current.scrollHeight; }, [msgs]);
+  const send = async () => {
+    if (!input.trim() || loading) return;
+    const m = { role: "user", content: input };
+    const next = [...msgs, m];
+    setMsgs(next); setInput(""); setLoading(true);
+    const reply = await askClaude(next);
+    setMsgs(prev => [...prev, { role: "assistant", content: reply }]);
+    setLoading(false);
+  };
+  return <div style={{ display: "flex", flexDirection: "column", height: "100%", overflow: "hidden" }}>
+    <PH title="Wiki AI" sub="Ask anything about the campaign" />
+    <div ref={ref} style={{ flex: 1, overflowY: "auto", padding: "0 16px" }}>
+      {msgs.length === 0 && <Card extra={{ textAlign: "center", padding: "20px 16px" }}><div style={{ fontFamily: "'Crimson Text',serif", fontSize: 15, color: C.dm, fontStyle: "italic", lineHeight: 1.7 }}>Ask me anything — characters, events, NPCs, what happened in a specific session, lore, items, relationships. I know everything the party has experienced through Session 17.2.</div></Card>}
+      {msgs.map((m, i) => <div key={i} style={{ marginBottom: 10 }}>
+        <Cin ch={m.role === "user" ? "YOU" : "WIKI AI"} sz={10} col={m.role === "user" ? C.g : C.gd} extra={{ letterSpacing: "0.1em", display: "block", marginBottom: 4 }} />
+        <Card extra={{ background: m.role === "user" ? C.s3 : C.s2 }}><div style={{ fontFamily: "'Crimson Text',serif", fontSize: 15, color: C.tx, lineHeight: 1.7 }}>{m.content}</div></Card>
+      </div>)}
+      {loading && <Card><div style={{ fontFamily: "'Crimson Text',serif", fontSize: 15, color: C.dm, fontStyle: "italic" }}>Consulting the scrolls of Middle-earth…</div></Card>}
+    </div>
+    <div style={{ padding: "10px 16px", borderTop: `1px solid ${C.bd}`, display: "flex", gap: 8, flexShrink: 0 }}>
+      <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }} placeholder="Ask about the campaign…" style={{ flex: 1, background: C.s3, border: `1px solid ${C.bd}`, color: C.tx, borderRadius: 6, padding: "10px 12px", fontFamily: "'Crimson Text',serif", fontSize: 15 }} />
+      <button onClick={send} disabled={loading} style={{ background: C.gd, border: "none", color: C.bg, padding: "10px 16px", borderRadius: 6, cursor: "pointer", fontFamily: "'Cinzel',serif", fontSize: 12 }}>Ask</button>
+    </div>
+  </div>;
+}
+
+const TABS = [{ id: "home", label: "Home", icon: "🏠" }, { id: "party", label: "Party", icon: "⚔️" }, { id: "world", label: "World", icon: "🌍" }, { id: "sessions", label: "Sessions", icon: "📖" }, { id: "more", label: "More", icon: "✦" }];
+const MORE = [{ id: "items", label: "Items", icon: "💎" }, { id: "mysteries", label: "Mysteries", icon: "❓" }, { id: "moments", label: "Moments", icon: "⭐" }, { id: "suggestions", label: "Suggestions", icon: "💬" }, { id: "ai", label: "Wiki AI", icon: "🔮" }];
+
+export default function App() {
+  const [page, setPage] = useState("home");
+  const [more, setMore] = useState(false);
+  const [worldTab, setWorldTab] = useState("npcs");
+  const [sugs, setSugs] = useState([]);
+  const [edits, setEdits] = useState({});
+
+  useEffect(() => {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;1,400&display=swap";
+    document.head.appendChild(link);
+    sGet("mew-sugs").then(v => { if (v) setSugs(v); });
+    sGet("mew-edits").then(v => { if (v) setEdits(v); });
+    return () => document.head.removeChild(link);
+  }, []);
+
+  const go = p => { setPage(p); setMore(false); };
+  const onSaveNote = async (id, note) => { const e = { ...edits, [id]: { ...(edits[id] || {}), note } }; setEdits(e); await sSet("mew-edits", e); };
+  const onAddSug = async s => { const arr = [...sugs, s]; setSugs(arr); await sSet("mew-sugs", arr); };
+
+  const renderPage = () => {
+    if (page === "home") return <Home go={go} />;
+    if (page === "party") return <Party edits={edits} onSave={onSaveNote} />;
+    if (page === "world") return <div style={{ display: "flex", flexDirection: "column", height: "100%", overflow: "hidden" }}>
+      <div style={{ display: "flex", gap: 8, padding: "12px 16px 0", flexShrink: 0 }}>
+        {[["npcs", "NPCs"], ["locations", "Locations"]].map(([id, label]) => <button key={id} onClick={() => setWorldTab(id)} style={{ flex: 1, background: worldTab === id ? C.gd : C.s2, border: `1px solid ${worldTab === id ? C.gd : C.bd}`, color: worldTab === id ? C.bg : C.dm, padding: 8, borderRadius: 6, cursor: "pointer", fontFamily: "'Cinzel',serif", fontSize: 12, letterSpacing: "0.05em" }}>{label}</button>)}
+      </div>
+      <div style={{ flex: 1, overflowY: "auto" }}>{worldTab === "npcs" ? <Npcs /> : <Locs />}</div>
+    </div>;
+    if (page === "sessions") return <Sessions />;
+    if (page === "items") return <Items />;
+    if (page === "mysteries") return <Mysteries />;
+    if (page === "moments") return <Moments />;
+    if (page === "suggestions") return <Suggestions sugs={sugs} onAdd={onAddSug} />;
+    if (page === "ai") return <AiPage />;
+    return <Home go={go} />;
+  };
+
+  return <div style={{ background: C.bg, color: C.tx, height: "100vh", display: "flex", flexDirection: "column", overflow: "hidden", position: "relative" }}>
+    {more && <div style={{ position: "absolute", bottom: 60, left: 0, right: 0, background: C.s1, borderTop: `1px solid ${C.bd}`, padding: "12px 16px", zIndex: 20 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 9 }}>
+        {MORE.map(m => <button key={m.id} onClick={() => go(m.id)} style={{ background: C.s2, border: `1px solid ${C.bd}`, color: C.gl, padding: "11px 10px", borderRadius: 7, cursor: "pointer", fontFamily: "'Cinzel',serif", fontSize: 12, letterSpacing: "0.05em", textAlign: "left", display: "flex", alignItems: "center", gap: 8 }}><span style={{ fontSize: 16 }}>{m.icon}</span>{m.label}</button>)}
+      </div>
+    </div>}
+    <div style={{ flex: 1, overflowY: "auto" }}>{renderPage()}</div>
+    <nav style={{ height: 60, background: C.s1, borderTop: `1px solid ${C.bd}`, display: "flex", flexShrink: 0 }}>
+      {TABS.map(t => {
+        const active = t.id === "more" ? more : (page === t.id && !more);
+        return <button key={t.id} onClick={() => t.id === "more" ? setMore(!more) : go(t.id)} style={{ flex: 1, background: "none", border: "none", cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 3, color: active ? C.gl : C.mt, borderTop: active ? `2px solid ${C.g}` : "2px solid transparent", transition: "all 0.15s" }}>
+          <span style={{ fontSize: 18 }}>{t.icon}</span>
+          <span style={{ fontFamily: "'Cinzel',serif", fontSize: 9, letterSpacing: "0.05em" }}>{t.label}</span>
+        </button>;
+      })}
+    </nav>
+  </div>;
+}
