@@ -661,7 +661,21 @@ function renderHome() {
       <div class="grid-3" style="margin-bottom:14px" id="home-grid"></div>
     </div>`;
   const grid = p.querySelector('#home-grid');
-  [['📋','Must Know','Before session 18','mustknow'],['⚔️','Party','7 adventurers','party'],['👥','NPCs','Who you\'ve met','npcs'],['📖','Sessions','17 logged','sessions'],['❓','Mysteries','Open questions','mysteries'],['⭐','Moments','Epic + funny','moments']].forEach(([icon,title,sub,pg]) => {
+  [
+    ['📋','Must Know','Before session 18','mustknow'],
+    ['⚔️','Party','7 adventurers','party'],
+    ['👥','NPCs','Who you\'ve met','npcs'],
+    ['📖','Sessions','17 logged','sessions'],
+    ['🗺️','Locations','Places visited','locations'],
+    ['💎','Items','Notable gear','items'],
+    ['🐉','Bestiary','Every creature','bestiary'],
+    ['⚔️','Factions','Powers at play','factions'],
+    ['📅','Timeline','Full journey','timeline'],
+    ['📊','Stats','By the numbers','stats'],
+    ['❓','Mysteries','Open questions','mysteries'],
+    ['⭐','Moments','Epic + funny','moments'],
+    ['💬','Suggestions','For the DM','suggestions'],
+  ].forEach(([icon,title,sub,pg]) => {
     const c = el('div', {className: 'card clickable', style: 'text-align:center;padding:10px 6px'});
     c.innerHTML = `<div style="font-family:Cinzel,serif;font-size:13px;color:#e6cc84;margin-bottom:2px">${icon} ${title}</div><div style="color:#9a8a6a;font-size:12px">${sub}</div>`;
     c.onclick = () => navigate(pg);
