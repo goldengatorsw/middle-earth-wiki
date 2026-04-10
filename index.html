@@ -244,10 +244,26 @@ const MORE_PAGES = [
   {id:'suggestions',label:'Suggestions',icon:'💬'},
 ];
 
-function navigate(p, d) {
+function navigate(p, d, skipHistory) {
   page = p; detail = d || null; more = false;
+  if (!skipHistory) {
+    const state = {page: p, detail: d || null};
+    const url = d ? '#' + p + '/' + d : '#' + p;
+    history.pushState(state, '', url);
+  }
   render();
 }
+
+window.addEventListener('popstate', function(e) {
+  if (e.state) {
+    page = e.state.page || 'home';
+    detail = e.state.detail || null;
+  } else {
+    page = 'home'; detail = null;
+  }
+  more = false;
+  render();
+});
 
 function toggleMore() { more = !more; renderNav(); renderMoreDrawer(); }
 
