@@ -1696,7 +1696,7 @@ function App(){
     if(page==="search")return<Search go={go}/>;
     return<Home go={go}/>;
   };
-  const canGoBack=page!=="home"||sel||more;
+  const canGoBack=page!=="home";
   const handleBack=()=>{
     if(more){setMore(false);return;}
     setPage("home");setNpcDirect(null);setPartyDirect(null);setSessionDirect(null);setBestiaryDirect(null);setFactionDirect(null);
