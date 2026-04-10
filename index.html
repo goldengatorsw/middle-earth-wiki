@@ -1430,7 +1430,7 @@ function BestiaryDetail({b,onBack}){
           <div style={{...cin,fontSize:18,color:C.gl}}>{b.name}</div>
           <div style={{display:"flex",gap:8,marginTop:4,flexWrap:"wrap"}}>
             <span style={{background:C.re+"22",color:C.re,border:`1px solid ${C.re}44`,borderRadius:3,padding:"2px 8px",fontSize:10,...cin,letterSpacing:"0.06em"}}>Threat: {b.threat}</span>
-            <span style={{background:b.status.includes("ACTIVE")||b.status.includes("active")?C.re+"22":C.gr+"22",color:b.status.includes("ACTIVE")||b.status.includes("active")?C.re:"#4a8a46",border:`1px solid ${b.status.includes("ACTIVE")||b.status.includes("active")?C.re:"#4a8a46"}44`,borderRadius:3,padding:"2px 8px",fontSize:10,...cin,letterSpacing:"0.06em"}}>{b.status}</span>
+            <span style={{background:b.status.includes("ACTIVE")||b.status.includes("active")?C.re+"22":"#2a4a26"+"22",color:b.status.includes("ACTIVE")||b.status.includes("active")?C.re:"#4a8a46",border:`1px solid ${b.status.includes("ACTIVE")||b.status.includes("active")?C.re:"#4a8a46"}44`,borderRadius:3,padding:"2px 8px",fontSize:10,...cin,letterSpacing:"0.06em"}}>{b.status}</span>
           </div>
         </div>
       </div>
@@ -1540,7 +1540,7 @@ function CampaignStats(){
           <div style={{...cin,fontSize:24,color:C.gl}}>{val}</div>
         </div>)}
       </div>
-      <Card style={{marginBottom:12,background:C.gr+"22",border:`1px solid ${C.gr}44`}}>
+      <Card style={{marginBottom:12,background:"#2a4a26"+"22",border:`1px solid ${"#2a4a26"}44`}}>
         <Cin sz={10} col={C.gd} style={{letterSpacing:"0.12em",display:"block",marginBottom:6}}>PARTY DEATHS</Cin>
         <div style={{...cri,fontSize:15,color:C.gl,lineHeight:1.6}}>Zero. Nobody has died. They have gone to 0 HP many times. They have had Nat 20 death saves. They have been poisoned, liver-stabbed, acid-coned, and bitten by zombies. Nobody has died.</div>
       </Card>
