@@ -1059,8 +1059,7 @@ function SBadge({s}){
   return<Badge label="Alive" col="#4a8a46"/>;
 }
 function Card({children,onClick,style={}}){
-  const[hov,setHov]=useState(false);
-  return<div onClick={onClick} onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)} style={{background:C.s2,border:`1px solid ${hov&&onClick?C.gd:C.bd}`,borderRadius:8,padding:"13px 15px",cursor:onClick?"pointer":"default",transition:"border-color 0.15s",marginBottom:10,...style}}>{children}</div>;
+  return<div onClick={onClick} style={{background:C.s2,border:`1px solid ${C.bd}`,borderRadius:8,padding:"13px 15px",cursor:onClick?"pointer":"default",marginBottom:10,WebkitTapHighlightColor:"rgba(200,164,74,0.2)",touchAction:"manipulation",...style}}>{children}</div>;
 }
 function Coll({title,children,open:def=false}){
   const[open,setOpen]=useState(def);
@@ -1182,12 +1181,10 @@ function Party({edits,onSave,go}){
   </PW>;
 }
 
-function Npcs({directSel,go}){
-  const[sel,setSel]=useState(directSel||null);
-  useEffect(()=>{if(directSel)setSel(directSel);},[directSel]);
-  const n=sel?NPCS.find(x=>x.id===sel):null;
-  if(n)return<PW>
-    <div style={{padding:"16px 16px 0"}}><Back onClick={()=>{setSel(null);window.history.back();}} label="NPCs"/></div>
+function NpcDetail({n,onBack}){
+  if(!n)return null;
+  return<PW>
+    <div style={{padding:"16px 16px 0"}}><Back onClick={onBack} label="NPCs"/></div>
     <div style={{padding:"0 16px"}}>
       <div style={{display:"flex",gap:12,alignItems:"center",marginBottom:10}}>
         <div style={{fontSize:30}}>{n.emoji}</div>
@@ -1204,12 +1201,11 @@ function Npcs({directSel,go}){
         <div style={{...cri,fontSize:15,color:C.dm,lineHeight:1.65,fontStyle:"italic",paddingLeft:12,borderLeft:`2px solid ${C.bd}`}}>{n.relationships}</div>
       </div>}
       <div style={{...cri,fontSize:13,color:C.mt,marginTop:8}}>Last known location: {n.loc} · First encountered: {n.first}</div>
-      {n.first&&<div style={{marginTop:14}}>
-        <Cin sz={10} col={C.gd} style={{letterSpacing:"0.12em",display:"block",marginBottom:8}}>FIRST APPEARED IN</Cin>
-        <div style={{...cri,fontSize:14,color:C.dm,fontStyle:"italic"}}>See the Session Log for full context around {n.first}.</div>
-      </div>}
     </div>
   </PW>;
+}
+
+function Npcs({go}){
   const grps=[["Allies & Friendly",x=>x.status==="Alive"||x.status.includes("Safe")],["Hostile",x=>x.status.includes("HOSTILE")],["Unknown Status",x=>x.status.includes("UNKNOWN")],["Deceased",x=>x.status.includes("DECEASED")]];
   return<PW>
     <PH title="NPCs" sub="Everyone the party has encountered"/>
@@ -1219,7 +1215,7 @@ function Npcs({directSel,go}){
         if(!list.length)return null;
         return<div key={label}>
           <Cin sz={10} col={C.gd} style={{letterSpacing:"0.12em",display:"block",margin:"14px 0 8px"}}>{label.toUpperCase()}</Cin>
-          {list.map(n=><Card key={n.id} onClick={()=>setSel(n.id)}>
+          {list.map(n=><Card key={n.id} onClick={()=>go("world/"+n.id)}>
             <div style={{display:"flex",alignItems:"center",gap:10}}>
               <div style={{fontSize:22}}>{n.emoji}</div>
               <div style={{flex:1}}>
@@ -1690,10 +1686,13 @@ function App(){
       return<Party edits={edits} onSave={onSaveNote} go={navigate}/>;
     }
     if(page==="world"){
-      if(detail)return<Npcs directSel={detail} go={navigate}/>;
+      if(detail){
+        const n=NPCS.find(x=>x.id===detail);
+        return<NpcDetail n={n} onBack={()=>navigate("world")}/>;
+      }
       return<div style={{display:"flex",flexDirection:"column",height:"100%",overflow:"hidden"}}>
         <div style={{display:"flex",gap:8,padding:"12px 16px 0",flexShrink:0}}>
-          {[["npcs","NPCs"],["locations","Locations"]].map(([id,label])=><button key={id} onClick={()=>setWorldTab(id)} style={{flex:1,background:worldTab===id?C.gd:C.s2,border:`1px solid ${worldTab===id?C.gd:C.bd}`,color:worldTab===id?C.bg:C.dm,padding:8,borderRadius:6,cursor:"pointer",...cin,fontSize:12,letterSpacing:"0.05em"}}>{label}</button>)}
+          {[["npcs","NPCs"],["locations","Locations"]].map(([id,label])=><button key={id} onClick={()=>setWorldTab(id)} style={{flex:1,background:worldTab===id?C.gd:C.s2,border:`1px solid ${worldTab===id?C.gd:C.bd}`,color:worldTab===id?C.bg:C.dm,padding:8,borderRadius:6,cursor:"pointer",...cin,fontSize:12,letterSpacing:"0.05em",touchAction:"manipulation"}}>{label}</button>)}
         </div>
         <div style={{flex:1,overflowY:"auto"}}>{worldTab==="npcs"?<Npcs go={navigate}/>:<Locs go={navigate}/>}</div>
       </div>;
