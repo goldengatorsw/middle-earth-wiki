@@ -3,748 +3,419 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-<title>Wanderings In Middle Earth — Wiki</title>
+<title>Wanderings In Middle Earth</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;1,400&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#0d0b08;color:#ede3cc;font-family:'Crimson Text',Georgia,serif;height:100vh;display:flex;flex-direction:column;overflow:hidden}
-h1,h2,h3,.cin{font-family:'Cinzel','Times New Roman',serif}
+body{background:#0d0b08;color:#ede3cc;font-family:"Crimson Text",Georgia,serif;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+h1,h2,h3,.cin{font-family:"Cinzel","Times New Roman",serif}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#383020}
-
-#app{display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative}
 #content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 nav{height:60px;background:#191410;border-top:1px solid #383020;display:flex;flex-shrink:0}
-
 .page{padding:0 0 80px;max-width:700px;margin:0 auto}
-.page-head{padding:18px 16px 12px;border-bottom:1px solid #383020;margin-bottom:12px}
-.page-head h1{font-size:20px;color:#e6cc84;letter-spacing:.07em}
-.page-head p{color:#9a8a6a;font-size:14px;margin-top:3px}
-
+.ph{padding:18px 16px 12px;border-bottom:1px solid #383020;margin-bottom:12px}
+.ph h1{font-size:20px;color:#e6cc84;letter-spacing:.07em}
+.ph p{color:#9a8a6a;font-size:14px;margin-top:3px}
 .card{background:#222018;border:1px solid #383020;border-radius:8px;padding:13px 15px;margin-bottom:10px;touch-action:manipulation}
-.card.clickable{cursor:pointer;-webkit-tap-highlight-color:rgba(200,164,74,.15)}
-.card.clickable:active{background:#2a2820}
-
-.btn{border:none;cursor:pointer;font-family:'Cinzel',serif;touch-action:manipulation;-webkit-tap-highlight-color:rgba(200,164,74,.15)}
-.btn-nav{flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#5a4e38;border-top:2px solid transparent;transition:all .15s;cursor:pointer;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.05em;padding:0;touch-action:manipulation}
-.btn-nav.active{color:#e6cc84;border-top-color:#c8a44a}
-.btn-nav span.icon{font-size:18px}
-
-.badge{border-radius:3px;padding:2px 8px;font-size:10px;font-family:'Cinzel',serif;letter-spacing:.06em}
-.badge-alive{background:#4a8a4622;color:#4a8a46;border:1px solid #4a8a4644}
-.badge-dead{background:#8b282822;color:#8b2828;border:1px solid #8b282844}
-.badge-unknown{background:#7a603022;color:#7a6030;border:1px solid #7a603044}
-.badge-hostile{background:#8b282822;color:#8b2828;border:1px solid #8b282844}
-.badge-safe{background:#4a8a4622;color:#4a8a46;border:1px solid #4a8a4644}
-
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
-.back-btn{background:none;border:1px solid #383020;color:#9a8a6a;padding:5px 13px;border-radius:5px;cursor:pointer;margin-bottom:14px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.06em;display:block;touch-action:manipulation}
-.section-label{font-family:'Cinzel',serif;font-size:11px;color:#7a6030;letter-spacing:.1em;display:block;margin:14px 0 8px}
-
-.collapsible{border-top:1px solid #383020}
-.coll-btn{width:100%;background:none;border:none;padding:9px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:'Cinzel',serif;font-size:11px;color:#7a6030;letter-spacing:.1em;touch-action:manipulation}
-.coll-body{padding-bottom:12px;font-size:15px;line-height:1.7;color:#ede3cc}
-
+.card.tap{cursor:pointer;-webkit-tap-highlight-color:rgba(200,164,74,.15)}
+.card.tap:active{background:#2a2820}
+.btn{border:none;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:rgba(200,164,74,.15)}
+.nav-btn{flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#5a4e38;border-top:2px solid transparent;cursor:pointer;font-family:"Cinzel",serif;font-size:9px;letter-spacing:.05em;padding:0;touch-action:manipulation}
+.nav-btn.on{color:#e6cc84;border-top-color:#c8a44a}
+.icon{font-size:18px}
+.lbl{font-family:"Cinzel",serif;font-size:11px;color:#7a6030;letter-spacing:.1em;display:block;margin:14px 0 8px}
 .dot{color:#7a6030;flex-shrink:0;margin-top:3px}
-.fact-row{display:flex;gap:10px;margin-bottom:7px;align-items:flex-start}
-.fact-row .dot{font-size:14px}
-
+.row{display:flex;gap:10px;margin-bottom:7px;align-items:flex-start}
+.back{background:none;border:1px solid #383020;color:#9a8a6a;padding:5px 13px;border-radius:5px;cursor:pointer;margin-bottom:14px;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.06em;display:block;touch-action:manipulation}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.coll{border-top:1px solid #383020}
+.coll-btn{width:100%;background:none;border:none;padding:9px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:"Cinzel",serif;font-size:11px;color:#7a6030;letter-spacing:.1em;touch-action:manipulation}
+.coll-body{padding-bottom:12px;font-size:15px;line-height:1.7;color:#ede3cc}
 .more-drawer{position:absolute;bottom:60px;left:0;right:0;background:#191410;border-top:1px solid #383020;padding:12px 16px;z-index:20;max-height:60vh;overflow-y:auto}
-.more-overlay{position:absolute;inset:0;z-index:15}
-
-textarea{resize:vertical;width:100%;background:#2c2a1e;border:1px solid #383020;color:#ede3cc;border-radius:5px;padding:8px 10px;font-family:'Crimson Text',Georgia,serif;font-size:15px;min-height:80px}
-input[type=text]{width:100%;background:#2c2a1e;border:1px solid #383020;color:#ede3cc;border-radius:5px;padding:8px 10px;font-family:'Crimson Text',Georgia,serif;font-size:15px;margin-bottom:8px}
-
-.ai-input-row{padding:10px 16px;border-top:1px solid #383020;display:flex;gap:8px;flex-shrink:0}
-.ai-input{flex:1;background:#2c2a1e;border:1px solid #383020;color:#ede3cc;border-radius:6px;padding:10px 12px;font-family:'Crimson Text',Georgia,serif;font-size:15px}
-.ai-send{background:#7a6030;border:none;color:#0d0b08;padding:10px 16px;border-radius:6px;cursor:pointer;font-family:'Cinzel',serif;font-size:12px;touch-action:manipulation}
-
-.status-row{display:flex;justify-content:space-between;margin-bottom:5px}
+.more-overlay{position:absolute;inset:0;z-axis:15}
+textarea{resize:vertical;width:100%;background:#2c2a1e;border:1px solid #383020;color:#ede3cc;border-radius:5px;padding:8px 10px;font-family:"Crimson Text",Georgia,serif;font-size:15px;min-height:80px}
+.tab-btn{flex:1;background:#222018;border:1px solid #383020;color:#9a8a6a;padding:8px;border-radius:6px;cursor:pointer;font-family:"Cinzel",serif;font-size:12px;letter-spacing:.05em;touch-action:manipulation}
+.tab-btn.on{background:#7a6030;border-color:#7a6030;color:#0d0b08}
+.stat-tile{background:#222018;border:1px solid #383020;border-radius:8px;padding:12px 14px}
+.stat-tile .sl{font-family:"Cinzel",serif;font-size:10px;color:#7a6030;letter-spacing:.1em;margin-bottom:4px}
+.stat-tile .sv{font-family:"Cinzel",serif;font-size:22px;color:#e6cc84}
 .note-area{background:#2c2a1e;border:1px solid #383020;border-radius:5px;padding:9px 11px;cursor:text;min-height:44px;font-size:15px;line-height:1.6;color:#5a4e38}
-.note-area.has-note{color:#ede3cc}
-
-.search-input{width:100%;background:#222018;border:1px solid #383020;color:#ede3cc;border-radius:8px;padding:12px 14px;font-family:'Crimson Text',Georgia,serif;font-size:16px;margin-bottom:12px}
-
-.tab-btn{flex:1;background:#222018;border:1px solid #383020;color:#9a8a6a;padding:8px;border-radius:6px;cursor:pointer;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.05em;touch-action:manipulation}
-.tab-btn.active{background:#7a6030;border-color:#7a6030;color:#0d0b08}
-
-.must-section{margin-bottom:18px}
-.must-title{display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-bottom:6px;border-bottom-width:1px;border-bottom-style:solid}
+.note-area.has{color:#ede3cc}
 </style>
 </head>
 <body>
-<div id="app">
+<div id="app" style="display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative">
   <div id="content"></div>
   <nav id="nav"></nav>
 </div>
-
 <script>
-window.onerror = function(msg, src, line, col, err) {
-  document.body.style.background = '#0d0b08';
-  document.body.style.color = '#e6cc84';
-  document.body.style.fontFamily = 'monospace';
-  document.body.style.padding = '20px';
-  document.body.innerHTML = '<h2 style="color:#8b2828;margin-bottom:12px">JavaScript Error</h2><p style="margin-bottom:8px"><strong>' + msg + '</strong></p><p>Line ' + line + ', Col ' + col + '</p><p style="margin-top:8px;color:#9a8a6a">' + src + '</p>';
-  return false;
-};
-// ── DATA ──────────────────────────────────────────────────────
-const PARTY=[
-{id:"borin",name:'Borin "The Tall" Ironjaw',player:"Josh",race:"Dwarf Warden",emoji:"⚒",tag:"Pragmatic, fatherly. Fights for his family back home.",bio:"Borin negotiated 2,000 gold from Mayor Graf before agreeing to anything, carried young Leah on his back until she fell asleep on his shoulders, and once hid behind a dead cow from three trolls while privately noting that urinating on himself was 'warm and comforting.' He misses his wife and kids.",facts:["Rumor of the Earth: sense orcs within 3 miles once per rest","Horic's Iron Hand Fang: +1 warhammer, DC 13 crowd-control on all nearby targets","Negotiated 2,000 gold + shield + horses from Mayor Graf after the Battle of Bree","Carried Leah miles through wilderness — waved until out of sight, then ran"],funny:["Named his palm-leaf rain hat 'Leafster' and carried it through a thunderstorm","Urinated on himself hiding from trolls — noted it was 'actually warm and comforting'","Picked up Mungo and threw him at Gilgamesh to break up a fight (Gilgamesh caught him)"],arc:"Borin fights for his family. Every session reminds him that orcs are reaching places they were never supposed to reach."},
-{id:"carl",name:"Carl Pickthron",player:"Tyler",race:"Human Fighter (Champion)",emoji:"\uD83E\uDE93",tag:"Brave to the point of recklessness. Carries grief loudly.",bio:"Carl was drunk at the Prancing Pony talking about Mungo before the battle. He volunteered as living alligator bait because he trusted the party with his life. He declared 'Listen here, you stupid witch — you're not even a wizard!' right before the crit that triggered Maldwin's phase 2.",facts:["Crits on 19-20 with 4d12 extra damage dice","Holds the Horn of the Ruins (3D echolocation when blown clearly)","Accidentally knocked Dudo unconscious with his greataxe over a Horn dispute","Volunteered as living alligator bait — 15 gators converged; hauled back in time"],funny:["Was drunk polishing his greataxe before the biggest battle in living memory","Slumped onto Borin when the poisoned mead hit while driving the wagon","THERE WAS A BOAT. Carl had seen it. Said nothing. Party swam through alligators."],arc:"Carl is brave and loud about his grief. He runs toward danger as fast as his legs carry him."},
-{id:"dudo",name:"Dudo Maggot",player:"Calvin",race:"Halfling Rogue",emoji:"\uD83D\uDDE1",tag:"Tiny, lethal, almost certainly the party's most dangerous member.",bio:"Dudo is 3 feet tall, rolls stealth 26, and wrote 'Santa's Little Helper' on Tyr's forehead while he meditated — said nothing until Finn the blacksmith noticed in Bree. The blood altar in Maldwin's stump responded specifically to his blood. Nobody has asked why.",facts:["Stealth 26 — described as becoming 'one with the shadows'","Nat 20 sneak attack up through an orc's groin — the campaign's opening kill","Jet-black dagger found inside a troll's thigh (+1 to hit, Con save on hit)","His blood activated the bone altar — multiplied significantly on contact"],funny:["Wrote 'Santa's Little Helper' on Tyr's forehead while he meditated","Skied off the moving wagon during a rainstorm using a rope and cooking pan","Sword fell during ceiling climb and hit Tyr in the neck — friendly fire 0 HP"],arc:"Dudo is the party's quiet lethal engine. The blood altar responding specifically to his blood is a thread that hasn't been pulled yet."},
-{id:"gilgamesh",name:"Gilgamesh Artemis",player:"Aaron / AP",race:"Elf Scholar / Archer",emoji:"\uD83C\uDFF9",tag:"Artist. Tactician. The only one conscious during the mead incident.",bio:"Gilgamesh built a Nat 20 camouflaged sniper nest on the mayor's roof. He holds the Ring of Mending. He had a reaction when the village sacrifice creature was described at Rivendell that both Mungo and Tyr caught. He deflected. It has not been explained.",facts:["Ring of Mending: revive 1 downed to 1 HP (1/long rest); cure poison (2/day)","Shortbow +6 — awarded as annual hunt prize from Mayor Graf","Barrel explosion: gate destroyed + 15-20 orcs gone simultaneously","Had a suppressed reaction at Rivendell — caught by Mungo (Nat 20) and Tyr (19)"],funny:["Got buzzed 'investigating' the farmstead wine barrel — Tyr's arrow then punctured it","Nearly fell off the mayor's 3-story roof building his sniper nest","Protested Elrond giving Tyr the key ring — Elrond gave it to Tyr anyway"],arc:"Gilgamesh brings an elf's long perspective. He knows something about the Dol Guldur corruption he hasn't said."},
-{id:"mayo",name:"Mayo (May O.)",player:"Alec",race:"Dwarf Captain / Healer",emoji:"\uD83D\uDEE1",tag:"The reliable backbone. Makes sure things don't fall apart.",bio:"Mayo pumped the artesian well while wounded at ~4 HP. They ran 30 feet to slam the wardrobe shut on the zombie horde — strength 12, barely made it. Tried to tame an evil wolf three times. It had just eaten a family. It refused every time. Mayo kept trying.",facts:["Protection: impose disadvantage on attacks against adjacent allies","Ran 30 feet to slam wardrobe shut — prevented a fight-ending zombie wave","Went down to a zombie bite — death save Nat 20 — stabilized at 1 HP","Let Tyr stand on her shoulders to reach the ceiling node"],funny:["Tried to tame an evil wolf three times with patient animal handling. It refused every time.","Mungo kept nudging the wagon horses faster when she told him to slow down, grinning","'That hurt.' — first words after Borin woke her from death's door with face-slaps"],arc:"Mayo is the party's quiet indispensable. The unglamorous calls are always Mayo."},
-{id:"mungo",name:"Mungo Grubb",player:"Jesse (DM)",race:"Hobbit Treasure Hunter",emoji:"\uD83D\uDD2A",tag:"More dangerous than he looks. Much more.",bio:"Mungo is a cheerful hobbit who used to be a burglar and has a personal friendship with Beorn. He silently killed three orcs inside a burning farmhouse — Gilgamesh watched from 200 feet and never heard a sound. He threw a dagger blind, running, on disadvantage, and hit Maldwin in the head for the killing blow.",facts:["Former burglar — Beorn caught him stealing and they became genuine friends over 7 years","Silent triple kill inside the burning farmhouse — Gilgamesh never heard a thing","Catapulted to the ceiling by Tyr + Borin (strength check 24 + 21)","Blind dagger throw, running, on disadvantage — hit Maldwin in the head. The killing blow."],funny:["Health potion turned 'nasty yellow' after dipping a sanitizing finger in it","Kept nudging the wagon horses faster after being told to slow down, grinning","Yelled 'FOR CARL!' charging up a cliff at the goblin that just dropped Carl"],arc:"Mungo is the campaign's wild card — cheerful, lethal, loyal, connected to Beorn in ways the party doesn't fully understand."},
-{id:"tyr",name:"Tyr",player:"Gabe",race:"Ranger of the North (Dunedain)",emoji:"⚔",tag:"Elrond knows his name. Aragorn files reports about him.",bio:"Tyr is a Dunedain Ranger. Elrond had already heard of him through Aragorn before the party arrived. He carries the Iron of Death, a Numenorean greatsword made by his ancestors found in Maldwin's sacrifice pile. He has stated explicitly in character that he will touch the Palantir.",facts:["Iron of Death: Numenorean greatsword, bane vs. orcs and trolls, bonus action attack","Holds the silver ring key to the Palantir lockbox in Lake Town","Said in character: 'For sure gonna touch that Palantir' — despite Elrond's warning","Shouted 'FUCK YOU!' at three trolls (speed 40) then sprinted into night (speed 25)"],funny:["Shouted 'FUCK YOU!' at three trolls — they gave chase at 40 speed vs his 25","Had 'Santa's Little Helper' on forehead — discovered by Finn the blacksmith","Beorn: 'You should have known better. A black obsidian pendant is obviously cursed.'"],arc:"Tyr carries the weight of Numenorean heritage. He leads, he navigates, he fights. And he is going to touch the Palantir."}
-];
 
-const NPCS=[
-{id:"halvar",name:"Halvar Greycloak",status:"alive",role:"Ranger Commander",emoji:"\uD83C\uDFF9",desc:"Commander of Grey Watch Hollow. Marched all 5 rangers to Bree's defense — unprecedented. Seven Rangers of the North together immediately transformed morale across the town."},
-{id:"elrond",name:"Elrond Half-elven",status:"alive",role:"Lord of Rivendell",emoji:"⭐",desc:"Had already heard of the party through Aragorn before they arrived. Revealed the Palantir mission. Inscribed Tyr's sword. Gave Tyr the key ring over Gilgamesh's objection. Assembling a council: Gandalf, Aragorn, and Saruman."},
-{id:"beorn",name:"Beorn",status:"alive",role:"Skin-changer — Mysterious Ally",emoji:"\uD83D\uDC3B",desc:"Shifts between human and bear form (glowing red eyes, ungodly huge). Known personally to Mungo. Rescued the party from the briar-patch camp by killing all six bandits alone in the dark. Destroyed the second orc wave on the 30th."},
-{id:"leah",name:"Leah",status:"safe",role:"Young Survivor",emoji:"\uD83C\uDF3F",desc:"Young girl whose family was killed by orcs. Borin carried her on his back until she fell asleep on his shoulders. Now permanently with aunt Eowyn and uncle Halrick Weaver. Gave Borin a quiet hug before he left."},
-{id:"graf",name:"Mayor Graf Woodfoot",status:"alive",role:"Mayor of Bree",emoji:"\uD83C\uDFDB",desc:"Practical and grateful. Paid 2,000 gold (negotiated by Borin), provided horses, wagon, and a letter of introduction to Elrond bearing the Woodfoot seal. Has an unused favor owed to the party."},
-{id:"finn",name:"Finn",status:"alive",role:"Blacksmith's Assistant, Bree",emoji:"⚒",desc:"First person to notice 'Santa's Little Helper' on Tyr's forehead during the return march. Borin developed genuine warmth toward him — sees him as something like a son-figure."},
-{id:"barliman",name:"Barliman Butterbur",status:"alive",role:"Innkeeper, The Prancing Pony",emoji:"\uD83C\uDF7A",desc:"Deeply decent innkeeper, deeply shaken by the battle. Gave useful intel: Rivendell elves are 'noble but genuinely kind'; even 300 orcs is 'a small band' by fortress standards."},
-{id:"eli",name:"Eli the Tinker",status:"hostile",role:"Enemy Operative",emoji:"⚠",desc:"Appeared helpful. Was lying. Distributed cursed obsidian pendants, engineered capture via poisoned mead, offered a 'join or die' ultimatum. Escaped with the Black Speech booklet. Reports to an unknown boss."},
-{id:"maldwin",name:"Maldwin",status:"dead",role:"The Last Sea Warden",emoji:"\uD83D\uDC80",desc:"Centuries-old human driven mad by grief. Planted a Valinor seed and fed it blood for 19 winters to build a zombie army aimed at Rivendell. Killed by Mungo's blind dagger throw. The party was two days from Rivendell the whole time."},
-{id:"ben",name:"Ben",status:"dead",role:"Civilian Companion",emoji:"\uD83D\uDC80",desc:"19 years old. His brother Tom was sacrificed in the village lottery. Followed the party into the swamp alone. When he saw Maldwin, he charged without words or hesitation. Killed instantly. He died doing the only thing he had left to do."},
-{id:"mez",name:"Mez",status:"unknown",role:"Innkeeper, Sacrificial Village",emoji:"❓",desc:"Innkeeper of the unnamed sacrificial village. His wife was sacrificed five moons before the party arrived. Status unknown after the bat raid following Maldwin's death."},
-{id:"bonkey",name:"Bonkey",status:"unknown",role:"Water-Fetcher, Sacrificial Village",emoji:"❓",desc:"The only villager permitted outside — assigned to fetch water. Found muttering 'just gotta make it through another night.' Wore an iron medallion shaped like an open mouth. Led the party unknowingly to the village."},
-];
+// ── HELPERS ──────────────────────────────────────────────────
+function el(tag, props, html) {
+  const e = document.createElement(tag);
+  if (props) for (const [k,v] of Object.entries(props)) {
+    if (k === 'cls') e.className = v;
+    else if (k === 'style') e.style.cssText = v;
+    else if (k.startsWith('on')) e[k] = v;
+    else e.setAttribute(k, v);
+  }
+  if (html !== undefined) e.innerHTML = html;
+  return e;
+}
+function cin(s) { return '<span style="font-family:Cinzel,serif">' + s + '</span>'; }
+function back(label, fn) {
+  const b = el('button', {cls:'back'}, '← ' + label);
+  b.onclick = fn;
+  return b;
+}
+function coll(title, items, open) {
+  const d = el('div', {cls:'coll'});
+  const btn = el('button', {cls:'coll-btn'}, '<span>' + title + '</span><span>' + (open?'▲':'▼') + '</span>');
+  const body = el('div', {cls:'coll-body', style: open?'':'display:none'});
+  items.forEach(i => {
+    const r = el('div', {cls:'row'});
+    r.innerHTML = '<div class="dot">·</div><div style="font-size:15px;line-height:1.65">' + i + '</div>';
+    body.appendChild(r);
+  });
+  btn.onclick = () => {
+    const vis = body.style.display !== 'none';
+    body.style.display = vis ? 'none' : 'block';
+    btn.querySelector('span:last-child').textContent = vis ? '▼' : '▲';
+  };
+  d.appendChild(btn); d.appendChild(body);
+  return d;
+}
 
-const SESSIONS=[
-{num:"1-2",title:"The Beginning",
-summary:"Annual hunt at the Prancing Pony assembled the party. The Chetwood Ruins investigated — puzzles, trapped box, orc bodies. Descended underground, reached a large circular chamber. Ring of Mending retrieved from a pool (it slammed down before Carl took it). Horn of the Ruins found. Someone yelled Echo into the abyss — hundreds of orcs gave chase. Carl nearly dragged underground by orcs grabbing his legs. Party escaped and locked the orcs below. Back on the surface: all hunting kills had vanished with no blood — only giant footprints. NOW KNOWN: Beorn. Party split: Borin/Mayo/Mungo west to warn Bree; Tyr/Carl/Gilgamesh/Dudo east to Grey Watch Hollow.",
-events:[
-"Annual hunt assembled at the Prancing Pony — prizes of weapons and coin; the event that put the party together",
-"Chetwood Ruins investigated: looted orc bodies, found a riddle on a note, solved puzzles involving stone carvings",
-"A trapped box blinded one character for an hour",
-"Descended underground — navigated passages, fell into pits, reached a large circular chamber",
-"Ring of Mending retrieved from a pool — it slammed down before Carl took it. NOW KNOWN: this is Gilgamesh's Ring of Mending",
-"Horn of the Ruins found in a surface room",
-"Someone yelled Echo into the abyss for fun — hundreds of orcs immediately gave chase",
-"Carl was nearly dragged back underground by orcs grabbing his legs — survived barely",
-"Party escaped, locked and trapped the orcs below",
-"Back on the surface: all hunting kills had vanished with no blood trail — only giant 1.5-foot-diameter footprints. NOW KNOWN: Beorn, monitoring orc activity in the Chetwood",
-"Party split: Borin/Mayo/Mungo west to warn Bree; Tyr/Carl/Gilgamesh/Dudo east to Grey Watch Hollow"
-]},
-{num:"3",title:"The Night March",
-summary:"Tyr led a 15-mile night march through the Chetwood to Grey Watch Hollow. Two combats en route. Halvar Greycloak marched 5 rangers to Bree. Arrived to find Mungo missing.",
-events:[
-"Party departed the Chetwood ruins eastward at dusk; Tyr navigated in near-total darkness",
-"Massive fallen oak blocked the path — 45 minutes of chopping to bypass; Gilgamesh took a level of exhaustion and got poison oak on his face",
-"COMBAT 1 — Orc Ambush: Four orcs bearing red claw tattoos were ambushed carrying a message north",
-"Dudo scored a Nat 20 Sneak Attack — short sword up through an orc's groin; the orc died screaming",
-"Carl delivered the killing blow — a beheading; the head landed on the axe hilt; he took it as evidence",
-"Intercepted message: The hideout has been found — attack must be sooner — the 27th. Attack was previously planned for the 30th.",
-"COMBAT 2 — Wolf Pack at camp: Six wolves + chieftain attacked at ~1am; Dudo shot himself with a Nat 1 and fell from his tree, then jumped onto a wolf's back and stabbed through the neck on the way down",
-"Wolf chieftain survived with 2 HP and fled",
-"Dudo wrote Santa's Little Helper on Tyr's forehead while he meditated — nobody told Tyr",
-"Arrived at Grey Watch Hollow ~3am; Halvar decided to march all five rangers to Bree at dawn — unprecedented",
-"Tyr woke with Santa's Little Helper on his forehead; nobody explained it; Finn later discovered it in Bree",
-"Marched back to Bree with 7 Rangers total — the sight immediately boosted morale across the town",
-"Arrived to find Bree in full defensive preparation — and Mungo Grubb had gone missing; his tracks simply stopped, no blood, no body"
-]},
-{num:"4",title:"The Battle of Bree",
-summary:"Pre-battle preparation. Gilgamesh built a Nat 20 sniper nest. Carl wept at Mungo's disappearance site. ~250-300 orcs attacked at sunset. Traps took ~50 on approach. Gilgamesh's barrel explosion destroyed the gate. Two waves of fighting. ~175 orcs killed; ~75 townspeople dead. Borin negotiated 2,000 gold afterward.",
-events:[
-"Morning: Carl was drunk and polishing his greataxe at the Prancing Pony, monologuing about Mungo's potential to the barkeep",
-"Borin spent the afternoon trying to find a usable shield from any townsperson — nobody in Bree had combat equipment; he ultimately lost his Protection feature",
-"Gilgamesh built a camouflaged sniper nest on the mayor's roof (Nature 21 for vines; Nat 20 paint job after battle — permanently looks like architecture)",
-"Carl blew the Horn of the Ruins at Mungo's disappearance site on his last inspiration — began to cry while blowing it and held the note as long as he could. I didn't see anything, guys. I gave it my best shot.",
-"At sunset: orc torchlight in the tree line — two formations of ~100+ each; horns blared; full sprint toward town",
-"Traps set by Dudo and the Rangers took approximately 50 orcs on approach",
-"Gate explosion: Gilgamesh threw cooking fuel off the roof and dropped a torch — gate destroyed + 15-20 orcs killed simultaneously; Gilgamesh was thrown by the explosion, fell with the gate, took 1 damage",
-"Carl in the main street: decapitated an orc and dedicated the kill to Mungo — Thats for Mungo, bitch!",
-"Carl dropped to approximately 6-8 HP — nearly died; used Defiance to heal himself mid-battle",
-"Five elite orc warriors + the chieftain broke through the burning gate — all six killed by the party",
-"Dudo landed the killing blow on the orc chieftain",
-"~50 orcs fled into the woods; ~175 total killed; ~75 townspeople dead",
-"Borin negotiated the party's payment from Mayor Graf before agreeing to anything: 2,000 gold + finesse shield + horses + wagon",
-"Mayor Graf also awarded the annual hunt prize: 100 gold + the shortbow Gilgamesh now carries (+6 to hit)"
-]},
-{num:"5",title:"Morning After / Mungo Returns",
-summary:"Mungo returned alive. Revealed as taken by Beorn — a skin-changer he had met 7 years ago. The Vanisher mystery solved. Party destination confirmed: Rivendell.",
-events:[
-"Mayor Graf's morning meeting — the party commissioned as ambassadors and hunters with a letter bearing the Woodfoot seal",
-"Mungo returned: had been taken by Beorn during the Chetwood retreat — not harmed",
-"Beorn revealed as the Vanisher: a skin-changer able to take the form of a massive bear",
-"Mungo's backstory: former burglar, got caught stealing from merchants, got completely lost, nearly starved, stumbled onto Beorn's isolated oasis, attempted to steal from the barn",
-"Beorn caught Mungo in the act and put him to work as indentured labor; over time they became genuine friends",
-"Beorn helped Mungo transition from burglarship to treasure hunting — now only steals from ruins and forgotten caches",
-"Party destination confirmed: Rivendell, approximately 150 miles east, bearing Mayor Graf's letter of introduction to Elrond",
-"Pipe-weed proficiency confirmed: 1 hour smoking before a long rest = 1 inspiration point (once per long rest)"
-]},
-{num:"6",title:"The Road East",
-summary:"Travel east in a severe storm. Dudo skied off the wagon on a cooking pan. Smoke plume investigated — lightning fire red herring. Leah found on the road — family slaughtered. Borin separated to escort her. The rest charged the farmstead.",
-events:[
-"Departed Bree heading east on the East Road; severe storm incoming — raced to cover ground",
-"Dudo tied a rope to the wagon and skied off the back at full speed using a cooking pan — achieved graceful full-speed muddy road skiing",
-"Smoke plume spotted 8-10 miles out; 1-mile climb up a 20-foot cliff (Dudo anchored the rope with an arrow, climbed with roll 30)",
-"The smoke source: a lightning-struck wildfire — a red herring; orc tracks confirmed they had continued east",
-"Horn of the Ruins blown at altitude — revealed mineral content of surrounding rock but no orcs in range",
-"Leah (called Isabel throughout this session — name corrected to Leah in Session 9.1) found running around a corner: sobbing, in shock, her whole family killed at the farmstead",
-"Carl suggested Borin escort her; Borin agreed without argument",
-"Tyr immediately sprinted toward the farmstead the moment the decision was made",
-"Dudo jumped off the moving wagon mid-approach and moved through trees to flank independently",
-"Both horses hit by arrows from farmstead windows as combat began at approximately 320 feet"
-]},
-{num:"7",title:"The Farmstead Battle",
-summary:"Dudo burned the farmhouse with fire arrows. Mungo silently killed three orcs inside — Gilgamesh watched from 200 feet and never heard a sound. Tyr killed the Chieftain with a greatsword throw. Mayo saved the barn. Black Speech booklet recovered.",
-events:[
-"Dudo flanked through the tree line, lit a fire arrow (Sleight of Hand 23), began shooting the farmhouse windows — second floor caught fire and spread upward",
-"Mungo slipped alone into the burning farmhouse; three orcs dropped from windows with no sound of struggle",
-"Gilgamesh watched from 200 feet with perception 20 and never heard a thing — this was the moment the party learned what Mungo actually is",
-"Wolf-riders emerged from the barn — multi-front combat",
-"Mayo ran into melee with Tyr in a shield-bearer formation; tried to tame the evil wolf three times (animal handling 18 each time); wolf refused — it had just eaten the farmstead family",
-"Mayo went down to a wolf bite — revived by Ring of Mending — kept fighting",
-"Tyr killed the Orc Chieftain with a greatsword throw",
-"The farmhouse burned to its stone walls",
-"After combat: Mayo pumped the artesian well and doused the barn repeatedly with buckets — the barn was saved",
-"Black Speech booklet found in a hidden pouch in the Chieftain's leather jacket — first written evidence of organized orc command in the tongue of the Enemy",
-"Beneath the barn floor: a trap door in a horse stall leads east through orc tunnels"
-]},
-{num:"8",title:"Into the Hill",
-summary:"Orc tunnels beneath the barn followed east to a troll cave. Gilgamesh investigated the wine barrel and got buzzed. The party hotboxed the tunnel with pipe weed. Tyr was spotted by returning trolls. Shouted FUCK YOU and sprinted into the night.",
-events:[
-"Locked barn shed breached: wine barrels, farm ledgers, pipe weed discovered",
-"Gilgamesh investigated the wine barrel — failed Constitution save — got noticeably buzzed; Tyr's arrow then punctured the barrel; improvised cooking-pot catchment system",
-"Horn of the Ruins blown into the trap door: confirmed the tunnel system below",
-"Party descended into the orc tunnels beneath the barn floor",
-"Tyr wrote his will in ink while walking through the tunnel",
-"The party hotboxed the tunnel with pipe weed during the traverse",
-"The troll cave at the tunnel's end: large chamber with a vine-curtained opening",
-"Trolls returned from raiding at dusk while the party was still investigating",
-"Tyr attempted to slip out past the returning trolls — was spotted",
-"Shouted FUCK YOU at three trolls (his movement speed: 40) — then sprinted into the night (his actual speed: 25)",
-"Session cliffhanger: three trolls in pursuit of Tyr in the dark"
-]},
-{num:"9.1",title:"Borin Escorts Leah",
-summary:"Borin's solo arc. All roleplay, no combat. Carried Leah on his back until she fell asleep on his shoulders. Delivered her safely to the Weaver cottage. Stayed an hour with the grieving family. Saw smoke on the horizon. Waved until out of sight. Then ran.",
-events:[
-"Borin and Leah set off from the party split point; she cycled between sobbing and whimpering",
-"Leah confirmed: orcs came up through a tunnel in the barn floor; her brother walked in and was cut down immediately; she heard screams and ran",
-"About two miles in: Leah's legs gave out; she climbed onto Borin's back; fell asleep on his shoulders within thirty minutes",
-"Borin made a terrible dad joke — she gave him a half-hearted laugh; it was enough",
-"Found the stacked-stone trail marker (perception 11 with advantage); the offshoot path climbed steeply up a large hill",
-"Arrived at the Weaver cottage; dog Rusty ran out first; Eowyn and Halrick emerged and went immediately defensive (Did he hurt you?); Leah vouched for him",
-"Borin set down his greataxe to show he was not a threat",
-"Delivered news of the family deaths carefully; Halrick sat on the front steps in stunned silence; Eowyn broke down weeping",
-"Stayed inside for over an hour sharing grief; Leah officially welcomed permanently into the Weaver household",
-"Stepped outside when the grief became too much — his own wife and children were on his mind",
-"Perception dirty 20 at ~5pm: thick column of smoke rising from approximately 10-12 miles away in the direction the party had gone",
-"Session ends: Borin alone at dusk, watching something burn on the horizon"
-]},
-{num:"9.2",title:"The Troll Fight / Borin Returns",
-summary:"Borin's harrowing solo return through the storm. Hid behind a dead cow from trolls. Three trolls killed. Jet-black dagger found inside a troll's thigh. Halrick gifted Borin a +1 warhammer. Party leveled up to Level 4.",
-events:[
-"Halrick retrieved a +1 versatile warhammer from his shed as a thank-you gift for bringing Leah safely; Borin traded his great club",
-"Leah gave Borin a quiet hug before he left; he walked to the property edge waving until out of sight; then ran",
-"Caught in a severe thunderstorm; sheltered under a rock outcropping; fashioned a large palm-leaf rain hat and named it Leafster",
-"Arrived at the farmstead clearing: house burned to stone walls; three trolls loading corpses and loot",
-"Hid behind a dead cow lying flat — 20 feet from the trolls — completely still",
-"Nearly discovered twice; went to stand up during a lightning flash — flinched — dropped the warhammer on his foot — involuntary grunt — trolls heard it",
-"Sprinted into the treeline; trolls gave brief chase then gave up; Borin urinated on himself; noted it was actually warm and somewhat comforting given how cold and wet he was",
-"Broke the barn lock timing hammer blows to thunder (athletics 24); decided to follow troll tracks rather than descend into dark tunnels alone",
-"Arrived at the cave entrance just as Mayo burst through the vines — initiative called",
-"TROLL FIGHT: All three trolls killed; Gilgamesh pulled the big troll's loincloth rope and it fell prone; Mungo scored Nat 20 + Nat 19 for 45 damage killing one troll; Borin delivered the killing blow on the one that had spotted him in the field",
-"Jet-black dagger found inside one troll's thigh — the body had grown flesh around it; blade ~4-5 inches, no runes, perfectly sized for a halfling",
-"Party leveled up to Level 4"
-]},
-{num:"10.2",title:"The Long Night After",
-summary:"Horn of the Ruins conflict exploded — Carl knocked Dudo unconscious and broke his kneecap. Carl sent to the barn. Borin forced reconciliation. Ravine ambush — Carl's liver wound. Eli the Tinker appeared with the recovered wagon.",
-events:[
-"Morning: Dudo tried to blow the Horn; Carl grabbed it back; Mungo swung at Carl's legs; Dudo caught Mungo's arm; escalating chaos",
-"Borin slammed Horic's Iron Hand Fang into the ground — DC 13 knockdown; Carl and Dudo went prone; Gilgamesh was mid-urination and soaked himself",
-"Carl's greataxe accidentally swung and knocked Dudo unconscious; Dudo fell backward onto a rock and broke his kneecap (8-day injury — movement halved)",
-"Borin picked up Mungo and threw him at Gilgamesh (caught him like a torpedo); then physically placed Carl and Dudo facing each other and tilted them until they made eye contact; forced handshakes",
-"Carl sent to the barn for the morning to cool down",
-"Mungo sanitized a wound by dipping his finger in his health potion — the potion turned from gold to nasty yellow",
-"Ravine ambush at near-sunset: 5 orcs from each side + goblin archers at the top firing poison arrows",
-"Carl went to 0 HP — stabbed through the liver; liver wound condition: poisoned for 2 days, cannot drink alcohol",
-"Gilgamesh used Ring of Mending to revive Carl to 1 HP; Carl immediately got up and hit the orc that dropped him",
-"Mungo charged up the ravine cliff at the goblin archer yelling FOR CARL! — then killed him",
-"Eli the Tinker appeared around the corner driving the party's wagon — claimed he found it abandoned in a field"
-]},
-{num:"11",title:"The Tinker's Teeth",
-summary:"Eli's true nature revealed. Cursed obsidian pendants. Poisoned mead — entire party fell except Borin and Tyr. Captured, imprisoned in a pit. Join or die ultimatum from a makeshift throne. Beorn arrived in the night and killed all six bandits alone in the dark. Eli escaped with the Black Speech booklet.",
-events:[
-"Eli led the party to an ancient circular ruin for shelter; distributed obsidian pendant trinkets as good luck charms — secretly cursed attunement devices",
-"Party slept with pendants — became attuned to Eli's mental assault power",
-"Next day: merchant caravan offered mead; Borin and Tyr resisted (Constitution save 17+ at disadvantage); everyone else fell unconscious",
-"Carl slumped over and fell onto Borin while driving the wagon; Borin grabbed the reins",
-"Six bandit horsemen surrounded the wagon; Borin and Tyr were the only conscious fighters — 2 vs 6",
-"Borin took 24 total damage across multiple rounds before going down; both eventually hog-tied",
-"Woke as prisoners in the wagon — off the main road; Borin recognized Eli's voice, confirming Eli directed the bandits from the beginning",
-"Brought to a briar-patch camp inside a 15-foot briar maze; thrown into a pit ~7-8 feet deep under a stone grate; all weapons removed",
-"While in the pit: overheard bandits discussing their failure to find a specific item in Bree that the orcs were supposed to help them access — they would have to report to the boss",
-"That item was the Palantir — which Elrond had already moved to Lake Town",
-"Eli brought them out: makeshift throne, whole lamb roasting on a spit, join us or die ultimatum",
-"Eli demonstrated pendant control: snapped his fingers — Carl's eyes rolled back; 30-second jolt dropped Carl to the ground (Carl had been verbally provoking Eli and earned each pulse)",
-"Party returned to pit to think over options; took a full long rest in the pit",
-"Night: Beorn arrived in bear form — glowing red eyes, ungodly huge; roaring; screaming; silence; sniffing; red eyes at the grate; lifted the stone; pulled Mungo out first",
-"Mungo threw a knife and ladder down for the rest; everyone freed",
-"Beorn in human form (massive 10-foot man): war is brewing in the east; they must hurry to Rivendell; the intel must reach Elrond immediately",
-"Beorn explained the obsidian pendant curse; working radius is a couple hundred feet — the party is safe as long as Eli is not near them",
-"Beorn called Tyr out: You should have known better. A black obsidian pendant — nothing more obvious of a cursed item.",
-"Eli was NOT among the six bodies — escaped before Beorn arrived with the Black Speech booklet, the party's wagon, and both horses",
-"Mungo lit the briar camp on fire — dry briars caught fast and burned completely",
-"Three days walking on foot north to the East Road, then east toward Rivendell"
-]},
-{num:"12",title:"The Last Road to Rivendell",
-summary:"Corrupted wolves producing toxic green mist — do NOT burn these. An illusory waterfall entrance. The healing pool at Rivendell cleared every ailment any party member had carried since the campaign began.",
-events:[
-"Final stretch east toward Rivendell; vegetation increasingly sickly and green-tinged",
-"Corrupted wolves encountered — producing toxic green mist when killed or burned; DO NOT burn these; the mist is from Dol Guldur's lingering influence",
-"Tyr's hidden paranoia condition from Session 11 fired secretly — he appeared aggressive and reckless but the party didn't question it",
-"An illusory waterfall appeared across the road; Mayo walked into it and disappeared momentarily; emerged on the other side in the valley",
-"First sight of Rivendell: a bowl of peace, tucked beneath the immense shoulders of the mountains — pale shining stone and dark timber, light from every window",
-"Two elven guards escorted the party to a bathing chamber with a natural heated pool",
-"The healing pool cleared every ailment, wound, curse, scar, and condition for everyone who bathed — Tyr's paranoia lifted; Dudo's kneecap healed completely",
-"Borin stripped immediately the moment the guards left — first naked into the pool, no hesitation",
-"Dudo to Carl in the pool: I think I can finally fully forgive you. My knee — it feels... I'm all better. Carl: I think I can finally forgive you for touching my horn.",
-"Party given silver-gray elven robes and told Elrond would receive them when ready"
-]},
-{num:"13",title:"The Last Homely House",
-summary:"Elrond's audience — Palantiri revealed, mission given, key ring assigned. Drinking contest aftermath. Two days east to the Misty Mountain foot. Sacrificial village found. A 16-year-old drawn in the lottery and sacrificed. Salted pork feast used to escape.",
-events:[
-"Elrond was already aware of the party — Aragorn had been filing reports on Tyr specifically through Ranger channels",
-"Elrond revealed the Palantiri: nine seeing stones made by Feanor; the Enemy possesses at least one and has been using it",
-"Elrond placed a Palantir in Bree nearly a century ago — the Red Claw assault on Bree and Eli's operation were both attempts to locate it before Elrond could move it",
-"Elrond moved the Bree Palantir to Lake Town — this explains the entire Red Claw assault on Bree",
-"Mission: travel to Lake Town (~300 miles northeast) and retrieve the Palantir before the Enemy can use or corrupt the master of Lake Town through it",
-"Gilgamesh protested giving Tyr the key ring — Elrond gave it to Tyr anyway",
-"Tyr's response to receiving the key ring: For sure gonna touch that Palantir.",
-"Elrond inscribed elvish runes (including his personal signature) into Tyr's sword personally — now +1 to hit",
-"Gilgamesh had a suppressed physical reaction when the village sacrifice creature was described — caught by Mungo (Nat 20) and Tyr (19); they exchanged knowing looks; Gilgamesh deflected; unresolved",
-"Informal drinking contest after the formal audience — everyone except Gilgamesh fell unconscious",
-"Gilgamesh: Quite the show you put on for me last night.",
-"Morning: outfitted with elven forest-green cloaks (+2 stealth), 2 health potions each, Lembas bread, salted pork, and a detailed map",
-"Horses sent back to Rivendell on Elrond's advice — the pass is inhumane for such creatures",
-"Two days east brought them to the Misty Mountain foot; encountered Bonkey at a stream muttering just gotta make it through another night",
-"Followed Bonkey to a small fortified village; witnessed the lottery; Tom — a 16-year-old — drew the last number; was hog-tied and throat-slit as the night's offering",
-"Confronted village leader Tyndell the next morning; shared salted pork with the starving village; slipped out the front gate while the townsfolk ate"
-]},
-{num:"14",title:"Into the Green Dark",
-summary:"Fled the village through increasingly swampy terrain. Fence chase escape. Alligator ambush — Mungo grappled underwater. Dead Marshes water hazard: ghostly faces caused paralysis. Ben (Tom's brother, 19 years old) joined. Carl served as living alligator bait.",
-events:[
-"Village noticed the party's absence; chase through the trees; fence escape sequence — Carl ran straight through the fence at full sprint (4 damage, created a party-sized hole everyone else used)",
-"Tracked the creature's green slime trail through increasingly dark and twisted swamp",
-"Alligator ambush: two 12-15 foot gators; Mungo grappled underwater; Gilgamesh scored a Nat 20-equivalent shot between the alligator's eyes — killed it instantly, freed Mungo. DON'T DO THAT SHIT TO ME!",
-"Dead Marshes water hazard: party fell into a sharp drop-off; half-decomposed ghostly faces beneath the water locked viewers in place with fear-paralysis; Borin wrapped a rope around a tree and pulled",
-"Ben emerged from behind a tree: 19 years old, brother of Tom, crude bow and 3-4 arrows, wants only revenge; insight check 24 confirmed he was completely truthful; party voted to let him come",
-"Ben said only: I want to watch him die. I want to be there when he dies.",
-"Carl volunteered as living alligator bait — waded into the lake splashing to draw ~15 gators to the near shore; hauled back just in time; said he trusted the party with his life",
-"Gilgamesh spotted the pale green logs that were actually alligators floating behind the party (perception 19)",
-"Party began swimming toward the island at session end"
-]},
-{num:"15",title:"Blood for Bloom",
-summary:"The Stump. Dudo's blood activated the bone altar. Zombie combat. Ben charged Maldwin the instant he saw him — killed instantly. Two-phase boss fight. Mayo shut the wardrobe. Listen here, you stupid witch — you're not even a wizard! Mungo's blind killing throw. The killing blow.",
-events:[
-"Party climbed onto the island; pulsating green veins, shifting runes, spongy ground leaving no footprints",
-"Bone altar on the ground floor: Dudo cut his hand; a few drops multiplied to fill all the grooves; the DM lingered on this moment; vine-ramp staircase built itself",
-"Zombie combat on the ground floor: five killed; Borin's unarmed strike broke the last one's neck",
-"Maldwin stepped out from beside the wardrobe: the last sea warden of the true light, keeper of the heart stolen from Valinor",
-"Maldwin's monologue: former healer and father; his people destroyed by Dol Guldur while the lords of Rivendell counted stars; found the Valinor seed in Dol Guldur's ruins; planted it; 19 winters of blood; zombie army aimed at Rivendell; offered the party eternal life from the cauldron",
-"Maldwin immediately identified Gilgamesh as an elf and became consumed with rage — elves and this corruption have history",
-"Ben charged the instant he saw Maldwin — no words, no plan, no hesitation — Maldwin killed him instantly. Maldwin then raised him as a zombie.",
-"Mungo killed reanimated Ben: sorry I gotta do this to ya",
-"BOSS FIGHT: Carl's critical hit triggered phase 2 — Listen here, you stupid witch — you're not even a wizard! — four d12 damage dice",
-"Mayo ran 30 feet across the room and slammed the wardrobe shut (strength 12 — barely enough) before more zombies could emerge",
-"Gilgamesh toppled the wardrobe (strength 13 + Rhymes die = 23 vs DC 20); wardrobe crashed down; party piled bodies on top",
-"Phase 2: Maldwin swelled to Huge size, became partially translucent, unleashed a 30-foot acid cone (4d6, DC 14 Dex save)",
-"Mungo was blinded by acid; ran across the room; located Maldwin by sound; threw his dagger on disadvantage — hit Maldwin in the side of the head; Maldwin had 4 HP remaining and collapsed. The killing blow.",
-"The table erupted."
-]},
-{num:"16",title:"The Seed of the Fallen Trees",
-summary:"Second zombie wave through the walls — 6-7 breach points. Dudo's sword fell during ceiling climb — hit Tyr's neck — Tyr went to 0 HP from friendly fire. Mayo's death save Nat 20. Mungo catapulted to ceiling. Dudo carved the node free with a Nat 20 — all zombies dropped. Tyr found the Iron of Death. Level up.",
-events:[
-"Three zombies up the vine ramp immediately; Tyr climbed onto Mayo's shoulders",
-"Tyr attacked the ceiling node (Nat 20 and 21 rolled — took lower = 21 to hit at disadvantage); 16 damage; all zombies in the room briefly seized",
-"Dudo climbed the vined ceiling to reach the node; sword knocked from his hand on a missed strike — fell directly onto Tyr's neck; Tyr went to 0 HP from friendly fire",
-"Gilgamesh used the Ring of Mending to revive Tyr to 1 HP",
-"6-7 zombie breach points through the walls simultaneously — second wave from all directions",
-"Mungo threw his dagger up to Dudo (Nat 20 — stuck into the ceiling center); Dudo grabbed it",
-"Borin used Baruch Kazan (DC 15 Charisma check): 5 of 6 zombies became frightened for one round",
-"Carl used Leadership: 4 HP granted to Tyr, Gilgamesh, Borin, and Mungo simultaneously",
-"Mayo went down to a zombie bite — death save Nat 20 — stabilized at 1 HP; Borin woke her with gentle face-slaps; her first words: That hurt",
-"Tyr went down a second time from a zombie attack at 1 HP; Gilgamesh poured a health potion on him (Medicine 6 — botched; went down the wrong pipe; Tyr hacked most of it up but survived; spent the rest of the fight coughing)",
-"Tyr and Borin locked arms; catapulted Mungo to the ceiling (Nat 20 + 4 modifier = 24); Mungo drove his short sword into the node for 14 damage",
-"Dudo carved the node free with a Nat 20 — approximately 19 damage; the node split; a large gray seed pod fell from the ceiling",
-"All zombies dropped simultaneously; every glowing green pair of eyes extinguished at once; Maldwin's body dissolved into gray goo",
-"Tyr's Nat 20 Lore check: seed pod is corrupted lineage of the Two Trees of Valinor; planted to breed an army for Rivendell; the party was TWO DAYS from Rivendell the entire time they were in the swamp",
-"Tyr found the Iron of Death buried at the bottom of the confiscated weapons pile — the only item in perfect condition after decades of neglect",
-"Party leveled up"
-]},
-{num:"17.2",title:"Out of the Stump, Into the Mountains",
-summary:"Escaped via the alligator lake. Discovery: there was a BOAT the entire time. Carl had seen it. Said nothing. Borin nearly drowned under his gold. Mountain ascent. Giant bat creatures flying north. Orc ping within 3 miles. Two large unknown creatures at camp. Session ends mid-initiative. \uD83D\uDD34",
-events:[
-"Dawn exit through the alligator lake — stealth check sequence for the swim",
-"Discovery: A BOAT was tied to the far side of the stump THE ENTIRE TIME. Carl had seen it during the island approach. Said nothing. The party had swum through alligators.",
-"Borin sank under the weight of his gold and equipment in the lake — Mayo dove in after him and pulled him out",
-"Exited the swamp; backtracked toward the mountains; from elevated ground saw the village location — vultures circling, faint smoke; party voted not to return",
-"Mountain ascent: winding game trail, vegetation thinning to bare rock, temperature dropping sharply",
-"Giant bat-like creatures observed flying north in formation carrying humanoid corpses — entirely unknown species; Tyr's lore check: 9 — completely outside his knowledge base",
-"A symmetrical black cloud crossed the sun briefly — not weather",
-"Borin's Rumor of the Earth at dusk camp: orcs within 3 miles — living or corpse-carried by the bats, unknown",
-"Tyr found a rocky cove shelter (Nature Nat 20 with Dudo's assistance to remove exhaustion disadvantage)",
-"No fire agreed — bat creatures overhead made fire too risky despite the cold and damp",
-"Night watch: Tyr heard a faint howl around midnight; thought he heard a twig snap; Borin took over watch",
-"2-3 AM: Tyr's perception 21 — definite large shadow, shuffling and sniffing approximately 40-50 feet out; woke Mungo",
-"Tyr lit an arrow and fired blind at the sound (16 to hit at disadvantage) — hit one of two large furry shapes; 20 total damage; loud yelp-roar",
-"SESSION ENDS MID-INITIATIVE. Two large unknown creatures. \uD83D\uDD34"
-]},
-];
+// ── STATE ────────────────────────────────────────────────────
+let page = 'home', detail = null, more = false, momTab = 'epic', worldTab = 'npcs';
+let edits = {};
+try { edits = JSON.parse(localStorage.getItem('mew-edits')||'{}'); } catch(e){}
 
+function navigate(p, d, skipHistory) {
+  page = p; detail = d||null; more = false;
+  if (!skipHistory) {
+    history.pushState({page:p,detail:d||null}, '', d ? '#'+p+'/'+d : '#'+p);
+  }
+  render();
+}
+window.addEventListener('popstate', e => {
+  if (e.state) { page = e.state.page||'home'; detail = e.state.detail||null; }
+  else { page='home'; detail=null; }
+  more = false; render();
+});
+const PARTY = [{"id": "borin", "name": "Borin Ironjaw", "player": "Josh", "race": "Dwarf Warden", "tag": "Pragmatic, fatherly. Fights for his family back home.", "bio": "Borin negotiated 2,000 gold from Mayor Graf before agreeing to anything, carried young Leah on his back until she fell asleep on his shoulders, and once hid behind a dead cow from three trolls while privately noting that urinating on himself was warm and comforting. He misses his wife and kids.", "facts": ["Rumor of the Earth: sense orcs within 3 miles once per rest", "Horic's Iron Hand Fang: +1 warhammer, DC 13 crowd-control on all nearby targets", "Negotiated 2,000 gold + shield + horses from Mayor Graf after the Battle of Bree", "Carried Leah miles through wilderness \u2014 waved until out of sight, then ran"], "funny": ["Named his palm-leaf rain hat Leafster and carried it through a thunderstorm", "Urinated on himself hiding from trolls \u2014 noted it was actually warm and comforting", "Picked up Mungo and threw him at Gilgamesh to break up a fight (Gilgamesh caught him)"]}, {"id": "carl", "name": "Carl Pickthron", "player": "Tyler", "race": "Human Fighter (Champion)", "tag": "Brave to the point of recklessness. Carries grief loudly.", "bio": "Carl was drunk at the Prancing Pony talking about Mungo before the battle. He volunteered as living alligator bait because he trusted the party with his life. He declared Listen here, you stupid witch \u2014 you're not even a wizard! right before the crit that triggered Maldwin's phase 2.", "facts": ["Crits on 19-20 with 4d12 extra damage dice", "Holds the Horn of the Ruins (3D echolocation when blown clearly)", "Accidentally knocked Dudo unconscious with his greataxe over a Horn dispute", "Volunteered as living alligator bait \u2014 15 gators converged; hauled back in time"], "funny": ["Was drunk polishing his greataxe before the biggest battle in living memory", "Slumped onto Borin when the poisoned mead hit while driving the wagon", "THERE WAS A BOAT. Carl had seen it. Said nothing. Party swam through alligators."]}, {"id": "dudo", "name": "Dudo Maggot", "player": "Calvin", "race": "Halfling Rogue", "tag": "Tiny, lethal, almost certainly the party's most dangerous member.", "bio": "Dudo is 3 feet tall, rolls stealth 26, and wrote Santa's Little Helper on Tyr's forehead while he meditated. The blood altar in Maldwin's stump responded specifically to his blood. Nobody has asked why.", "facts": ["Stealth 26 \u2014 described as becoming one with the shadows", "Nat 20 sneak attack up through an orc's groin \u2014 the campaign's opening kill", "Jet-black dagger found inside a troll's thigh (+1 to hit, Con save on hit)", "His blood activated the bone altar \u2014 multiplied significantly on contact"], "funny": ["Wrote Santa's Little Helper on Tyr's forehead while meditating \u2014 discovered in Bree by Finn", "Skied off the moving wagon during a rainstorm using a rope and cooking pan", "Sword fell during ceiling climb and hit Tyr in the neck \u2014 friendly fire 0 HP"]}, {"id": "gilgamesh", "name": "Gilgamesh Artemis", "player": "Aaron / AP", "race": "Elf Scholar / Archer", "tag": "Artist. Tactician. The only one conscious during the mead incident.", "bio": "Gilgamesh built a Nat 20 camouflaged sniper nest on the mayor's roof. He holds the Ring of Mending. He had a reaction at Rivendell when the village sacrifice creature was described that both Mungo and Tyr caught. He deflected. It has not been explained.", "facts": ["Ring of Mending: revive 1 downed to 1 HP (1/long rest); cure poison (2/day)", "Shortbow +6 \u2014 awarded as annual hunt prize from Mayor Graf", "Barrel explosion: gate destroyed + 15-20 orcs gone simultaneously", "Had a suppressed reaction at Rivendell \u2014 caught by Mungo (Nat 20) and Tyr (19)"], "funny": ["Got buzzed investigating the farmstead wine barrel \u2014 Tyr's arrow then punctured it", "Nearly fell off the mayor's 3-story roof building his sniper nest", "Protested Elrond giving Tyr the key ring \u2014 Elrond gave it to Tyr anyway"]}, {"id": "mayo", "name": "Mayo (May O.)", "player": "Alec", "race": "Dwarf Captain / Healer", "tag": "The reliable backbone. Makes sure things don't fall apart.", "bio": "Mayo pumped the artesian well while wounded at ~4 HP. They ran 30 feet to slam the wardrobe shut on the zombie horde \u2014 strength 12, barely made it. Tried to tame an evil wolf three times. It had just eaten a family. It refused every time.", "facts": ["Protection: impose disadvantage on attacks against adjacent allies", "Ran 30 feet to slam wardrobe shut \u2014 prevented a fight-ending zombie wave", "Went down to a zombie bite \u2014 death save Nat 20 \u2014 stabilized at 1 HP", "Let Tyr stand on her shoulders to reach the ceiling node"], "funny": ["Tried to tame an evil wolf three times with patient animal handling. It refused every time.", "Mungo kept nudging the wagon horses faster when she told him to slow down, grinning", "That hurt. \u2014 first words after Borin woke her from death's door with face-slaps"]}, {"id": "mungo", "name": "Mungo Grubb", "player": "Jesse (DM)", "race": "Hobbit Treasure Hunter", "tag": "More dangerous than he looks. Much more.", "bio": "Mungo is a cheerful hobbit who used to be a burglar and has a personal friendship with Beorn. He silently killed three orcs inside a burning farmhouse \u2014 Gilgamesh watched from 200 feet and never heard a sound. He threw a dagger blind, running, on disadvantage, and hit Maldwin in the head for the killing blow.", "facts": ["Former burglar \u2014 Beorn caught him stealing and they became genuine friends over 7 years", "Silent triple kill inside the burning farmhouse \u2014 Gilgamesh never heard a thing", "Catapulted to the ceiling by Tyr + Borin (strength check 24 + 21)", "Blind dagger throw, running, on disadvantage \u2014 hit Maldwin in the head. The killing blow."], "funny": ["Health potion turned nasty yellow after dipping a sanitizing finger in it", "Kept nudging the wagon horses faster after being told to slow down, grinning", "Yelled FOR CARL! charging up a cliff at the goblin that just dropped Carl"]}, {"id": "tyr", "name": "Tyr", "player": "Gabe", "race": "Ranger of the North (Dunedain)", "tag": "Elrond knows his name. Aragorn files reports about him.", "bio": "Tyr is a Dunedain Ranger. Elrond had already heard of him through Aragorn before the party arrived. He carries the Iron of Death, a Numenorean greatsword made by his ancestors found in Maldwin's sacrifice pile. He has stated explicitly in character that he will touch the Palantir.", "facts": ["Iron of Death: Numenorean greatsword, bane vs. orcs and trolls, bonus action attack", "Holds the silver ring key to the Palantir lockbox in Lake Town", "Said in character: For sure gonna touch that Palantir \u2014 despite Elrond's warning", "Shouted FUCK YOU at three trolls (speed 40) then sprinted into night (speed 25)"], "funny": ["Shouted FUCK YOU at three trolls \u2014 they gave chase at 40 speed vs his 25", "Had Santa's Little Helper on forehead \u2014 discovered by Finn the blacksmith in Bree", "Beorn: You should have known better. A black obsidian pendant is obviously cursed."]}];
+const NPCS = [{"id": "halvar", "name": "Halvar Greycloak", "status": "alive", "role": "Ranger Commander", "desc": "Commander of Grey Watch Hollow. Marched all 5 rangers to Bree's defense \u2014 unprecedented. Seven Rangers of the North together immediately transformed morale across the town."}, {"id": "elrond", "name": "Elrond Half-elven", "status": "alive", "role": "Lord of Rivendell", "desc": "Had already heard of the party through Aragorn before they arrived. Revealed the Palantir mission. Inscribed Tyr's sword. Gave Tyr the key ring over Gilgamesh's objection. Assembling a council: Gandalf, Aragorn, and Saruman."}, {"id": "beorn", "name": "Beorn", "status": "alive", "role": "Skin-changer, Mysterious Ally", "desc": "Shifts between human and bear form (glowing red eyes, ungodly huge). Known personally to Mungo. Rescued the party from the briar-patch camp by killing all six bandits alone in the dark. Destroyed the second orc wave on the 30th."}, {"id": "leah", "name": "Leah", "status": "safe", "role": "Young Survivor", "desc": "Young girl whose family was killed by orcs. Borin carried her on his back until she fell asleep on his shoulders. Now permanently with aunt Eowyn and uncle Halrick Weaver. Gave Borin a quiet hug before he left."}, {"id": "graf", "name": "Mayor Graf Woodfoot", "status": "alive", "role": "Mayor of Bree", "desc": "Practical and grateful. Paid 2,000 gold (negotiated by Borin), provided horses, wagon, and a letter of introduction to Elrond. Has an unused favor owed to the party."}, {"id": "finn", "name": "Finn", "status": "alive", "role": "Blacksmith's Assistant, Bree", "desc": "First person to notice Santa's Little Helper on Tyr's forehead. Borin developed genuine warmth toward him \u2014 sees him as something like a son-figure."}, {"id": "barliman", "name": "Barliman Butterbur", "status": "alive", "role": "Innkeeper, The Prancing Pony", "desc": "Deeply decent innkeeper, shaken by the battle. Gave useful intel: Rivendell elves are noble but genuinely kind; even 300 orcs is a small band by fortress standards."}, {"id": "eli", "name": "Eli the Tinker", "status": "hostile", "role": "Enemy Operative", "desc": "Appeared helpful. Was lying. Distributed cursed obsidian pendants, engineered capture via poisoned mead, offered a join or die ultimatum. Escaped with the Black Speech booklet. Reports to an unknown boss."}, {"id": "maldwin", "name": "Maldwin", "status": "dead", "role": "The Last Sea Warden", "desc": "Centuries-old human driven mad by grief. Planted a Valinor seed and fed it blood for 19 winters to build a zombie army aimed at Rivendell. Killed by Mungo's blind dagger throw. The party was two days from Rivendell the whole time."}, {"id": "ben", "name": "Ben", "status": "dead", "role": "Civilian Companion", "desc": "19 years old. His brother Tom was sacrificed in the village lottery. Followed the party into the swamp alone. When he saw Maldwin, he charged without words or hesitation. Killed instantly. He died doing the only thing he had left to do."}, {"id": "mez", "name": "Mez", "status": "unknown", "role": "Innkeeper, Sacrificial Village", "desc": "Innkeeper of the unnamed sacrificial village. His wife was sacrificed five moons before the party arrived. Status unknown after the bat raid."}, {"id": "bonkey", "name": "Bonkey", "status": "unknown", "role": "Water-Fetcher, Sacrificial Village", "desc": "The only villager permitted outside. Found muttering just gotta make it through another night. Led the party unknowingly to the village. Wore an iron medallion shaped like an open mouth."}];
+const SESSIONS = [{"num": "1-2", "title": "The Beginning", "summary": "Annual hunt at the Chetwood Ruins. Ring of Mending retrieved from an underground pool. Horn of the Ruins found. Someone yelled Echo \u2014 hundreds of orcs gave chase. Carl nearly dragged underground. All hunting kills vanished from the surface \u2014 giant footprints. NOW KNOWN: Beorn. Party split: Borin/Mayo/Mungo west; Tyr/Carl/Gilgamesh/Dudo east.", "events": ["Annual hunt assembled at the Prancing Pony \u2014 prizes of weapons and coin", "Chetwood Ruins investigated: looted orc bodies, puzzles, stone carvings, trapped box blinded someone", "Descended underground, reached a large circular chamber", "Ring of Mending retrieved from a pool \u2014 it slammed down before Carl took it", "Horn of the Ruins found in a surface room", "Someone yelled Echo \u2014 hundreds of orcs gave chase", "Carl nearly dragged underground by orcs grabbing his legs", "Party escaped and locked the orcs below", "All hunting kills had vanished \u2014 only giant 1.5-foot-diameter footprints. NOW KNOWN: Beorn", "Party split: Borin/Mayo/Mungo west to warn Bree; Tyr/Carl/Gilgamesh/Dudo east to Grey Watch Hollow"]}, {"num": "3", "title": "The Night March", "summary": "Tyr led a 15-mile night march to Grey Watch Hollow. Two combats en route. Halvar Greycloak marched 5 rangers to Bree. Arrived to find Mungo missing.", "events": ["15-mile night march through the Chetwood in near-total darkness", "Massive fallen oak blocked the path \u2014 45 minutes to bypass; Gilgamesh took exhaustion", "COMBAT 1: Four orcs ambushed on the forest road \u2014 intercepted message: attack moved from the 30th to the 27th", "Dudo scored a Nat 20 Sneak Attack up through an orc's groin \u2014 the orc died screaming", "Carl delivered the killing blow \u2014 a beheading; the head landed on the axe hilt", "COMBAT 2: Wolf pack attacked camp at 1am; Dudo shot himself (Nat 1), fell from tree, jumped onto wolf's back and stabbed through neck", "Wolf chieftain survived with 2 HP and fled", "Dudo wrote Santa's Little Helper on Tyr's forehead while he meditated", "Arrived at Grey Watch Hollow at 3am; Halvar marched all five rangers to Bree at dawn", "Returned to Bree with 7 Rangers total \u2014 unprecedented sight boosted morale immediately", "Arrived to find Mungo missing \u2014 his tracks simply stopped; no blood, no body"]}, {"num": "4", "title": "The Battle of Bree", "summary": "~250-300 orcs attacked Bree. ~175 killed; ~75 townspeople dead. Gilgamesh's barrel explosion destroyed the gate. Carl dedicated a kill to Mungo. Borin negotiated 2,000 gold afterward.", "events": ["Carl drunk and polishing his greataxe at the Prancing Pony before the battle, monologuing about Mungo", "Borin spent the afternoon failing to find a shield from anyone in town", "Gilgamesh built a Nat 20 camouflaged sniper nest on the mayor's roof \u2014 permanently looks like architecture", "Carl blew the Horn at Mungo's disappearance site on his last inspiration \u2014 began to cry; held the note as long as he could", "At sunset: ~300 orcs in two formations emerged from the tree line; horns blared; sprint toward town", "Party traps took ~50 orcs on approach", "Gilgamesh threw cooking fuel off the roof and dropped a torch \u2014 gate destroyed + 15-20 orcs gone", "Carl decapitated an orc and dedicated it to Mungo: Thats for Mungo, bitch!", "Carl dropped to 6-8 HP \u2014 nearly died", "Five elite orc warriors + chieftain broke through the burning gate \u2014 all six killed", "~175 orcs total killed; ~75 townspeople dead", "Borin negotiated 2,000 gold + finesse shield + horses + wagon \u2014 before agreeing to anything"]}, {"num": "5", "title": "Morning After / Mungo Returns", "summary": "Mungo returned alive. Revealed as taken by Beorn \u2014 a skin-changer he had met 7 years ago. The Vanisher mystery solved. Destination confirmed: Rivendell.", "events": ["Mayor Graf's morning meeting \u2014 the party commissioned as ambassadors and hunters", "Mungo returned: taken by Beorn during the Chetwood retreat \u2014 not harmed", "Beorn revealed as the Vanisher \u2014 his giant footprints took all the surface hunting kills", "Mungo's backstory: former burglar, caught stealing from merchants, nearly starved, found Beorn's oasis, became friends", "Beorn helped Mungo transition from burglarship to treasure hunting \u2014 now only steals from ruins and forgotten caches", "Destination confirmed: Rivendell, ~150 miles east, with Mayor Graf's letter of introduction to Elrond"]}, {"num": "6", "title": "The Road East", "summary": "Travel east in a severe storm. Dudo skied off the wagon on a cooking pan. Smoke plume investigated \u2014 lightning fire red herring. Leah found on the road \u2014 family slaughtered. Borin separated to escort her. The rest charged the farmstead.", "events": ["Departed Bree heading east; severe storm incoming", "Dudo tied a rope to the wagon and skied off the back using a cooking pan \u2014 graceful success", "Smoke plume spotted 8-10 miles out; investigated \u2014 lightning wildfire; orc tracks continued east", "Horn of the Ruins at altitude revealed only mineral content \u2014 no orcs in range", "Leah (called Isabel in this session \u2014 corrected to Leah in Session 9.1) found running on the road, family slaughtered", "Carl suggested Borin escort her; Borin agreed without argument", "Tyr immediately sprinted toward the farmstead the moment the decision was made", "Both horses hit by arrows from farmstead windows as combat began"]}, {"num": "7", "title": "The Farmstead Battle", "summary": "Dudo burned the farmhouse. Mungo silently killed three orcs inside. Tyr killed the Chieftain with a greatsword throw. Mayo saved the barn. Black Speech booklet recovered.", "events": ["Dudo lit fire arrows \u2014 second floor caught; house burned to its stone walls", "Mungo slipped alone into the burning farmhouse; three orcs dropped from windows with no sound of struggle", "Gilgamesh watched from 200 feet with perception 20 and never heard a thing \u2014 this is what Mungo actually is", "Mayo tried to tame the evil wolf three times (animal handling 18 each time) \u2014 wolf had just eaten the farmstead family; refused", "Mayo went down to a wolf bite \u2014 revived by Ring of Mending \u2014 kept fighting", "Tyr killed the Orc Chieftain with a greatsword throw", "Mayo saved the barn by bucket-brigading the artesian well", "Black Speech booklet found in a hidden pouch in the Chieftain's jacket", "Beneath the barn floor: a trap door in a horse stall leads east through orc tunnels"]}, {"num": "8", "title": "Into the Hill", "summary": "Orc tunnels followed east to a troll cave. Gilgamesh investigated the wine barrel and got buzzed. Party hotboxed the tunnel with pipe weed. Tyr spotted by returning trolls. Shouted FUCK YOU and sprinted into the night.", "events": ["Locked barn shed breached: wine barrels, pipe weed, farm ledgers", "Gilgamesh investigated the wine barrel \u2014 failed Con save \u2014 got buzzed; Tyr's arrow punctured the barrel; improvised pot catchment", "Horn of the Ruins blown into the trap door \u2014 confirmed tunnel system below", "Party descended; Tyr wrote his will in ink while walking; hotboxed the tunnel with pipe weed", "Large troll cave at the tunnel end", "Trolls returned from raiding at dusk while party was still investigating", "Tyr spotted while trying to slip out \u2014 shouted FUCK YOU at three trolls (speed 40) and sprinted into night (speed 25)", "Session cliffhanger: three trolls in pursuit"]}, {"num": "9.1", "title": "Borin Escorts Leah", "summary": "Borin's solo arc \u2014 all roleplay, no combat. Carried Leah on his back until she fell asleep on his shoulders. Delivered her safely to the Weaver cottage. Saw smoke on the horizon. Waved until out of sight. Then ran.", "events": ["Leah confirmed: orcs came up through the barn floor; her brother walked in and was cut down immediately", "About two miles in, Leah's legs gave out; she climbed onto Borin's back; fell asleep on his shoulders", "Borin made a terrible dad joke \u2014 she gave him a half-hearted laugh; it was enough", "Found the stacked-stone trail marker; climbed steeply up a large hill to the Weaver cottage", "Dog Rusty ran out first; Eowyn and Halrick went immediately defensive (Did he hurt you?); Leah vouched for Borin", "Borin set down his greataxe to signal he was not a threat", "Delivered news of the deaths carefully; Halrick sat in stunned silence; Eowyn broke down weeping", "Stayed an hour sharing grief; Leah officially welcomed permanently into the Weaver household", "Stepped outside when the grief became too much \u2014 his own wife and children were on his mind", "Perception dirty 20: thick column of smoke 10-12 miles away in the direction the party had gone", "Session ends: Borin alone at dusk, watching something burn on the horizon"]}, {"num": "9.2", "title": "The Troll Fight / Borin Returns", "summary": "Borin hid behind a dead cow from trolls. Urinated on himself. Three trolls killed. Jet-black dagger found inside a troll's thigh. Halrick gifted Borin a +1 warhammer. Level 4.", "events": ["Halrick gifted a +1 versatile warhammer as thanks for bringing Leah safely; Borin traded his great club", "Leah gave Borin a quiet hug; he walked to the property edge waving until out of sight; then ran", "Caught in a severe thunderstorm; sheltered under a rock outcropping; fashioned a palm-leaf hat and named it Leafster", "Arrived at the farmstead: house burned to stone walls; three massive trolls loading corpses and loot", "Hid behind a dead cow, lying flat \u2014 20 feet from the trolls \u2014 completely still", "Nearly discovered twice; dropped the warhammer on his foot \u2014 involuntary grunt \u2014 trolls heard it", "Sprinted into the treeline; trolls gave brief chase then gave up; urinated on himself; noted it was warm and comforting", "Broke the barn lock timing hammer blows to thunder (athletics 24); followed troll tracks rather than go into dark tunnels alone", "Arrived at the cave entrance just as Mayo burst through the vines \u2014 initiative called", "TROLL FIGHT: All three trolls killed; Gilgamesh pulled the leader's loincloth \u2014 it fell prone; Mungo scored Nat 20 + Nat 19 (Keen) for 45 damage; Borin delivered the killing blow on the one that had spotted him", "Jet-black dagger found inside one troll's thigh \u2014 the body had grown flesh around it; perfectly sized for a halfling", "Party leveled up to Level 4"]}, {"num": "10.2", "title": "The Long Night After", "summary": "Horn dispute \u2014 Carl knocked Dudo unconscious and broke his kneecap. Borin forced reconciliation. Ravine ambush \u2014 Carl's liver wound. Eli the Tinker appeared with the recovered wagon.", "events": ["Morning: Dudo tried to blow the Horn; Carl grabbed it back; Mungo swung at Carl; escalating chaos", "Borin slammed Horic's Iron Hand Fang into the ground \u2014 DC 13 knockdown; Carl and Dudo went prone; Gilgamesh soaked himself", "Carl's greataxe accidentally knocked Dudo unconscious; Dudo broke his kneecap on a rock (8-day injury)", "Borin picked up Mungo and threw him at Gilgamesh (caught like a torpedo); placed Carl and Dudo facing each other; forced reconciliation", "Mungo dipped his finger in his health potion to sanitize \u2014 the potion turned from gold to nasty yellow", "Ravine ambush: 5 orcs each side + goblin archers at the top; poison arrows", "Carl's liver was stabbed \u2014 0 HP; poisoned condition: 2 days, cannot drink alcohol", "Gilgamesh used Ring of Mending to revive Carl; Carl immediately got up and hit the orc that dropped him", "Mungo yelled FOR CARL! charging up the cliff at the goblin archer \u2014 then killed him", "Eli the Tinker appeared driving the party's wagon \u2014 claimed he found it abandoned in a field"]}, {"num": "11", "title": "The Tinker's Teeth", "summary": "Eli's true nature revealed. Cursed pendants. Poisoned mead \u2014 entire party fell except Borin and Tyr. Captured, imprisoned in a pit. Join or die ultimatum. Beorn killed all six bandits alone in the dark. Eli escaped with the Black Speech booklet.", "events": ["Eli led the party to a circular ruin; distributed obsidian pendant trinkets as good luck charms \u2014 secretly cursed attunement devices", "Party slept with pendants \u2014 became attuned to Eli's mental assault power", "Merchant caravan offered mead; Borin and Tyr resisted (Con 17+); everyone else fell unconscious", "Six bandit horsemen surrounded the wagon; Borin and Tyr fought 2v6; both eventually hog-tied", "Woke as prisoners \u2014 Borin recognized Eli's voice, confirming he directed the bandits", "Brought to a briar-patch camp; thrown into a pit 7-8 feet deep under a stone grate; all weapons removed", "In the pit: overheard bandits \u2014 they failed to find a specific item in Bree that the orcs were supposed to help them access; they must report to the boss", "That item was the Palantir \u2014 which Elrond had already moved to Lake Town", "Eli brought them out: makeshift throne, whole lamb roasting, join us or die ultimatum", "Eli demonstrated pendant control: snapped his fingers \u2014 Carl's eyes rolled back; 30-second jolt dropped Carl to the ground", "Party returned to pit; took a full long rest", "Night: Beorn arrived in bear form \u2014 glowing red eyes; killed all six bandits alone in the dark; lifted the stone grate; pulled Mungo out first", "Mungo threw a knife and ladder down for the rest; everyone freed", "Beorn warned: war is brewing in the east; reach Elrond immediately; explained the pendant curse", "Eli was NOT among the six bodies \u2014 escaped with the Black Speech booklet, the wagon, and both horses", "Mungo lit the briar camp on fire \u2014 it burned completely", "Three days walking to Rivendell on foot"]}, {"num": "12", "title": "The Last Road to Rivendell", "summary": "Corrupted wolves \u2014 do NOT burn (toxic green mist). Illusory waterfall entrance. The healing pool at Rivendell cleared every ailment any party member had carried since the campaign began.", "events": ["Final stretch east; vegetation increasingly sickly and green-tinged", "Corrupted wolves encountered \u2014 produce toxic green mist when burned; DO NOT use fire against these", "An illusory waterfall appeared across the road; Mayo walked into it and disappeared; emerged in the Rivendell valley", "First sight of Rivendell: a bowl of peace, tucked beneath the immense shoulders of the mountains", "Two elven guards escorted the party to a bathing chamber with a natural heated pool", "The healing pool cleared every ailment, wound, curse, scar, and condition for everyone \u2014 Tyr's paranoia lifted; Dudo's kneecap healed", "Borin stripped immediately the moment the guards left \u2014 first naked into the pool", "Dudo to Carl in the pool: I think I can finally fully forgive you. My knee \u2014 it feels\u2026 Carl: I think I can finally forgive you for touching my horn.", "Party given silver-gray elven robes and told Elrond would receive them when ready"]}, {"num": "13", "title": "The Last Homely House", "summary": "Elrond's audience \u2014 Palantiri revealed, mission given, key ring assigned to Tyr. Drinking contest aftermath. Sacrificial village found. A 16-year-old drawn in the lottery and sacrificed. Salted pork feast used to escape.", "events": ["Elrond was already aware of the party \u2014 Aragorn had been filing reports on Tyr specifically", "Elrond revealed the Palantiri: nine seeing stones; the Enemy possesses at least one", "Elrond placed a Palantir in Bree \u2014 the Red Claw assault and Eli's operation were both attempts to locate it; Elrond moved it to Lake Town first", "Mission: retrieve the Palantir from Lake Town before the Enemy uses or corrupts the master of Lake Town", "Gilgamesh protested giving Tyr the key ring \u2014 Elrond gave it to Tyr anyway", "Tyr's response: For sure gonna touch that Palantir.", "Elrond inscribed elvish runes personally into Tyr's sword \u2014 now +1 to hit", "Gilgamesh had a suppressed reaction when the village creature was described \u2014 caught by Mungo (Nat 20) and Tyr (19); deflected; unresolved", "Drinking contest \u2014 everyone except Gilgamesh fell unconscious; Gilgamesh: Quite the show you put on for me last night", "Morning: outfitted with elven cloaks (+2 stealth), 2 health potions each, Lembas, salted pork, detailed map", "Horses sent back to Rivendell \u2014 the pass is inhumane for such creatures", "Encountered Bonkey at a stream muttering just gotta make it through another night", "Followed him to a sacrificial village; witnessed the lottery; Tom \u2014 16 years old \u2014 was drawn and sacrificed", "Confronted village leader Tyndell the next morning; shared salted pork with the starving village; slipped out the gate while they ate"]}, {"num": "14", "title": "Into the Green Dark", "summary": "Fled the village through the swamp. Alligator ambush \u2014 Mungo grappled underwater. Dead Marshes water hazard. Ben (Tom's brother, 19) joined. Carl served as living alligator bait.", "events": ["Village noticed the party's absence; chase through trees; Carl ran straight through the fence for 4 damage, creating a party-sized hole", "Tracked the creature's green slime trail through increasingly dark and twisted swamp", "Alligator ambush: Mungo grappled underwater; Gilgamesh scored a Nat 20-equivalent shot between the gator's eyes \u2014 killed it instantly, freed Mungo. DON'T DO THAT SHIT TO ME!", "Dead Marshes water hazard: ghostly faces beneath the water locked viewers in place with fear-paralysis", "Borin wrapped a rope around a tree and pulled the paralyzed party members out", "Ben emerged: 19 years old, Tom's brother, crude bow and 3-4 arrows, wants only revenge; insight 24 confirmed he was completely truthful; party voted to let him come", "Carl volunteered as living alligator bait \u2014 waded into the lake splashing; 15 gators converged; hauled back just in time", "Gilgamesh spotted the pale green logs that were actually alligators floating behind the party", "Party began swimming toward the island at session end"]}, {"num": "15", "title": "Blood for Bloom", "summary": "The Stump. Dudo's blood activated the bone altar. Zombie combat. Ben charged Maldwin instantly \u2014 killed. Two-phase boss fight. Mayo shut the wardrobe. Mungo's blind killing throw. The killing blow.", "events": ["Party climbed onto the island; pulsating green veins, shifting runes, spongy ground", "Bone altar: Dudo cut his hand; a few drops of blood multiplied to fill all the grooves; the DM lingered on this moment; vine-ramp staircase built itself", "Zombie combat on the ground floor: five killed", "Stealth ascent: Dudo blended so completely into the vine wall that Tyr walked into him", "Maldwin stepped out: the last sea warden of the true light, keeper of the heart stolen from Valinor", "Maldwin's monologue: former healer and father; his people destroyed by Dol Guldur while the lords of Rivendell counted stars; found Valinor seed in Dol Guldur's ruins; 19 winters of blood; zombie army aimed at Rivendell; offered eternal life from the cauldron", "Maldwin identified Gilgamesh as an elf and became consumed with rage", "Ben charged the instant he saw Maldwin \u2014 no words, no plan, no hesitation \u2014 killed instantly; Maldwin reanimated him as a zombie", "Mungo killed reanimated Ben: sorry I gotta do this to ya", "BOSS FIGHT: Carl's crit triggered phase 2 \u2014 Listen here, you stupid witch \u2014 you're not even a wizard! \u2014 four d12 dice", "Mayo ran 30 feet and slammed the wardrobe shut (strength 12, barely) before more zombies could emerge", "Gilgamesh toppled the wardrobe (strength 13 + Rhymes die = 23 vs DC 20); bodies piled on top", "Phase 2: Maldwin swelled to Huge size, became partially translucent; 30-foot acid cone (4d6, DC 14)", "Mungo was blinded by acid; ran across the room; threw his dagger on disadvantage \u2014 hit Maldwin in the side of the head; Maldwin had 4 HP remaining; the killing blow", "The table erupted."]}, {"num": "16", "title": "The Seed of the Fallen Trees", "summary": "Second zombie wave through the walls. Dudo's sword hit Tyr's neck \u2014 0 HP from friendly fire. Mayo's death save Nat 20. Mungo catapulted to ceiling. Dudo carved the node free with a Nat 20 \u2014 all zombies dropped. Tyr found the Iron of Death. Level up.", "events": ["Three zombies up the vine ramp immediately; Tyr climbed onto Mayo's shoulders", "Tyr attacked the ceiling node (Nat 20 + 21 \u2014 took lower at disadvantage); 16 damage; all zombies briefly seized", "Dudo climbed the ceiling; sword knocked from his hand \u2014 fell onto Tyr's neck; Tyr went to 0 HP from friendly fire; Ring of Mending revived him", "6-7 zombie breach points through the walls simultaneously \u2014 second wave from all directions", "Mungo threw his dagger up to Dudo (Nat 20 \u2014 stuck into ceiling center); Dudo grabbed it", "Borin's Baruch Kazan (DC 15 Charisma): 5 of 6 zombies became frightened simultaneously", "Carl used Leadership: 4 HP granted to Tyr, Gilgamesh, Borin, and Mungo simultaneously", "Mayo went down to a zombie bite \u2014 death save Nat 20 \u2014 stabilized at 1 HP; Borin woke her with face-slaps; first words: That hurt", "Tyr went down a second time at 1 HP; Gilgamesh poured health potion (Medicine 6 \u2014 botched; went down wrong pipe; spent rest of fight coughing)", "Tyr and Borin catapulted Mungo to ceiling (strength Nat 20 + 4 = 24); Mungo drove short sword into node for 14 damage", "Dudo carved the node free with Nat 20 \u2014 approximately 19 damage; gray seed pod fell from ceiling", "All zombies dropped simultaneously; Maldwin's body dissolved into gray goo", "Tyr's Nat 20 Lore check: corrupted lineage of the Two Trees of Valinor; planted to breed an army for Rivendell; the party was TWO DAYS from Rivendell the entire time", "Tyr found the Iron of Death buried in the weapons pile \u2014 the only item in perfect condition", "Party leveled up"]}, {"num": "17.2", "title": "Out of the Stump, Into the Mountains", "summary": "A BOAT was tied to the far side of the stump THE ENTIRE TIME. Carl had seen it. Said nothing. Borin nearly drowned under his gold. Mountain ascent. Giant bat creatures flying north. Orc ping within 3 miles. Two large unknown creatures at camp. Session ends mid-initiative.", "events": ["Dawn exit through the alligator lake \u2014 stealth sequence", "A BOAT was tied to the far side of the stump THE ENTIRE TIME. Carl had seen it during the island approach. Said nothing. The party swam through alligators.", "Borin sank under the weight of his gold \u2014 Mayo dove in after him", "Exited the swamp; from elevated ground saw the village \u2014 vultures circling, faint smoke; party voted not to return", "Mountain ascent: winding game trail, temperature dropping sharply", "Giant bat-like creatures observed flying north in formation carrying humanoid corpses \u2014 entirely unknown species", "Tyr's lore check on the bat creatures: 9 \u2014 completely outside his knowledge base; significant as he is the party's lore engine", "Borin's Rumor of the Earth at dusk: orcs within 3 miles \u2014 living or corpse-carried by the bats, unknown", "Tyr found a rocky cove shelter (Nature Nat 20 with Dudo's assistance)", "No fire agreed \u2014 bat creatures overhead made fire too risky", "Night watch: faint howl; thought he heard a twig snap; Borin took over watch", "2-3 AM: Tyr's perception 21 \u2014 definite large shadow, shuffling and sniffing 40-50 feet out; woke Mungo", "Tyr lit an arrow and fired blind at the sound (16 to hit at disadvantage) \u2014 hit one of two large furry shapes; 20 total damage; loud yelp-roar", "SESSION ENDS MID-INITIATIVE. Two large unknown creatures."]}];
+const MYSTERIES = ["Who is the true mastermind behind the 19-winter sacrifice pact? Maldwin was likely the instrument, not the hand.", "What does the Black Speech booklet actually say? It has been in Eli's hands since Session 11.", "Where is Eli the Tinker \u2014 and who is the boss he reports to?", "What happened to the sacrificial village after the bat raid? Are Mez, Tyndell, and Bonkey alive?", "What are the giant bat creatures, and what are they connected to?", "What will happen when Tyr touches the Palantir? He has stated in character that he absolutely will.", "Why did the blood altar respond specifically to Dudo's blood?", "Is the master of Lake Town already compromised? Elrond feared it was possible.", "How did Tyr's ancestral Numenorean sword end up in Maldwin's sacrifice pile after 19 winters of victims?", "What did Gilgamesh recognize when the village creature was described? Mungo and Tyr both caught his reaction. He deflected."];
+const GREATEST = [{"who": "Mungo", "s": "15", "t": "Threw a dagger while completely blind, running, on disadvantage \u2014 hit Maldwin in the head. The killing blow."}, {"who": "Tyr", "s": "7-8", "t": "Killed the Orc Chieftain with a greatsword throw \u2014 then shouted FUCK YOU at three trolls and sprinted into the night"}, {"who": "Dudo", "s": "3", "t": "Nat 20 Sneak Attack up through an orc's groin. The campaign's most dramatic opening kill."}, {"who": "Gilgamesh", "s": "4", "t": "Barrel explosion \u2014 gate destroyed and 15-20 orcs gone simultaneously. Took 1 damage from the blast."}, {"who": "Borin", "s": "9.1", "t": "Carried Leah on his back until she fell asleep on his shoulders. Waved until out of sight. Then ran."}, {"who": "Mayo", "s": "15", "t": "Ran 30 feet and slammed the wardrobe shut \u2014 strength 12, barely \u2014 prevented a fight-ending zombie wave"}, {"who": "Beorn", "s": "11", "t": "Arrived at the briar-patch camp, killed all six bandits alone in the dark, lifted the stone grate, pulled Mungo out first"}, {"who": "Mungo+Tyr+Borin", "s": "16", "t": "Catapulted to ceiling (strength 24+21), node carved free with a Nat 20, all zombies dropped simultaneously"}];
+const FUNNY = [{"who": "Dudo", "s": "3", "t": "Wrote Santa's Little Helper on Tyr's forehead while meditating \u2014 discovered by Finn in Bree"}, {"who": "Borin", "s": "9.2", "t": "Named his palm-leaf rain hat Leafster and carried it through a thunderstorm"}, {"who": "Borin", "s": "9.2", "t": "Urinated on himself hiding from trolls \u2014 noted it was actually warm and comforting"}, {"who": "Carl", "s": "14", "t": "Volunteered as living alligator bait \u2014 15 gators converging \u2014 said he trusted the party with his life"}, {"who": "Carl", "s": "15", "t": "Listen here, you stupid witch \u2014 you're not even a wizard! \u2014 right before the phase 2 crit"}, {"who": "Party", "s": "17", "t": "There was a BOAT tied to the far side of the stump THE ENTIRE TIME. Carl had seen it. Said nothing."}, {"who": "Tyr", "s": "8", "t": "Shouted FUCK YOU at three trolls with 40 movement speed. Sprinted into night with 25."}, {"who": "Borin", "s": "17.2", "t": "Nearly drowned in the alligator lake under the weight of his own gold \u2014 Mayo dove in after him"}];
+const MUST_KNOW = [{"icon": "!!", "title": "RIGHT NOW", "color": "#8b2828", "items": ["Party ascending the Misty Mountains, ~1,000 feet elevation on the High Pass", "SESSION 18 OPENS MID-INITIATIVE \u2014 two large unknown creatures approaching camp", "Tyr fired a flaming arrow blind and hit one for 20 damage \u2014 it yelped but did not retreat", "Tyr has 1 point of exhaustion from nightmares during the previous long rest", "No fire at camp \u2014 giant bat creatures carrying humanoid corpses overhead make it too risky", "Borin's Rumor of the Earth pinged orcs within 3 miles at dusk \u2014 living or carried by bats, unknown"]}, {"icon": ">>", "title": "THE MISSION", "color": "#c8a44a", "items": ["Retrieve the Palantir from under the master's hall in Lake Town \u2014 tasked by Elrond at Rivendell", "Tyr holds the silver ring key that unlocks the Palantir lockbox", "Elrond warned explicitly: never touch the stone", "Tyr has stated in character: For sure gonna touch that Palantir", "Lake Town is approximately 150+ miles northeast \u2014 still a significant journey", "Elrond fears the master of Lake Town may already be compromised by the Enemy"]}, {"icon": "//", "title": "ACTIVE THREATS", "color": "#8b6020", "items": ["Two large unknown creatures at camp \u2014 initiative called, Session 18 starts here", "Giant bat-like creatures flying north carrying humanoid corpses \u2014 unknown species", "Eli the Tinker at large \u2014 has the Black Speech booklet, reports to an unknown boss", "The Enemy possesses a Palantir and has been using it"]}, {"icon": "XX", "title": "WHO IS DEAD", "color": "#8b2828", "items": ["Maldwin \u2014 killed by Mungo's blind dagger throw (Session 15). Gone.", "Ben \u2014 19 years old, Tom's brother. Charged Maldwin instantly. Killed instantly.", "The entire Red Claw orc field force \u2014 destroyed across Sessions 3-11", "Six of Eli's bandit operatives \u2014 killed by Beorn alone in the dark (Session 11)"]}, {"icon": "??", "title": "STATUS UNKNOWN", "color": "#7a6030", "items": ["The sacrificial village \u2014 bat swarm raided it after Maldwin's death; party did not return", "Mez (innkeeper), Tyndell (village leader), Bonkey (water-fetcher) \u2014 unknown", "Eli the Tinker \u2014 alive, at large, location unknown"]}, {"icon": "**", "title": "KEY ITEMS", "color": "#e6cc84", "items": ["Iron of Death (Tyr) \u2014 Numenorean greatsword, bane vs. orcs and trolls, bonus action attack", "Silver Ring Key (Tyr) \u2014 unlocks the Palantir lockbox in Lake Town", "Ring of Mending (Gilgamesh) \u2014 revive 1 downed to 1 HP (1/long rest); cure poison (2/day)", "Jet-Black Dagger (Dudo) \u2014 +1 to hit, Con save on hit; found inside a troll's thigh", "Horn of the Ruins (Carl) \u2014 3D echolocation map when blown clearly", "Elven Green Cloaks (all) \u2014 +2 stealth"]}, {"icon": "~~", "title": "THREADS TO REMEMBER", "color": "#9a8a6a", "items": ["Dudo's blood activated the bone altar in a way that multiplied it \u2014 nobody asked why", "Gilgamesh had a reaction at Rivendell when the creature was described \u2014 never explained", "The Black Speech booklet had maps with X markings \u2014 Eli has it now", "The Iron of Death was in Maldwin's sacrifice pile \u2014 how did Tyr's ancestral sword get there?", "The village mastermind may not have been Maldwin \u2014 something sent the bats after he died"]}];
+const PLAYER_STATS = [{"id": "borin", "name": "Borin", "player": "Josh", "color": "#8a6a3a", "nat20s": ["Dirty 20 perception at the Weaver cottage \u2014 spotted smoke column 10-12 miles away (Session 9.1)", "Tracking roll 27 \u2014 followed wagon and horse tracks to confirm Eli had taken them (Session 10.2)", "Baruch Kazan DC 15 Charisma: 5 of 6 zombies frightened simultaneously (Session 16)", "Strength check 24 \u2014 catapulted Mungo to the ceiling with Tyr (Session 16)"], "nat1s": ["Rolled a 2 on navigation through pitch-black forest \u2014 was very confident he knew the way (Session 10.2)"], "at0": ["Session 11 \u2014 hog-tied and knocked unconscious by Eli's bandits after fighting 6v2"], "bighit": "39 damage \u2014 orc commander in the Battle of Bree (Session 4)", "funstats": ["Miles walked carrying a sleeping child on his back: approx 5", "Times he tried to find a shield in Bree before giving up: 4+", "Palm-leaf rain hats fashioned and named: 1 (Leafster)", "Times he urinated on himself: 1 (noted as warm and comforting)", "Times he threw a hobbit at another party member: 1"]}, {"id": "carl", "name": "Carl", "player": "Tyler", "color": "#8a3a3a", "nat20s": ["Killing blow on the final orc of the forest road ambush \u2014 a beheading; head landed on the axe hilt (Session 3)", "Critical hit on Maldwin that triggered phase 2 \u2014 four d12 damage dice (Session 15)"], "nat1s": ["No confirmed Nat 1s \u2014 Carl's failures tend to involve life choices, not dice"], "at0": ["Session 10.2 \u2014 liver stab from an orc (poisoned: 2 days, cannot drink alcohol)", "Session 16 \u2014 multiple downs during the zombie siege"], "bighit": "27+ damage \u2014 critical hit on Maldwin triggering phase 2, four d12 dice (Session 15)", "funstats": ["Times he blew the Horn of the Ruins and wept: 1", "Times he served as living alligator bait: 1 (voluntary)", "Times he accidentally broke someone's kneecap: 1 (Dudo, Session 10.2)", "Times he was drunk before a major battle: 1", "A BOAT was there the whole time. Times Carl mentioned it: 0"]}, {"id": "dudo", "name": "Dudo", "player": "Calvin", "color": "#3a5a8a", "nat20s": ["Nat 20 Sneak Attack \u2014 short sword up through an orc's groin; campaign's opening kill (Session 3)", "Jumped from 15 feet onto a wolf's back and stabbed through the neck on impact (Session 3)", "Shot anchor arrow into a cliff face (attack roll 24) then climbed roll 30 (Session 6)", "Killed the third-floor goblin archer \u2014 grabbed him by the eye sockets and threw him out the window (Session 7)", "Blended so completely into the vine wall that Tyr walked straight into him (Session 15)", "Carved the ceiling node free \u2014 all zombies dropped simultaneously (Session 16)"], "nat1s": ["Nat 1 shooting from a tree at the wolf pack \u2014 arrow sliced his own leg; fell out of the tree (Session 3)"], "at0": ["Session 10.2 \u2014 Carl's greataxe accidentally swung into him during the Horn dispute; broke his kneecap (8-day injury)"], "bighit": "~19 damage \u2014 carved the ceiling node free, destroying Maldwin's entire zombie army at once (Session 16)", "funstats": ["Highest stealth roll recorded: 26", "Written on Tyr's forehead without detection: 1 message (Santa's Little Helper)", "Kneecaps broken by friendly fire: 1 (his own, by Carl)", "Swords accidentally dropped onto Tyr's neck: 1", "Times he skied off the back of a moving wagon for fun: 1"]}, {"id": "gilgamesh", "name": "Gilgamesh", "player": "Aaron / AP", "color": "#3a7a5a", "nat20s": ["Nat 20 paint job on the sniper nest after the Battle of Bree \u2014 permanently looks like architecture (Session 4)", "Caught Mungo mid-air after Borin threw him \u2014 Dex save 21 (Session 10.2)", "Nat 20-equivalent shot between an alligator's eyes underwater \u2014 freed Mungo instantly (Session 14)"], "nat1s": ["Nat 1 Dex save \u2014 blinded by acid when Dudo carved the ceiling node (Session 16)"], "at0": ["Session 17.2 \u2014 failed Con save against poisoned mead; unconscious through the entire bandit capture"], "bighit": "16 damage \u2014 Nat 20-equivalent shot between an alligator's eyes underwater (Session 14)", "funstats": ["Ring of Mending revives performed: 4+ confirmed", "Times he was the only conscious party member during the mead incident: 1", "Wine barrels investigated and gotten buzzed from: 1", "Times he nearly fell off the mayor's 3-story roof: 1", "Reactions at Rivendell caught by Mungo and Tyr: 1 (still unexplained)"]}, {"id": "mayo", "name": "Mayo", "player": "Alec", "color": "#7a5a8a", "nat20s": ["Death save Nat 20 \u2014 stabilized at 1 HP after going down to a zombie bite (Session 16)", "Constitution save 21 \u2014 continued operating the artesian well pump while wounded at ~4 HP (Session 8)"], "nat1s": ["No confirmed Nat 1s on record"], "at0": ["Session 7 \u2014 wolf bite; revived by Ring of Mending; kept fighting", "Session 16 \u2014 zombie bite while at 1 HP; death save Nat 20; Borin woke her with gentle face-slaps"], "bighit": "Most damage output was through healing enabling others \u2014 Mayo's contribution is measured in allies kept alive", "funstats": ["Times she tried to tame an evil wolf that had just eaten a family: 3", "First words after being woken from death's door: That hurt.", "Wardrobe slams preventing fight-ending zombie waves: 1 (potentially hundreds of zombies stopped)", "Artesian well pumping sessions while critically wounded: 1"]}, {"id": "mungo", "name": "Mungo", "player": "Jesse (DM)", "color": "#7a3a2a", "nat20s": ["Nat 20 jugular kill \u2014 first silent kill inside the burning farmhouse (Session 7)", "Nat 20 jugular kill \u2014 second silent kill inside the burning farmhouse (Session 7)", "Nat 20 initiative \u2014 went first in the boss fight (Session 15)", "Nat 20 + Nat 19 (Keen) on a troll \u2014 45 damage, one troll killed outright (Session 9.2)", "Blind dagger throw, running, on disadvantage \u2014 hit Maldwin in the head; the killing blow (Session 15)"], "nat1s": ["Called out to Beorn's bear form while imprisoned in the pit (performance 7) \u2014 described as a wimpy yell; bandits told them to shut up (Session 11)"], "at0": ["Session 14 \u2014 grappled underwater by an alligator; Gilgamesh's Nat 20-equivalent freed him"], "bighit": "45 damage \u2014 Nat 20 + Nat 19 (Keen) on a troll in one attack sequence (Session 9.2)", "funstats": ["Silent kills where no party member heard anything: 3 (all in the burning farmhouse)", "Briar-patch camps lit on fire: 1", "Times he yelled FOR CARL! charging at an enemy: 1", "Health potions contaminated by a sanitizing finger: 1", "Campaign-defining killing blows landed blind on disadvantage: 1"]}, {"id": "tyr", "name": "Tyr", "player": "Gabe", "color": "#3a3a7a", "nat20s": ["Nat 20 Lore check \u2014 identified the seed pod as corrupted Valinor lineage (Session 16)", "Nat 20 strength check \u2014 catapulted Mungo to the ceiling with Borin (Session 16)", "Nat 20 nature check \u2014 found the rocky cove shelter in the mountains (Session 17.2)", "Nat 20 on ceiling node attack at disadvantage from elevation \u2014 all zombies briefly seized (Session 16)"], "nat1s": ["Rolled a 2 on navigation through pitch-black forest \u2014 was very confident he knew the way (Session 10.2)"], "at0": ["Session 16 \u2014 Dudo's sword fell from the ceiling and hit his neck; 0 HP from friendly fire", "Session 16 \u2014 zombie attack while at 1 HP; health potion went down the wrong pipe; spent rest of fight coughing"], "bighit": "20 damage \u2014 blind flaming arrow hit on one of the large unknown creatures at camp (Session 17.2)", "funstats": ["Shouted FUCK YOU at trolls before sprinting away: 1 (they gave chase; session ended)", "Times Santa's Little Helper was written on his forehead while meditating: 1", "Ranger lore checks completely failed on unknown creatures: 1 (the bat creatures \u2014 outside his knowledge base)", "Times Elrond personally inscribed his sword and gave him a mission: 1", "Stated intention to touch the Palantir despite explicit warning: 1"]}];
 
-const MYSTERIES=[
-"Who is the true mastermind behind the 19-winter sacrifice pact? Maldwin was likely the instrument, not the hand.",
-"What does the Black Speech booklet actually say? It's been in Eli's hands since Session 11.",
-"Where is Eli the Tinker — and who is 'the boss' he reports to?",
-"What happened to the sacrificial village after the bat raid? Are Mez, Tyndell, and Bonkey alive?",
-"What are the giant bat creatures, and what are they connected to?",
-"What will happen when Tyr touches the Palantir? He has stated in character that he absolutely will.",
-"Why did the blood altar respond specifically to Dudo's blood?",
-"Is the master of Lake Town already compromised? Elrond feared it was possible.",
-"How did Tyr's ancestral Numenorean sword end up in Maldwin's sacrifice pile?",
-"What did Gilgamesh recognize when the village creature was described? Mungo and Tyr both caught his reaction.",
-];
-
-const GREATEST=[
-{who:"Mungo",s:"15",t:"Threw a dagger while completely blind, running, on disadvantage — hit Maldwin in the head. The killing blow."},
-{who:"Tyr",s:"7-8",t:"Killed the Orc Chieftain with a greatsword throw — then shouted 'FUCK YOU!' at three trolls and sprinted into the night"},
-{who:"Dudo",s:"3",t:"Nat 20 Sneak Attack up through an orc's groin. The campaign's most dramatic opening kill."},
-{who:"Gilgamesh",s:"4",t:"Barrel explosion — gate destroyed and 15-20 orcs gone simultaneously. Took 1 damage from the blast."},
-{who:"Borin",s:"9.1",t:"Carried Leah on his back until she fell asleep on his shoulders. Waved until out of sight. Then ran."},
-{who:"Mayo",s:"15",t:"Ran 30 feet and slammed the wardrobe shut on the zombie horde — strength 12, barely — prevented a fight-ending wave"},
-{who:"Beorn",s:"11",t:"Arrived at the briar-patch camp, killed all six bandits alone in the dark, lifted the stone grate, pulled Mungo out first"},
-{who:"Mungo+Tyr+Borin",s:"16",t:"Catapulted to ceiling (strength 24+21), node carved free with a Nat 20, all zombies dropped simultaneously"},
-];
-const FUNNY=[
-{who:"Dudo",s:"3",t:"Wrote 'Santa's Little Helper' on Tyr's forehead while meditating — discovered by Finn in Bree"},
-{who:"Borin",s:"9.2",t:"Named his palm-leaf rain hat 'Leafster' and carried it through a thunderstorm"},
-{who:"Borin",s:"9.2",t:"Urinated on himself hiding from trolls — noted it was 'actually warm and comforting'"},
-{who:"Carl",s:"14",t:"Volunteered as living alligator bait — 15 gators converging — said he trusted the party with his life"},
-{who:"Carl",s:"15",t:"'Listen here, you stupid witch — you're not even a wizard!' — right before the phase 2 crit"},
-{who:"Party",s:"17",t:"There was a BOAT tied to the far side of the stump THE ENTIRE TIME. Carl had seen it. Said nothing."},
-{who:"Tyr",s:"8",t:"Shouted 'FUCK YOU!' at three trolls with 40 movement speed. Sprinted into night with 25."},
-{who:"Borin",s:"17.2",t:"Nearly drowned in the alligator lake under the weight of his own gold — Mayo dove in after him"},
-];
-
-const MUST_KNOW=[
-{icon:"\uD83D\uDD34",title:"RIGHT NOW",color:"#8b2828",items:[
-"Party ascending the Misty Mountains, ~1,000 feet elevation on the High Pass",
-"SESSION 18 OPENS MID-INITIATIVE — two large unknown creatures approaching camp",
-"Tyr fired a flaming arrow blind and hit one for 20 damage — it yelped but did not retreat",
-"Tyr has 1 point of exhaustion from nightmares during the previous long rest",
-"No fire at camp — giant bat creatures carrying humanoid corpses overhead make it too risky",
-"Borin's Rumor of the Earth pinged orcs within 3 miles at dusk — living or carried by bats, unknown",
-]},
-{icon:"\uD83C\uDFAF",title:"THE MISSION",color:"#c8a44a",items:[
-"Retrieve the Palantir from under the master's hall in Lake Town — tasked by Elrond at Rivendell",
-"Tyr holds the silver ring key that unlocks the Palantir lockbox",
-"Elrond warned explicitly: never touch the stone",
-"Tyr has stated in character: 'For sure gonna touch that Palantir'",
-"Lake Town is approximately 150+ miles northeast — still a significant journey",
-"Elrond fears the master of Lake Town may already be compromised by the Enemy",
-]},
-{icon:"⚠",title:"ACTIVE THREATS",color:"#8b6020",items:[
-"Two large unknown creatures at camp — initiative called, Session 18 starts here",
-"Giant bat-like creatures flying north carrying humanoid corpses — unknown species",
-"Eli the Tinker at large — has the Black Speech booklet, reports to an unknown boss",
-"The Enemy possesses a Palantir and has been using it",
-]},
-{icon:"\uD83D\uDC80",title:"WHO IS DEAD",color:"#8b2828",items:[
-"Maldwin — killed by Mungo's blind dagger throw (Session 15). Gone.",
-"Ben — 19 years old, Tom's brother. Charged Maldwin instantly. Killed instantly.",
-"The entire Red Claw orc field force — destroyed across Sessions 3-11",
-"Six of Eli's bandit operatives — killed by Beorn alone in the dark (Session 11)",
-]},
-{icon:"❓",title:"STATUS UNKNOWN",color:"#7a6030",items:[
-"The sacrificial village — bat swarm raided it after Maldwin's death; party did not return",
-"Mez (innkeeper), Tyndell (village leader), Bonkey (water-fetcher) — unknown",
-"Eli the Tinker — alive, at large, location unknown",
-]},
-{icon:"\uD83D\uDC8E",title:"KEY ITEMS THE PARTY HAS",color:"#e6cc84",items:[
-"Iron of Death (Tyr) — Numenorean greatsword, bane vs. orcs and trolls, bonus action attack",
-"Silver Ring Key (Tyr) — unlocks the Palantir lockbox in Lake Town",
-"Ring of Mending (Gilgamesh) — revive 1 downed to 1 HP (1/long rest); cure poison (2/day)",
-"Jet-Black Dagger (Dudo) — +1 to hit, Con save on hit; found inside a troll's thigh",
-"Horn of the Ruins (Carl) — 3D echolocation map when blown clearly",
-"Corrupted Seed Pod — being brought to Elrond; Valinor lineage",
-"Elven Green Cloaks (all) — +2 stealth",
-]},
-{icon:"\uD83E\uDDF5",title:"THREADS TO REMEMBER",color:"#9a8a6a",items:[
-"Dudo's blood activated the bone altar in a way that multiplied it — nobody asked why",
-"Gilgamesh had a reaction at Rivendell when the creature was described — never explained",
-"The Black Speech booklet had maps with X markings — Eli has it now",
-"The Iron of Death was in Maldwin's sacrifice pile — how did Tyr's ancestral sword get there?",
-"The village mastermind may not have been Maldwin — something sent the bats after he died",
-]},
-];
-
-// ── STATE ──────────────────────────────────────────────────────
-let page = 'home';
-let detail = null;
-let worldTab = 'npcs';
-let more = false;
-let charEdits = {};
-let editingChar = null;
-
-try { charEdits = JSON.parse(localStorage.getItem('mew-edits') || '{}'); } catch(e) {}
-
-// ── NAVIGATION ─────────────────────────────────────────────────
+// ── NAV CONFIG ────────────────────────────────────────────────
 const TABS = [
-  {id:'home',label:'Home',icon:'\uD83C\uDFE0'},
-  {id:'party',label:'Party',icon:'⚔'},
-  {id:'npcs',label:'NPCs',icon:'\uD83D\uDC65'},
-  {id:'sessions',label:'Sessions',icon:'\uD83D\uDCD6'},
-  {id:'more',label:'More',icon:'✦'},
+  {id:'home',label:'Home',icon:'Home'},
+  {id:'party',label:'Party',icon:'Party'},
+  {id:'npcs',label:'NPCs',icon:'NPCs'},
+  {id:'sessions',label:'Sessions',icon:'Sessions'},
+  {id:'more',label:'More',icon:'More'}
+];
+const MORE_PAGES = [
+  {id:'mustknow',label:'Must Know'},
+  {id:'mysteries',label:'Mysteries'},
+  {id:'moments',label:'Moments'},
+  {id:'items',label:'Items'},
+  {id:'locations',label:'Locations'},
+  {id:'bestiary',label:'Bestiary'},
+  {id:'factions',label:'Factions'},
+  {id:'timeline',label:'Timeline'},
+  {id:'stats',label:'Stats'},
+  {id:'suggestions',label:'Suggestions'}
 ];
 
-const ITEMS=[
-{name:"Iron of Death",holder:"Tyr",emoji:"⚔",desc:"Numenorean greatsword — silver blade, blue gem in pommel, Sindarin runes. Bane vs. orcs and trolls (extra damage dice on all hits). Bonus action attack. Found buried in Maldwin's weapons pile — the only item in perfect condition after decades of neglect.",q:"How did Tyr's ancestral sword end up in Maldwin's sacrifice pile after 19 winters of victims?"},
-{name:"Ring of Mending",holder:"Gilgamesh",emoji:"\uD83D\uDC8D",desc:"Revive 1 downed creature to 1 HP (once per long rest). Cure poison on a touched creature (twice per day). +2 Medicine checks. Retrieved from a pool in the Chetwood Ruins — it 'slammed down' before Carl took it.",q:"Why was a healing ring sitting in a Red Claw orc tunnel pool? Still unexplained."},
-{name:"Jet-Black Dagger",holder:"Dudo",emoji:"\uD83D\uDDE1",desc:"+1 to hit. Targets struck must make a Constitution saving throw. Found inside one of the troll's thighs — the body had grown flesh around it. No runes, unknown make, perfectly sized for a halfling. Used to carve the ceiling node free in Session 16 (Nat 20).",q:"Who made this? How did it end up inside a troll's thigh for long enough for flesh to grow around it?"},
-{name:"Horn of the Ruins",holder:"Carl",emoji:"\uD83D\uDCEF",desc:"When blown loudly and clearly, the blower perceives a 3D echolocation map of surroundings within ~15-20 feet. Only the blower perceives it. Found in the Chetwood Ruins.",q:"Carl blew it at Mungo's disappearance site and wept while holding the note. Its ownership caused the most dramatic intra-party conflict of the campaign (Session 10.2)."},
-{name:"Black Speech Booklet",holder:"ELI — STOLEN",emoji:"\uD83D\uDCD6",desc:"Found on the Orc Chieftain in Session 7. Written orders in Black Speech + maps with X markings. Stolen by Eli in Session 11. Currently in enemy hands.",q:"Confirms Red Claw orcs received written orders from a literate authority using the tongue of the Enemy. Whatever it says, Eli has it now."},
-{name:"Silver Ring Key",holder:"Tyr",emoji:"\uD83D\uDC8D",desc:"A small silver ring with a raised crown motif. Given by Elrond personally to Tyr, over Gilgamesh's vocal objection. Unlocks the Palantir lockbox under the master's hall in Lake Town.",q:"Elrond chose Tyr specifically for this. Tyr has stated he will touch the stone. Whether Elrond anticipated this is unresolved."},
-{name:"Corrupted Seed Pod",holder:"Party",emoji:"\uD83C\uDF31",desc:"A foot-tall gray pod covered in roots. Fell when Dudo carved the ceiling node free. Tyr's Nat 20 Lore check: corrupted lineage of the Two Trees of Valinor. Being brought to Elrond.",q:"The tree is dead. But there may be more seeds scattered across Dol Guldur's ruins."},
-{name:"Elven Green Cloaks",holder:"All party members",emoji:"\uD83E\uDDE5",desc:"+2 stealth. Given by Elrond at Rivendell. Elrond told the party not to show them to dwarves — unspecified reason. Borin is a dwarf and already has one.",q:"Why shouldn't dwarves see them? Borin has one. This hasn't come up."},
-];
+// ── BADGE ─────────────────────────────────────────────────────
+function badge(status) {
+  const map = {alive:'Alive',safe:'Alive - Safe',hostile:'Hostile',dead:'Deceased',unknown:'Unknown'};
+  const col = (status==='alive'||status==='safe') ? '#4a8a46' : status==='dead'||status==='hostile' ? '#8b2828' : '#7a6030';
+  const d = el('span', {style:`background:${col}22;color:${col};border:1px solid ${col}44;border-radius:3px;padding:2px 8px;font-size:10px;font-family:Cinzel,serif;letter-spacing:.06em`});
+  d.textContent = map[status]||status;
+  return d;
+}
 
-const BESTIARY=[
-{name:"Red Claw Orcs",emoji:"⚔",status:"Destroyed as a field force",threat:"High",desc:"The orc clan that assaulted Bree. More organized than typical orcs — written Black Speech orders, fire arrows, battering ram, a command structure. They were an instrument of something larger.",tactics:["Take damage in direct sunlight — always seek cover, shoot from windows","Wolves fear fire: must save or become frightened when hit with fire/radiant damage","Written orders in Black Speech confirm organized command above the chieftain level"]},
-{name:"Wolves (Red Claw mounts)",emoji:"\uD83D\uDC3A",status:"Encountered",threat:"Medium",desc:"Large wolves used as combat mounts. Coordinated with riders. Fire breaks them reliably.",tactics:["Fear of fire: save when hit with fire/radiant or become frightened","Evil creatures — not tameable (Mayo tried three times with animal handling 18; wolf refused each time)"]},
-{name:"Corrupted Wolves",emoji:"\uD83D\uDC3A",status:"Encountered",threat:"High",desc:"Wolves affected by Dol Guldur's lingering corruption near Rivendell. Green-tinged coat. DO NOT BURN — produce toxic green mist when killed by fire.",tactics:["Produce toxic green mist when burned — do not use fire against these","Significantly more aggressive and durable than normal wolves"]},
-{name:"Trolls",emoji:"\uD83E\uDEA8",status:"All killed",threat:"Very High",desc:"Three trolls in a cave east of the farmstead: a ~15-foot leader and two ~14-foot subordinates. Raided the sacrificial village on a dusk schedule. Have pride and social hierarchy — can be manipulated through embarrassment (Gilgamesh pulled the leader's loincloth and it fell prone).",tactics:["Operate on a dusk-to-night raiding schedule — predictable","Have pride — can be baited or embarrassed","Troll leader suppressed a valid sighting of Borin due to arrogance — overconfident","Regenerative biology — the jet-black dagger grew inside one for long enough for flesh to form around it"]},
-{name:"Swamp Alligators",emoji:"\uD83D\uDC0A",status:"Encountered",threat:"High in water",desc:"Pale green, unusually large (12-15 feet), presumably corrupted. ~15 were in the lake around the stump. Dangerous in water.",tactics:["Dangerous in water — can grapple and drag under","Drawn to splashing and movement","There was a boat tied to the far side of the stump the entire time. Carl had seen it. Said nothing."]},
-{name:"Maldwin's Zombies",emoji:"\uD83D\uDC80",status:"All destroyed",threat:"High in numbers",desc:"Reanimated humanoids with glowing green eyes. Silent movement. The wardrobe may have held over a thousand. All dropped simultaneously when Dudo carved the ceiling node free.",tactics:["Silent — no warning sounds","Emerge from the wardrobe in waves — keep it shut","Can breach through walls in large numbers","Controlled by the ceiling node — destroying it drops all of them at once","Mayo shutting the wardrobe in Session 15 was the most consequential single action of the arc"]},
-{name:"Maldwin (Two-Phase Boss)",emoji:"\uD83E\uDDD9",status:"DECEASED",threat:"Campaign Boss",desc:"Phase 1: large, staff attacks, slime bolts. Phase 2 triggered by Carl's critical hit: absorbed cauldron blood, swelled to Huge size, partially translucent, 30-foot acid cone (4d6, DC 14 Dex save). Killed by Mungo's blind dagger throw.",tactics:["Phase 1 AC was high — most attacks couldn't beat it","Specifically targeted Tyr as the biggest threat","Identified Gilgamesh as an elf instantly and raged — there is history","Phase 2: 30-foot acid cone, much harder hitting melee","Had 4 HP when Mungo's dagger hit"]},
-{name:"Unknown Large Creatures",emoji:"❓",status:"\uD83D\uDD34 ACTIVE — Session 18",threat:"High — active threat",desc:"Two large creatures approached the mountain camp at 2-3 AM. Tyr heard shuffling and sniffing at 40-50 feet, fired a flaming arrow blind, hit one for 20 damage. It yelped but did not retreat. Session 18 opens mid-initiative.",tactics:["Large creatures — significant HP and damage output","One already hit for 20 damage and still advancing","Two of them — splitting party attention","Mountain terrain at night, no fire"]},
-{name:"Giant Bat Creatures",emoji:"\uD83E\uDD87",status:"Observed — not encountered",threat:"Unknown",desc:"Large bat-like creatures observed flying north in formation, carrying humanoid corpses. Dudo's lore check (19): resembles documented aerial attackers but specific type unknown. Tyr's check (9): completely outside his knowledge base — significant given he is the party's lore engine.",tactics:["Unknown — only observed from distance","Appeared to be carrying humanoid corpses heading north","Borin's Rumor of the Earth also pinged orcs within 3 miles at the same camp — connection unknown"]},
-];
-
-const FACTIONS=[
-{name:"Rangers of the North",emoji:"\uD83C\uDFF9",alignment:"Allied",desc:"The Dunedain — hidden guardians of Eriador protecting people from threats they don't know exist. Small in number but exceptional fighters.",partyRel:"Tyr is a Ranger. Halvar fought alongside the party. Aragorn files reports on Tyr to Elrond.",members:["Tyr (traveling with party)","Halvar Greycloak (Commander, Grey Watch Hollow)","Aragorn (mentioned — not yet encountered)"]},
-{name:"The Red Claw Orc Clan",emoji:"\uD83E\uDE78",alignment:"Hostile — Destroyed",desc:"The orc clan that assaulted Bree. Received written Black Speech orders — they were an instrument of something larger, not an independent force.",partyRel:"The party's primary antagonist for the first half of the campaign. The commander above them has not been identified.",members:["The Chieftain (killed by Dudo — Session 4)","The Farmstead Chieftain (killed by Tyr — Session 7)"]},
-{name:"Rivendell (Elrond's House)",emoji:"⭐",alignment:"Allied",desc:"Both a sanctuary and an intelligence hub. Elrond was already tracking the party through Ranger reports before they arrived. Currently assembling a council of Gandalf, Aragorn, and Saruman.",partyRel:"The party's mission-giver. The healing pool cleared everything they carried. Elrond chose this party specifically.",members:["Elrond Half-elven (Lord of Rivendell)","Aragorn (mentioned — not yet encountered)","Gandalf (mentioned — assembling for council)","Saruman (mentioned — assembling for council)"]},
-{name:"Eli's Organization",emoji:"⚠",alignment:"Hostile — Active",desc:"A covert intelligence network with prepared wilderness facilities, front operations, cursed attunement technology, and communication upward to an unknown boss. Was searching for the same Palantir in Bree that Elrond had already moved.",partyRel:"The party's most dangerous current enemy. Eli has the Black Speech booklet. His boss has not been identified.",members:["Eli the Tinker (field operative — at large)","The Boss (unknown)","Six bandit operatives (all killed by Beorn in Session 11)"]},
-{name:"Maldwin's Village Pact",emoji:"\uD83D\uDC80",alignment:"Defunct",desc:"The 19-winter sacrifice pact between Maldwin and the unnamed village. One villager drawn by lottery each night. The bat swarm that raided the village after Maldwin's death suggests someone else was watching.",partyRel:"The party destroyed Maldwin and the stump. The village's fate after the bat raid is unknown.",members:["Maldwin (deceased)","Tyndell (village leader — status unknown)","Mez (innkeeper — status unknown)","Bonkey (water-fetcher — status unknown)"]},
-{name:"The Enemy (Shadow Forces)",emoji:"\uD83D\uDD34",alignment:"Hostile — Distant",desc:"The larger force behind the events of the campaign. Sauron's lingering influence through Dol Guldur. Possesses at least one Palantir and has been using it.",partyRel:"The party does not fully know who is behind what they've faced. The Red Claw orcs, Eli's network, and Maldwin's seed may all connect upward to the same source.",members:["Unknown — the command structure above Eli and the Red Claw has not been identified"]},
-];
-
-const TIMELINE=[
-{date:"Late October, Day 1",s:"1-2",event:"Annual hunt at the Chetwood Ruins. Ring of Mending and Horn found. Someone yelled Echo — orc chase. Party splits."},
-{date:"Days 2-3 (the 27th)",s:"3-4",event:"Night march. Intercepted message: attack moved to the 27th. Battle of Bree — ~175 orcs killed. Borin negotiates 2,000 gold. Mungo missing."},
-{date:"Day 4 (the 28th)",s:"5",event:"Mungo returns. Beorn revealed as the Vanisher. Destination: Rivendell."},
-{date:"Days 5-7",s:"6-7",event:"Road east. Leah found — family killed. Farmstead battle: Dudo burns it, Mungo kills silently, Tyr throws his sword, Mayo saves the barn."},
-{date:"Day 7 (parallel)",s:"9.1",event:"Borin carries Leah to the Weavers. She falls asleep on his shoulders. He waves until out of sight. Then runs."},
-{date:"Days 7-8",s:"8-9.2",event:"Troll cave. 'FUCK YOU!' Borin hides behind a dead cow. Three trolls killed. Level 4."},
-{date:"Days 8-9",s:"10.2",event:"Horn dispute — Carl breaks Dudo's kneecap. Ravine ambush. Carl's liver wound. Eli appears."},
-{date:"Days 9-10",s:"11",event:"Eli revealed. Poisoned mead. Captured. 'Join or die.' Beorn kills all six bandits alone. Eli escapes with the booklet."},
-{date:"Days 10-12",s:"12",event:"Corrupted wolves (don't burn). The healing pool at Rivendell clears everything."},
-{date:"Days 12-13",s:"13",event:"Elrond: Palantir mission given. Tyr gets the key ring. Drinking contest. Sacrificial village — Tom drawn and sacrificed. Salted pork escape."},
-{date:"Days 13-14",s:"14",event:"Swamp. Alligator ambush. Dead Marshes. Ben joins. Carl serves as alligator bait."},
-{date:"Day 14",s:"15",event:"The Stump. Ben charges Maldwin — killed. Two-phase boss fight. Mungo's blind killing throw."},
-{date:"Days 14-15",s:"16",event:"Zombie wave. Friendly fire — 0 HP from Dudo's sword. All zombies drop. Iron of Death found. Level up."},
-{date:"Day 15",s:"17",event:"THE BOAT. Borin nearly drowns. Mountain ascent. Bat creatures. Orc ping. Unknown creatures at camp. Session 18 opens mid-initiative. \uD83D\uDD34"},
-];
-
-const LOCATIONS=[
-{id:"bree",name:"Bree",emoji:"\uD83C\uDFD8",status:"Standing — recovering",desc:"Crossroads town at the junction of the East Road and the Greenway. The last real settlement before the wild. Site of the Battle of Bree — ~175 orcs killed; ~75 townspeople dead. Home of the Prancing Pony.",facts:["~175 orcs killed in the battle; ~75 townspeople dead","Gate destroyed by Gilgamesh's barrel explosion and later rebuilt","Mayor Graf, Barliman, Finn, and stablemaster Whitman are here","The party's commission and funding originated here"]},
-{id:"chetwood",name:"Chetwood Ruins",emoji:"\uD83C\uDFDA",status:"Cleared",desc:"The campaign's starting location. A crumbling outpost in the Chetwood with a cellar connecting to a vast underground orc tunnel network.",facts:["Ring of Mending retrieved from an underground pool — it slammed down before Carl took it","Horn of the Ruins found in a surface room","Someone yelled Echo into the abyss — hundreds of orcs gave chase","Beorn was the Vanisher — his giant footprints took the hunting kills"]},
-{id:"rivendell",name:"Rivendell (Imladris)",emoji:"⭐",status:"Safe — party departed",desc:"The Last Homely House. The healing pool cleared every ailment any party member carried. Elrond gave the mission, equipment, and full support.",facts:["The healing pool cleared every wound, ailment, curse, and scar","Elrond inscribed Tyr's sword personally (+1 to hit)","Tyr given the Palantir key ring over Gilgamesh's objection","Everyone except Gilgamesh fell unconscious at the drinking contest","Horses sent back here — the pass is inhumane for such creatures"]},
-{id:"farmstead",name:"The Farmstead Valley",emoji:"\uD83D\uDD25",status:"Cleared — house burned",desc:"Civilian farmstead used by Red Claw orcs as a fortified position. Dudo burned it. Black Speech booklet found on the Chieftain's body.",facts:["Dudo shot fire arrows — the building burned to its stone walls","Mungo killed three orcs silently inside","Black Speech booklet found on the Chieftain","Beneath the barn floor: tunnels leading east toward the troll cave","Leah's family was killed here — she survived in the barn loft"]},
-{id:"stump",name:"The Corrupted Stump",emoji:"\uD83C\uDF3F",status:"Cleared — destroyed",desc:"An 80-100 foot corrupted tree stump on a lake island in the swamp. Bone altar, zombie wardrobe, Maldwin's quarters. All cleared.",facts:["Dudo's blood activated the bone altar — multiplied significantly on contact","A BOAT was tied to the far side THE ENTIRE TIME. Carl had seen it. Said nothing.","Mayo ran 30 feet to slam the wardrobe shut — prevented a fight-ending zombie wave","Dudo carved the ceiling node free with a Nat 20 — all zombies dropped","Tyr found the Iron of Death buried in the weapons pile here"]},
-{id:"mountains",name:"The Misty Mountains",emoji:"⛰",status:"⚠ CURRENT LOCATION",desc:"The party is ascending the High Pass northeast toward Lake Town. ~1,000 feet elevation. Session 18 opens mid-initiative against two large unknown creatures.",facts:["~1,000 feet elevation on the High Pass heading northeast","Giant bat creatures observed flying north carrying humanoid corpses","Orc ping within 3 miles at dusk camp — living or carried by bats, unknown","Two large unknown creatures at camp — one hit for 20 damage — SESSION 18 STARTS HERE \uD83D\uDD34"]},
-];
-
-function renderItems() {
-  const p = document.createElement('div');
-  p.className = 'page';
-  p.innerHTML = '<div class="page-head"><h1>Items of Note</h1><p>Significant gear — who has it, what it means</p></div>';
-  const inner = document.createElement('div');
-  inner.style.padding = '0 16px';
-  ITEMS.forEach(it => {
-    const c = document.createElement('div');
-    c.className = 'card';
-    c.innerHTML = '<div style="display:flex;gap:11px;align-items:flex-start">'
-      + '<div style="font-size:28px">' + it.emoji + '</div>'
-      + '<div><div style="font-family:Cinzel,serif;font-size:14px;color:#e6cc84">' + it.name + '</div>'
-      + '<div style="color:' + (it.holder.includes('ELI')?'#8b2828':'#7a6030') + ';font-size:12px;margin-bottom:6px">Held by: ' + it.holder + '</div>'
-      + '<p style="font-size:15px;line-height:1.65;margin-bottom:6px">' + it.desc + '</p>'
-      + (it.q ? '<div style="background:#2c2a1e;border-radius:4px;padding:6px 10px;font-size:13px;color:#9a8a6a;font-style:italic">❓ ' + it.q + '</div>' : '')
-      + '</div></div>';
-    inner.appendChild(c);
+// ── PAGE: HOME ────────────────────────────────────────────────
+function renderHome() {
+  const p = el('div', {cls:'page'});
+  p.innerHTML = `<div class="ph"><h1>Wanderings In Middle Earth</h1><p>Campaign Wiki - Through Session 17.2</p></div>`;
+  const inner = el('div', {style:'padding:0 16px'});
+  const status = el('div', {cls:'card', style:'background:#1e3a5a33;border:1px solid #2a5a8a44;margin-bottom:12px'});
+  status.innerHTML = `<div class="lbl" style="margin-top:0">CURRENT STATUS</div><p style="font-size:15px;color:#e6cc84;line-height:1.65">The party ascends the Misty Mountains heading northeast toward Lake Town. ~1,000 feet elevation. <strong>Session 18 opens mid-initiative against two large unknown creatures</strong> - one already hit for 20 damage.</p>`;
+  inner.appendChild(status);
+  const mission = el('div', {cls:'card', style:'background:#3a280033;border:1px solid #c8a44a33;margin-bottom:12px'});
+  mission.innerHTML = `<div class="lbl" style="margin-top:0">PRIMARY MISSION</div><p style="font-size:15px;line-height:1.65">Retrieve the <span style="color:#e6cc84">Palantir</span> from under the master's hall in Lake Town, as tasked by Elrond. Tyr holds the silver ring key. <span style="color:#c8a44a">Tyr has stated in character that he will touch the stone.</span></p>`;
+  inner.appendChild(mission);
+  const grid = el('div', {cls:'g3', style:'margin-bottom:14px'});
+  [['Must Know','mustknow'],['Party','party'],['NPCs','npcs'],['Sessions','sessions'],['Mysteries','mysteries'],['Moments','moments'],['Items','items'],['Locations','locations'],['Stats','stats'],['Bestiary','bestiary'],['Factions','factions'],['Timeline','timeline']].forEach(([t,pg]) => {
+    const c = el('div', {cls:'card tap', style:'text-align:center;padding:10px 6px'});
+    c.innerHTML = `<div style="font-family:Cinzel,serif;font-size:13px;color:#e6cc84">${t}</div>`;
+    c.onclick = () => navigate(pg);
+    grid.appendChild(c);
   });
+  inner.appendChild(grid);
   p.appendChild(inner);
   return p;
 }
 
-function renderBestiary() {
+// ── PAGE: PARTY ───────────────────────────────────────────────
+function renderParty() {
   if (detail) {
-    const b = BESTIARY.find(x => x.name === detail);
-    if (b) return renderBestiaryDetail(b);
+    const c = PARTY.find(p => p.id === detail);
+    if (c) return renderCharDetail(c);
   }
-  const p = document.createElement('div');
-  p.className = 'page';
-  p.innerHTML = '<div class="page-head"><h1>Bestiary</h1><p>Every creature the party has encountered</p></div>';
-  const inner = document.createElement('div');
-  inner.style.padding = '0 16px';
-  BESTIARY.forEach(b => {
-    const c = document.createElement('div');
-    c.className = 'card clickable';
-    c.innerHTML = '<div style="display:flex;align-items:center;gap:12px">'
-      + '<div style="font-size:24px">' + b.emoji + '</div>'
-      + '<div style="flex:1"><div style="font-family:Cinzel,serif;font-size:14px;color:#e6cc84">' + b.name + '</div>'
-      + '<div style="color:#9a8a6a;font-size:12px">' + b.status + '</div></div>'
-      + '<span style="color:#7a6030;font-size:20px">›</span></div>';
-    c.onclick = () => navigate('bestiary', b.name);
+  const p = el('div', {cls:'page'});
+  p.innerHTML = '<div class="ph"><h1>The Party</h1><p>Seven adventurers on an increasingly dangerous road</p></div>';
+  const inner = el('div', {style:'padding:0 16px'});
+  PARTY.forEach(ch => {
+    const c = el('div', {cls:'card tap'});
+    c.innerHTML = `<div style="font-family:Cinzel,serif;font-size:14px;color:#e6cc84">${ch.name}</div><div style="color:#9a8a6a;font-size:13px">${ch.player} - ${ch.race}</div><div style="font-size:14px;color:#ede3cc;margin-top:3px;font-style:italic">${ch.tag}</div>`;
+    c.onclick = () => navigate('party', ch.id);
     inner.appendChild(c);
   });
   p.appendChild(inner);
   return p;
 }
 
-function renderBestiaryDetail(b) {
-  const p = document.createElement('div');
-  p.className = 'page';
-  const inner = document.createElement('div');
-  inner.style.padding = '0 16px';
-  inner.appendChild(backBtn('Bestiary', () => navigate('bestiary')));
-  const header = document.createElement('div');
-  header.style.cssText = 'display:flex;gap:12px;align-items:center;margin-bottom:10px';
-  header.innerHTML = '<div style="font-size:30px">' + b.emoji + '</div><div>'
-    + '<div style="font-family:Cinzel,serif;font-size:18px;color:#e6cc84">' + b.name + '</div>'
-    + '<div style="color:#8b2828;font-size:12px">Threat: ' + b.threat + ' · ' + b.status + '</div></div>';
+function renderCharDetail(c) {
+  const p = el('div', {cls:'page'});
+  const inner = el('div', {style:'padding:0 16px'});
+  inner.appendChild(back('Party', () => navigate('party')));
+  const header = el('div', {style:'margin-bottom:14px'});
+  header.innerHTML = `<div style="font-family:Cinzel,serif;font-size:18px;color:#e6cc84">${c.name}</div><div style="color:#9a8a6a;font-size:13px">${c.player} - ${c.race}</div>`;
   inner.appendChild(header);
-  const descCard = document.createElement('div');
-  descCard.className = 'card';
-  descCard.style.marginBottom = '12px';
-  descCard.innerHTML = '<p style="font-size:15px;line-height:1.7">' + b.desc + '</p>';
-  inner.appendChild(descCard);
-  const tacLabel = document.createElement('span');
-  tacLabel.className = 'section-label';
-  tacLabel.textContent = 'COMBAT NOTES';
-  inner.appendChild(tacLabel);
-  b.tactics.forEach(t => {
-    const row = document.createElement('div');
-    row.className = 'fact-row';
-    row.innerHTML = '<div class="dot" style="color:#8b2828">·</div><div style="font-size:15px;line-height:1.65">' + t + '</div>';
-    inner.appendChild(row);
-  });
+  const bio = el('div', {cls:'card', style:'margin-bottom:10px'});
+  bio.innerHTML = `<p style="font-style:italic;color:#e6cc84;font-size:15px;line-height:1.6;margin-bottom:8px">"${c.tag}"</p><p style="font-size:15px;line-height:1.7">${c.bio}</p>`;
+  inner.appendChild(bio);
+  inner.appendChild(coll('KEY FACTS', c.facts, true));
+  inner.appendChild(coll('FUNNY MOMENTS', c.funny, false));
+  // Notes
+  const noteSection = el('div', {style:'margin-top:16px;border-top:1px solid #383020;padding-top:14px'});
+  noteSection.innerHTML = '<div class="lbl" style="margin-top:0">YOUR NOTES (saves in browser)</div>';
+  const saved = (edits[c.id]||{}).note||'';
+  const noteDisplay = el('div', {cls:'note-area'+(saved?' has':'')});
+  noteDisplay.textContent = saved || 'Click to add your own notes...';
+  const noteEdit = el('div', {style:'display:none'});
+  const ta = el('textarea'); ta.value = saved; ta.placeholder = 'Add your own notes...';
+  const btns = el('div', {style:'display:flex;gap:8px;margin-top:8px'});
+  const saveBtn = el('button', {cls:'btn', style:'background:#7a6030;border:none;color:#0d0b08;padding:6px 14px;border-radius:5px;font-family:Cinzel,serif;font-size:11px'}, 'Save');
+  const cancelBtn = el('button', {cls:'btn', style:'background:none;border:1px solid #383020;color:#9a8a6a;padding:6px 14px;border-radius:5px;font-family:Cinzel,serif;font-size:11px'}, 'Cancel');
+  saveBtn.onclick = () => {
+    edits[c.id] = {...(edits[c.id]||{}), note: ta.value};
+    try { localStorage.setItem('mew-edits', JSON.stringify(edits)); } catch(e){}
+    noteDisplay.textContent = ta.value || 'Click to add your own notes...';
+    noteDisplay.className = 'note-area' + (ta.value ? ' has' : '');
+    noteEdit.style.display = 'none'; noteDisplay.style.display = 'block';
+  };
+  cancelBtn.onclick = () => { noteEdit.style.display='none'; noteDisplay.style.display='block'; };
+  noteDisplay.onclick = () => { ta.value=(edits[c.id]||{}).note||''; noteDisplay.style.display='none'; noteEdit.style.display='block'; };
+  btns.appendChild(saveBtn); btns.appendChild(cancelBtn);
+  noteEdit.appendChild(ta); noteEdit.appendChild(btns);
+  noteSection.appendChild(noteDisplay); noteSection.appendChild(noteEdit);
+  inner.appendChild(noteSection);
   p.appendChild(inner);
   return p;
 }
 
-function renderFactions() {
+// ── PAGE: NPCs ────────────────────────────────────────────────
+function renderNPCs() {
   if (detail) {
-    const f = FACTIONS.find(x => x.name === detail);
-    if (f) return renderFactionDetail(f);
+    const n = NPCS.find(x => x.id === detail);
+    if (n) return renderNPCDetail(n);
   }
-  const p = document.createElement('div');
-  p.className = 'page';
-  p.innerHTML = '<div class="page-head"><h1>Factions</h1><p>The powers at play in Middle-earth</p></div>';
-  const inner = document.createElement('div');
-  inner.style.padding = '0 16px';
-  FACTIONS.forEach(f => {
-    const c = document.createElement('div');
-    c.className = 'card clickable';
-    const col = f.alignment.includes('Allied') ? '#4a8a46' : f.alignment.includes('Defunct') ? '#5a4e38' : '#8b2828';
-    c.innerHTML = '<div style="display:flex;align-items:center;gap:12px">'
-      + '<div style="font-size:24px">' + f.emoji + '</div>'
-      + '<div style="flex:1"><div style="font-family:Cinzel,serif;font-size:14px;color:#e6cc84">' + f.name + '</div>'
-      + '<div style="color:' + col + ';font-size:12px">' + f.alignment + '</div></div>'
-      + '<span style="color:#7a6030;font-size:20px">›</span></div>';
-    c.onclick = () => navigate('factions', f.name);
+  const p = el('div', {cls:'page'});
+  p.innerHTML = '<div class="ph"><h1>NPCs</h1><p>Everyone the party has encountered</p></div>';
+  const inner = el('div', {style:'padding:0 16px'});
+  const groups = [['Allies & Friendly', n=>n.status==='alive'||n.status==='safe'],['Hostile',n=>n.status==='hostile'],['Unknown',n=>n.status==='unknown'],['Deceased',n=>n.status==='dead']];
+  groups.forEach(([label, fn]) => {
+    const list = NPCS.filter(fn);
+    if (!list.length) return;
+    const lbl = el('div', {cls:'lbl'}); lbl.textContent = label.toUpperCase();
+    inner.appendChild(lbl);
+    list.forEach(n => {
+      const c = el('div', {cls:'card tap'});
+      c.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-family:Cinzel,serif;font-size:13px;color:#e6cc84">${n.name}</div><div style="color:#9a8a6a;font-size:12px">${n.role}</div></div></div>`;
+      c.querySelector('div>div').appendChild(badge(n.status));
+      c.onclick = () => navigate('npcs', n.id);
+      inner.appendChild(c);
+    });
+  });
+  p.appendChild(inner);
+  return p;
+}
+function renderNPCDetail(n) {
+  const p = el('div', {cls:'page'});
+  const inner = el('div', {style:'padding:0 16px'});
+  inner.appendChild(back('NPCs', () => navigate('npcs')));
+  const header = el('div', {style:'margin-bottom:10px'});
+  header.innerHTML = `<div style="font-family:Cinzel,serif;font-size:18px;color:#e6cc84">${n.name}</div><div style="color:#9a8a6a;font-size:13px">${n.role}</div>`;
+  inner.appendChild(header);
+  inner.appendChild(badge(n.status));
+  const c = el('div', {cls:'card', style:'margin-top:10px'});
+  c.innerHTML = `<p style="font-size:15px;line-height:1.7">${n.desc}</p>`;
+  inner.appendChild(c);
+  p.appendChild(inner);
+  return p;
+}
+
+// ── PAGE: SESSIONS ────────────────────────────────────────────
+function renderSessions() {
+  if (detail) {
+    const s = SESSIONS.find(x => x.num === detail);
+    if (s) return renderSessionDetail(s);
+  }
+  const p = el('div', {cls:'page'});
+  p.innerHTML = '<div class="ph"><h1>Session Log</h1><p>Every session - tap for full summary</p></div>';
+  const inner = el('div', {style:'padding:0 16px'});
+  SESSIONS.forEach(s => {
+    const c = el('div', {cls:'card tap'});
+    c.innerHTML = `<div style="display:flex;gap:10px;align-items:flex-start"><div style="font-family:Cinzel,serif;font-size:11px;color:#7a6030;min-width:36px;margin-top:2px">${s.num}</div><div style="flex:1"><div style="font-family:Cinzel,serif;font-size:14px;color:#e6cc84">${s.title}</div><div style="font-size:14px;color:#ede3cc;margin-top:3px;line-height:1.5">${s.summary.slice(0,100)}...</div></div><span style="color:#7a6030;font-size:20px">›</span></div>`;
+    c.onclick = () => navigate('sessions', s.num);
+    inner.appendChild(c);
+  });
+  p.appendChild(inner);
+  return p;
+}
+function renderSessionDetail(s) {
+  const p = el('div', {cls:'page'});
+  const inner = el('div', {style:'padding:0 16px'});
+  inner.appendChild(back('Sessions', () => navigate('sessions')));
+  const num = el('div', {style:"font-family:Cinzel,serif;font-size:11px;color:#7a6030;letter-spacing:.1em;margin-bottom:5px"});
+  num.textContent = 'SESSION ' + s.num;
+  inner.appendChild(num);
+  const title = el('div', {style:'font-family:Cinzel,serif;font-size:20px;color:#e6cc84;margin-bottom:14px'});
+  title.textContent = s.title;
+  inner.appendChild(title);
+  const sumCard = el('div', {cls:'card', style:'margin-bottom:14px'});
+  sumCard.innerHTML = `<p style="font-size:15px;line-height:1.75">${s.summary}</p>`;
+  inner.appendChild(sumCard);
+  if (s.events && s.events.length) {
+    const lbl = el('div', {cls:'lbl'}); lbl.textContent = 'WHAT HAPPENED - BEAT BY BEAT';
+    inner.appendChild(lbl);
+    s.events.forEach((ev, i) => {
+      const r = el('div', {style:'display:flex;gap:10px;margin-bottom:8px;align-items:flex-start'});
+      r.innerHTML = `<div style="font-family:Cinzel,serif;font-size:10px;color:#7a6030;min-width:20px;margin-top:3px;text-align:right;flex-shrink:0">${i+1}</div><div style="font-size:15px;line-height:1.65;padding-left:10px;border-left:2px solid #7a6030">${ev}</div>`;
+      inner.appendChild(r);
+    });
+  }
+  p.appendChild(inner);
+  return p;
+}
+
+// ── PAGE: MYSTERIES ───────────────────────────────────────────
+function renderMysteries() {
+  const p = el('div', {cls:'page'});
+  p.innerHTML = '<div class="ph"><h1>Open Mysteries</h1><p>Questions the party has not answered yet</p></div>';
+  const inner = el('div', {style:'padding:0 16px'});
+  MYSTERIES.forEach((m, i) => {
+    const c = el('div', {cls:'card'});
+    c.innerHTML = `<div style="display:flex;gap:12px;align-items:flex-start"><div style="font-family:Cinzel,serif;font-size:20px;color:#7a6030;min-width:24px">${i+1}</div><p style="font-size:15px;line-height:1.7">${m}</p></div>`;
     inner.appendChild(c);
   });
   p.appendChild(inner);
   return p;
 }
 
-function renderFactionDetail(f) {
-  const p = document.createElement('div');
-  p.className = 'page';
-  const inner = document.createElement('div');
-  inner.style.padding = '0 16px';
-  inner.appendChild(backBtn('Factions', () => navigate('factions')));
-  inner.innerHTML += '<div style="font-size:30px;margin-bottom:8px">' + f.emoji + '</div>'
-    + '<div style="font-family:Cinzel,serif;font-size:18px;color:#e6cc84;margin-bottom:4px">' + f.name + '</div>'
-    + '<div style="color:#9a8a6a;font-size:13px;margin-bottom:12px">' + f.alignment + '</div>';
-  const descCard = document.createElement('div');
-  descCard.className = 'card';
-  descCard.style.marginBottom = '12px';
-  descCard.innerHTML = '<p style="font-size:15px;line-height:1.7">' + f.desc + '</p>';
-  inner.appendChild(descCard);
-  ['Relationship to Party|partyRel', 'Known Members|members'].forEach(pair => {
-    const [label, key] = pair.split('|');
-    const lbl = document.createElement('span');
-    lbl.className = 'section-label';
-    lbl.textContent = label.toUpperCase();
-    inner.appendChild(lbl);
-    const val = f[key];
-    if (Array.isArray(val)) {
-      val.forEach(m => {
-        const row = document.createElement('div');
-        row.className = 'fact-row';
-        row.innerHTML = '<div class="dot">·</div><div style="font-size:15px;line-height:1.65">' + m + '</div>';
-        inner.appendChild(row);
-      });
-    } else {
-      const d = document.createElement('p');
-      d.style.cssText = 'font-size:15px;line-height:1.65;margin-bottom:12px;padding-left:12px;border-left:2px solid #383020';
-      d.textContent = val;
-      inner.appendChild(d);
-    }
+// ── PAGE: MOMENTS ─────────────────────────────────────────────
+function renderMoments() {
+  const p = el('div', {cls:'page'});
+  p.innerHTML = '<div class="ph"><h1>Moments</h1><p>The plays that defined the campaign</p></div>';
+  const inner = el('div', {style:'padding:0 16px'});
+  const tabs = el('div', {style:'display:flex;gap:8px;margin-bottom:14px'});
+  ['epic','funny'].forEach(t => {
+    const b = el('button', {cls:'tab-btn'+(momTab===t?' on':'')});
+    b.textContent = t === 'epic' ? 'Epic Moments' : 'Funny Moments';
+    b.onclick = () => { momTab = t; document.getElementById('content').innerHTML=''; document.getElementById('content').appendChild(renderMoments()); };
+    tabs.appendChild(b);
+  });
+  inner.appendChild(tabs);
+  (momTab==='epic' ? GREATEST : FUNNY).forEach(m => {
+    const c = el('div', {cls:'card'});
+    c.innerHTML = `<div style="font-family:Cinzel,serif;font-size:11px;color:${momTab==='epic'?'#c8a44a':'#9a8a6a'};display:block;margin-bottom:5px">${m.who} - Session ${m.s}</div><p style="font-size:15px;line-height:1.7">${m.t}</p>`;
+    inner.appendChild(c);
   });
   p.appendChild(inner);
   return p;
 }
 
-function renderTimeline() {
-  const p = document.createElement('div');
-  p.className = 'page';
-  p.innerHTML = '<div class="page-head"><h1>Timeline</h1><p>Every in-game date and what happened</p></div>';
-  const inner = document.createElement('div');
-  inner.style.padding = '0 16px';
-  TIMELINE.forEach((t, i) => {
-    const row = document.createElement('div');
-    row.style.cssText = 'display:flex;gap:12px;margin-bottom:16px;align-items:flex-start';
-    const bar = document.createElement('div');
-    bar.style.cssText = 'min-width:4px;width:4px;background:' + (i===TIMELINE.length-1?'#8b2828':'#7a6030') + ';align-self:stretch;border-radius:2px;margin-top:4px';
-    const txt = document.createElement('div');
-    txt.innerHTML = '<div style="font-family:Cinzel,serif;font-size:11px;color:#7a6030;letter-spacing:.08em;margin-bottom:2px">' + t.date + '</div>'
-      + '<div style="font-family:Cinzel,serif;font-size:10px;color:#5a4e38;margin-bottom:5px">Session ' + t.s + '</div>'
-      + '<div style="font-size:15px;line-height:1.65;color:' + (i===TIMELINE.length-1?'#e6cc84':'#ede3cc') + '">' + t.event + '</div>';
-    row.appendChild(bar); row.appendChild(txt);
-    inner.appendChild(row);
+// ── PAGE: MUST KNOW ───────────────────────────────────────────
+function renderMustKnow() {
+  const p = el('div', {cls:'page'});
+  p.innerHTML = '<div class="ph"><h1>Must Know</h1><p>Everything you need walking into Session 18</p></div>';
+  const inner = el('div', {style:'padding:0 16px'});
+  MUST_KNOW.forEach(sec => {
+    const div = el('div', {style:'margin-bottom:18px'});
+    const titleRow = el('div', {style:`display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid ${sec.color}44`});
+    titleRow.innerHTML = `<span style="font-family:Cinzel,serif;font-size:12px;color:${sec.color};letter-spacing:.1em">${sec.title}</span>`;
+    div.appendChild(titleRow);
+    sec.items.forEach(item => {
+      const r = el('div', {style:'display:flex;gap:10px;margin-bottom:7px;align-items:flex-start'});
+      r.innerHTML = `<div style="color:${sec.color};font-size:14px;margin-top:2px;flex-shrink:0">·</div><div style="font-size:15px;line-height:1.65;color:#ede3cc">${item}</div>`;
+      div.appendChild(r);
+    });
+    inner.appendChild(div);
   });
   p.appendChild(inner);
   return p;
 }
 
+// ── PAGE: ITEMS ───────────────────────────────────────────────
+function renderItems() {
+  const ITEMS = [
+    {name:"Iron of Death",holder:"Tyr",desc:"Numenorean greatsword — bane vs. orcs and trolls (extra damage dice on all hits). Bonus action attack. Found buried in Maldwin's weapons pile — the only item in perfect condition after decades of neglect.",q:"How did Tyr's ancestral sword end up in Maldwin's sacrifice pile?"},
+    {name:"Ring of Mending",holder:"Gilgamesh",desc:"Revive 1 downed creature to 1 HP (once per long rest). Cure poison on a touched creature (twice per day). +2 Medicine checks. Retrieved from a pool in the Chetwood Ruins — it slammed down before Carl took it.",q:"Why was a healing ring in a Red Claw orc tunnel pool?"},
+    {name:"Jet-Black Dagger",holder:"Dudo",desc:"+1 to hit. Targets struck must make a Constitution saving throw. Found inside one of the troll's thighs — the body had grown flesh around it. Used to carve the ceiling node free in Session 16 (Nat 20).",q:"Who made this? How did it end up inside a troll's thigh for long enough for flesh to grow around it?"},
+    {name:"Horn of the Ruins",holder:"Carl",desc:"When blown loudly and clearly, the blower perceives a 3D echolocation map of surroundings within 15-20 feet. Only the blower perceives it. Found in the Chetwood Ruins.",q:"Carl blew it at Mungo's disappearance site and wept while holding the note. Its ownership caused the most dramatic intra-party conflict of the campaign."},
+    {name:"Black Speech Booklet",holder:"ELI - STOLEN",desc:"Found on the Orc Chieftain in Session 7. Written orders in Black Speech + maps with X markings. Stolen by Eli in Session 11. Currently in enemy hands.",q:"Confirms Red Claw orcs received written orders from a literate authority. Whatever it says, Eli has it now."},
+    {name:"Silver Ring Key",holder:"Tyr",desc:"Given by Elrond personally to Tyr, over Gilgamesh's vocal objection. Unlocks the Palantir lockbox under the master's hall in Lake Town.",q:"Elrond chose Tyr specifically. Tyr has stated he will touch the stone. Whether Elrond anticipated this is unresolved."},
+    {name:"Corrupted Seed Pod",holder:"Party",desc:"Fell when Dudo carved the ceiling node free. Tyr's Nat 20 Lore check: corrupted lineage of the Two Trees of Valinor. Being brought to Elrond.",q:"The tree is dead. But there may be more seeds scattered across Dol Guldur's ruins."},
+    {name:"Elven Green Cloaks",holder:"All party members",desc:"+2 stealth. Given by Elrond at Rivendell. Elrond told the party not to show them to dwarves — unspecified reason. Borin is a dwarf and already has one.",q:"Why should dwarves not see them? Borin has one. This has not come up."},
+  ];
+  const p = el('div', {cls:'page'});
+  p.innerHTML = '<div class="ph"><h1>Items of Note</h1><p>Significant gear and what it means</p></div>';
+  const inner = el('div', {style:'padding:0 16px'});
+  ITEMS.forEach(it => {
+    const c = el('div', {cls:'card'});
+    c.innerHTML = `<div style="font-family:Cinzel,serif;font-size:14px;color:#e6cc84">${it.name}</div><div style="color:${it.holder.includes('ELI')?'#8b2828':'#7a6030'};font-size:12px;margin-bottom:6px">Held by: ${it.holder}</div><p style="font-size:15px;line-height:1.65;margin-bottom:6px">${it.desc}</p>${it.q?`<div style="background:#2c2a1e;border-radius:4px;padding:6px 10px;font-size:13px;color:#9a8a6a;font-style:italic">? ${it.q}</div>`:''}`;
+    inner.appendChild(c);
+  });
+  p.appendChild(inner);
+  return p;
+}
+
+// ── PAGE: LOCATIONS ───────────────────────────────────────────
 function renderLocations() {
   if (detail) {
-    const loc = LOCATIONS.find(x => x.id === detail);
-    if (loc) return renderLocationDetail(loc);
+    const LOCS = [{id:"bree",name:"Bree",status:"Standing - recovering",desc:"Crossroads town at the junction of the East Road. Site of the Battle of Bree — ~175 orcs killed; ~75 townspeople dead. Home of the Prancing Pony.",facts:["~175 orcs killed in the battle; ~75 townspeople dead","Gate destroyed by Gilgamesh's barrel explosion and later rebuilt","Mayor Graf, Barliman, Finn, and stablemaster Whitman are here"]},{id:"chetwood",name:"Chetwood Ruins",status:"Cleared",desc:"The campaign's starting location. Cellar connects to a vast underground orc tunnel network. Ring of Mending and Horn of the Ruins found here.",facts:["Ring of Mending retrieved from an underground pool","Horn of the Ruins found in a surface room","Someone yelled Echo — hundreds of orcs gave chase","Beorn was the Vanisher — his giant footprints took the hunting kills"]},{id:"rivendell",name:"Rivendell",status:"Safe - party departed",desc:"The Last Homely House. The healing pool cleared every ailment any party member carried. Elrond gave the mission, equipment, and full support.",facts:["The healing pool cleared every wound, ailment, curse, and scar","Elrond inscribed Tyr's sword personally","Tyr given the Palantir key ring over Gilgamesh's objection","Everyone except Gilgamesh fell unconscious at the drinking contest"]},{id:"farmstead",name:"The Farmstead",status:"Cleared - house burned",desc:"Civilian farmstead used by Red Claw orcs. Dudo burned it. Black Speech booklet found. Tunnels beneath the barn.",facts:["Dudo shot fire arrows — the building burned to its stone walls","Mungo killed three orcs silently inside — Gilgamesh never heard a sound","Black Speech booklet found on the Chieftain","Beneath the barn floor: tunnels leading east to the troll cave","Leah's family was killed here — she survived in the barn loft"]},{id:"stump",name:"The Corrupted Stump",status:"Cleared - destroyed",desc:"An 80-100 foot corrupted tree stump on a lake island in the swamp. Bone altar, zombie wardrobe, Maldwin's quarters. All cleared.",facts:["Dudo's blood activated the bone altar — multiplied on contact","A BOAT was tied to the far side THE ENTIRE TIME. Carl had seen it. Said nothing.","Mayo ran 30 feet to slam the wardrobe shut — prevented a fight-ending zombie wave","Dudo carved the ceiling node free with a Nat 20 — all zombies dropped","Tyr found the Iron of Death buried in the weapons pile here"]},{id:"mountains",name:"The Misty Mountains",status:"CURRENT LOCATION",desc:"The party is ascending the High Pass northeast toward Lake Town. ~1,000 feet elevation. Session 18 opens mid-initiative.",facts:["~1,000 feet elevation on the High Pass heading northeast","Giant bat creatures observed flying north carrying humanoid corpses","Orc ping within 3 miles at dusk camp","Two large unknown creatures at camp — SESSION 18 STARTS HERE"]}];
+    const loc = LOCS.find(x => x.id === detail);
+    if (loc) {
+      const p = el('div', {cls:'page'});
+      const inner = el('div', {style:'padding:0 16px'});
+      inner.appendChild(back('Locations', () => navigate('locations')));
+      inner.innerHTML += `<div style="font-family:Cinzel,serif;font-size:18px;color:#e6cc84;margin-bottom:4px">${loc.name}</div><div style="color:#9a8a6a;font-size:13px;margin-bottom:12px">${loc.status}</div>`;
+      const dc = el('div', {cls:'card', style:'margin-bottom:12px'});
+      dc.innerHTML = `<p style="font-size:15px;line-height:1.7">${loc.desc}</p>`;
+      inner.appendChild(dc);
+      inner.appendChild(coll('KEY FACTS', loc.facts, true));
+      p.appendChild(inner);
+      return p;
+    }
   }
-  const p = document.createElement('div');
-  p.className = 'page';
-  p.innerHTML = '<div class="page-head"><h1>Locations</h1><p>Places the party has been</p></div>';
-  const inner = document.createElement('div');
-  inner.style.padding = '0 16px';
-  LOCATIONS.forEach(loc => {
-    const c = document.createElement('div');
-    c.className = 'card clickable';
-    c.innerHTML = '<div style="display:flex;gap:11px;align-items:flex-start">'
-      + '<div style="font-size:26px">' + loc.emoji + '</div>'
-      + '<div style="flex:1"><div style="font-family:Cinzel,serif;font-size:14px;color:#e6cc84">' + loc.name + '</div>'
-      + '<div style="color:' + (loc.status.includes('CURRENT')?'#8b2828':'#9a8a6a') + ';font-size:12px;margin-bottom:4px">' + loc.status + '</div>'
-      + '<div style="font-size:14px;line-height:1.5;color:#ede3cc">' + loc.desc.slice(0,90) + '…</div></div>'
-      + '<span style="color:#7a6030;font-size:20px">›</span></div>';
+  const LOCS2 = [{id:"bree",name:"Bree",status:"Standing - recovering"},{id:"chetwood",name:"Chetwood Ruins",status:"Cleared"},{id:"rivendell",name:"Rivendell",status:"Safe - party departed"},{id:"farmstead",name:"The Farmstead",status:"Cleared - house burned"},{id:"stump",name:"The Corrupted Stump",status:"Cleared - destroyed"},{id:"mountains",name:"The Misty Mountains",status:"CURRENT LOCATION"}];
+  const p = el('div', {cls:'page'});
+  p.innerHTML = '<div class="ph"><h1>Locations</h1><p>Places the party has been</p></div>';
+  const inner = el('div', {style:'padding:0 16px'});
+  LOCS2.forEach(loc => {
+    const c = el('div', {cls:'card tap'});
+    c.innerHTML = `<div style="font-family:Cinzel,serif;font-size:14px;color:#e6cc84">${loc.name}</div><div style="color:${loc.status.includes('CURRENT')?'#8b2828':'#9a8a6a'};font-size:12px">${loc.status}</div>`;
     c.onclick = () => navigate('locations', loc.id);
     inner.appendChild(c);
   });
@@ -752,345 +423,155 @@ function renderLocations() {
   return p;
 }
 
-function renderLocationDetail(loc) {
-  const p = document.createElement('div');
-  p.className = 'page';
-  const inner = document.createElement('div');
-  inner.style.padding = '0 16px';
-  inner.appendChild(backBtn('Locations', () => navigate('locations')));
-  const header = document.createElement('div');
-  header.style.cssText = 'display:flex;gap:12px;align-items:center;margin-bottom:10px';
-  header.innerHTML = '<div style="font-size:30px">' + loc.emoji + '</div><div>'
-    + '<div style="font-family:Cinzel,serif;font-size:18px;color:#e6cc84">' + loc.name + '</div>'
-    + '<div style="color:#9a8a6a;font-size:13px">' + loc.status + '</div></div>';
-  inner.appendChild(header);
-  const descCard = document.createElement('div');
-  descCard.className = 'card';
-  descCard.style.marginBottom = '12px';
-  descCard.innerHTML = '<p style="font-size:15px;line-height:1.7">' + loc.desc + '</p>';
-  inner.appendChild(descCard);
-  const factsLabel = document.createElement('span');
-  factsLabel.className = 'section-label';
-  factsLabel.textContent = 'KEY FACTS';
-  inner.appendChild(factsLabel);
-  loc.facts.forEach(f => {
-    const row = document.createElement('div');
-    row.className = 'fact-row';
-    row.innerHTML = '<div class="dot">·</div><div style="font-size:15px;line-height:1.65">' + f + '</div>';
-    inner.appendChild(row);
-  });
-  p.appendChild(inner);
-  return p;
-}
-
-function renderStats() {
-  const PLAYER_STATS = [
-    {
-      id:"borin", name:"Borin", player:"Josh", emoji:"⚒", color:"#8a6a3a",
-      nat20s:[
-        "Dirty 20 perception at the Weaver cottage — spotted smoke column 10-12 miles away at dusk (Session 9.1)",
-        "Tracking roll 27 — followed wagon and horse tracks 200+ feet to confirm Eli had taken them (Session 10.2)",
-        "Baruch Kazan — DC 15 Charisma: 5 of 6 zombies became frightened simultaneously (Session 16)",
-        "Strength check 24 — locked arms with Tyr and catapulted Mungo to the ceiling (Session 16)"
-      ],
-      nat1s:["Rolled a 2 on navigation through pitch-black forest — was very confident he knew the way (Session 10.2)"],
-      droppedTo0:["Session 11 — hog-tied and knocked unconscious by Eli's bandits after fighting 6v2"],
-      biggestHit:{dmg:"39",desc:"Orc commander in the Battle of Bree (Session 4)"},
-      notableHits:["24 damage — going up with the axe in the ravine ambush (Session 10.2)","14 damage on the alligator Tyr was fighting (Session 14)"],
-      kills:["Killing blow on the troll that had spotted him in the field — cut it nearly in half, emerged covered in intestines (Session 9.2)","Multiple orcs in the Battle of Bree"],
-      funStats:[
-        "Miles walked carrying a sleeping child on his back: ~5",
-        "Times he tried to find a shield in Bree before giving up: 4+",
-        "Palm-leaf rain hats fashioned and named: 1 (Leafster)",
-        "Times he urinated on himself: 1 (noted as warm and comforting)",
-        "Times he threw a hobbit at another party member: 1"
-      ]
-    },
-    {
-      id:"carl", name:"Carl", player:"Tyler", emoji:"\uD83E\uDE93", color:"#8a3a3a",
-      nat20s:[
-        "Killing blow on the final orc of the forest road ambush — a beheading; the head landed on the axe hilt (Session 3)",
-        "Critical hit on Maldwin that triggered phase 2 — four d12 damage dice (Session 15)"
-      ],
-      nat1s:["No confirmed Nat 1s on record — Carl's failures tend to involve life choices, not dice"],
-      droppedTo0:[
-        "Session 10.2 — liver stab from an orc (poisoned condition: 2 days, cannot drink alcohol)",
-        "Session 16 — multiple downs during the zombie siege"
-      ],
-      biggestHit:{dmg:"27+",desc:"Critical hit on Maldwin triggering phase 2 — four d12 dice (Session 15)"},
-      notableHits:["39 damage? No — that was Borin. Carl dealt consistent moderate damage throughout the battle of Bree","Used Challenge to lock down the wolf chieftain in Session 7"],
-      kills:["Final orc of the forest road ambush — beheading (Session 3)","Dedicated a kill to Mungo in the Battle of Bree — Thats for Mungo, bitch! (Session 4)"],
-      funStats:[
-        "Times he blew the Horn of the Ruins and wept: 1",
-        "Times he served as living alligator bait: 1 (voluntary)",
-        "Times he accidentally broke someone's kneecap: 1 (Dudo, Session 10.2)",
-        "Times he was drunk before a major battle: 1",
-        "A BOAT was tied to the far side of the stump the entire time. Carl had seen it. Times he mentioned it: 0"
-      ]
-    },
-    {
-      id:"dudo", name:"Dudo", player:"Calvin", emoji:"\uD83D\uDDE1", color:"#3a5a8a",
-      nat20s:[
-        "Nat 20 Sneak Attack — short sword up through an orc's groin; the campaign's opening kill (Session 3)",
-        "Jumped from 15 feet onto a wolf's back and stabbed through the neck on impact (Session 3)",
-        "Shot a glowing fire arrow into a cliff face to anchor the rope (attack roll 24, then climbed roll 30) (Session 6)",
-        "Killed the third-floor goblin archer — grabbed him by the eye sockets and threw him out the window (Session 7)",
-        "Stealth roll blended so completely into the vine wall that Tyr walked straight into him (Session 15)",
-        "Nat 20 — carved the ceiling node free with the flesh-pocket dagger; all zombies dropped simultaneously (Session 16)"
-      ],
-      nat1s:["Nat 1 while shooting from a tree at the wolf pack — arrow sliced his own leg; fell out of the tree, took 3 damage (Session 3)"],
-      droppedTo0:["Session 10.2 — Carl's greataxe accidentally swung into him during the Horn dispute; landed on a rock; broke his kneecap (8-day injury)"],
-      biggestHit:{dmg:"~19",desc:"Carved the ceiling node free with a Nat 20 — destroying Maldwin's entire zombie army at once (Session 16)"},
-      notableHits:["Stealth 26 — described as becoming one with the shadows (Session 3)","21 poison arrows looted and carried throughout the campaign"],
-      kills:["The campaign's most dramatic opening kill — Nat 20 up through an orc's groin (Session 3)","Ceiling node (Session 16) — the action that dropped every zombie in the stump simultaneously"],
-      funStats:[
-        "Highest stealth roll recorded: 26",
-        "Written on Tyr's forehead without being detected: 1 message (Santa's Little Helper)",
-        "Kneecaps broken by friendly fire: 1 (his own, by Carl)",
-        "Swords accidentally dropped onto Tyr's neck: 1",
-        "Walking sticks fashioned from broken furniture at exact halfling height: 1",
-        "Times he skied off the back of a moving wagon for fun: 1"
-      ]
-    },
-    {
-      id:"gilgamesh", name:"Gilgamesh", player:"Aaron / AP", emoji:"\uD83C\uDFF9", color:"#3a7a5a",
-      nat20s:[
-        "Painted the sniper nest Nat 20 after the Battle of Bree — permanently looks like part of the mayor's building (Session 4)",
-        "Caught Mungo mid-air after Borin threw him — Dex save 21; described as a torpedo head-first, swung around and set him down (Session 10.2)",
-        "Nat 20-equivalent (19 + craft slot = crit) shot between an alligator's eyes underwater — freed Mungo instantly (Session 14)"
-      ],
-      nat1s:["Nat 1 Dex save — blinded by acid when Dudo carved out the ceiling node; a glob of green acid splashed across his face and eyes (Session 16)"],
-      droppedTo0:["Session 17.2 — failed Con save against the poisoned mead; was unconscious for the entire bandit capture sequence"],
-      biggestHit:{dmg:"16",desc:"Nat 20-equivalent shot between an alligator's eyes underwater — killed it instantly, freed Mungo (Session 14)"},
-      notableHits:["Barrel explosion — gate destroyed + 15-20 orcs eliminated simultaneously (Session 4)","Toppled the wardrobe (strength 13 + Rhymes die = 23 vs DC 20) — pinned the zombie horde (Session 15)"],
-      kills:["15-20 orcs simultaneously via barrel explosion (Session 4)","The alligator holding Mungo underwater — Nat 20-equivalent shot between the eyes (Session 14)"],
-      funStats:[
-        "Ring of Mending revives performed: 4+ confirmed",
-        "Times he was the only one still conscious during the mead incident: 1",
-        "Wine barrels investigated and gotten buzzed from: 1",
-        "Times he nearly fell off the mayor's 3-story roof: 1",
-        "Times he protested Elrond's decisions: 1 (the key ring; Elrond gave it to Tyr anyway)",
-        "Reaction at Rivendell that Mungo and Tyr caught: 1 (still unexplained)"
-      ]
-    },
-    {
-      id:"mayo", name:"Mayo", player:"Alec", emoji:"\uD83D\uDEE1", color:"#7a5a8a",
-      nat20s:[
-        "Death save Nat 20 — stabilized at 1 HP after going down to a zombie bite (Session 16)",
-        "Constitution save 21 — continued operating the artesian well pump while wounded at ~4 HP (Session 8)"
-      ],
-      nat1s:["No confirmed Nat 1s on record — Mayo's failures tend to be narrow misses, not catastrophic ones"],
-      droppedTo0:[
-        "Session 7 — wolf bite (dirty 20, 11 damage); revived by Ring of Mending; kept fighting",
-        "Session 16 — zombie bite while at 1 HP; death save Nat 20; Borin woke her with gentle face-slaps"
-      ],
-      biggestHit:{dmg:"Unknown",desc:"Most damage output was through healing enabling others — Mayo's contribution is measured in allies kept alive"},
-      notableHits:["Ran 30 feet to slam the wardrobe shut — strength 12, barely — single most consequential action of the stump arc (Session 15)","Saved the barn at the farmstead by bucket-brigading the artesian well (Session 7)"],
-      kills:["Multiple wolves and orcs across Sessions 4-7","Sustained contributions throughout every combat"],
-      funStats:[
-        "Times she tried to tame an evil wolf that had just eaten a family: 3",
-        "First words after being woken from death's door with face-slaps: 'That hurt.'",
-        "Times Mungo nudged the wagon horses faster after being told to slow down: multiple",
-        "Artesian well pumping sessions while critically wounded: 1",
-        "Zombie wave prevented by a single strength-12 door slam: 1 (potentially hundreds of zombies)"
-      ]
-    },
-    {
-      id:"mungo", name:"Mungo", player:"Jesse (DM)", emoji:"\uD83D\uDD2A", color:"#7a3a2a",
-      nat20s:[
-        "Nat 20 jugular kill — first silent kill inside the burning farmhouse (Session 7)",
-        "Nat 20 jugular kill — second silent kill inside the burning farmhouse (Session 7)",
-        "Nat 20 initiative — went first in the boss fight (Session 15)",
-        "Blind dagger throw, running, on disadvantage — hit Maldwin in the side of the head; the killing blow (Session 15)"
-      ],
-      nat1s:["Called out to Beorn's bear form while imprisoned in the pit (performance check: 7) — described as a wimpy yell; the bandits told them to shut up (Session 11)"],
-      droppedTo0:["Session 14 — grappled underwater by an alligator; Gilgamesh's Nat 20-equivalent freed him"],
-      biggestHit:{dmg:"45",desc:"Nat 20 + Nat 19 (Keen) on a troll in a single attack sequence — one troll killed outright (Session 9.2)"},
-      notableHits:["13 damage on reanimated Ben: sorry I gotta do this to ya (Session 15)","14 damage driving his short sword into the ceiling node (Session 16)"],
-      kills:[
-        "Three orcs silently inside the burning farmhouse — Gilgamesh watched from 200 feet and never heard a thing (Session 7)",
-        "Reanimated Ben (Session 15)",
-        "Maldwin — the killing blow; blind dagger throw running on disadvantage (Session 15)"
-      ],
-      funStats:[
-        "Silent kills achieved without the party hearing anything: 3",
-        "Briar-patch camps lit on fire: 1",
-        "Times he yelled FOR CARL! charging at an enemy: 1",
-        "Health potions contaminated by a sanitizing finger: 1",
-        "Times Beorn has personally rescued him: 1",
-        "Times a blind dagger throw landed the campaign-defining killing blow: 1"
-      ]
-    },
-    {
-      id:"tyr", name:"Tyr", player:"Gabe", emoji:"⚔", color:"#3a3a7a",
-      nat20s:[
-        "Nat 20 Lore check — identified the seed pod as corrupted lineage of the Two Trees of Valinor (Session 16)",
-        "Nat 20 strength check — locked arms with Borin and catapulted Mungo to the ceiling (Session 16)",
-        "Nat 20 nature check — found the rocky cove shelter in the mountains (Session 17.2)",
-        "Nat 20 on ceiling node attack (at disadvantage from elevation) — all zombies briefly seized (Session 16)"
-      ],
-      nat1s:["No confirmed Nat 1s on record — though his navigation roll of 2 through pitch-black forest was stated with full confidence"],
-      droppedTo0:[
-        "Session 16 — Dudo's sword fell from the ceiling and hit his neck; went to 0 HP from friendly fire",
-        "Session 16 — zombie attack while at 1 HP; Gilgamesh's botched health potion went down the wrong pipe; spent the rest of the fight coughing at 1 HP"
-      ],
-      biggestHit:{dmg:"16",desc:"Hit Maldwin for the most damage any single party member dealt to him in one blow — Maldwin laughed and said You think that's gonna stop me? (Session 15)"},
-      notableHits:["Killed the Orc Chieftain with a greatsword throw (Session 7)","Hit one of the unknown creatures for 20 damage with a flaming arrow blind at night (Session 17.2)"],
-      kills:["The Orc Chieftain — greatsword throw (Session 7)","Multiple orcs and wolves across the campaign"],
-      funStats:[
-        "Shouted FUCK YOU at trolls before sprinting away: 1 (trolls gave chase; session ended)",
-        "Times Santa's Little Helper was written on his forehead while he meditated: 1",
-        "Ranger lore checks completely failed on creatures outside his knowledge base: 1 (the bat creatures)",
-        "Times Elrond personally inscribed his sword and gave him a mission: 1",
-        "Stated intention to touch the Palantir despite explicit warning: 1",
-        "Times he was taken down by friendly fire in the same session: 1 (Dudo's sword to the neck)"
-      ]
+// ── PAGE: BESTIARY ────────────────────────────────────────────
+function renderBestiary() {
+  const BEST=[{name:"Red Claw Orcs",status:"Destroyed as a field force",threat:"High",desc:"More organized than typical orcs — written Black Speech orders, fire arrows, battering ram. They were an instrument of something larger.",tactics:["Take damage in direct sunlight — always seek cover, shoot from windows","Wolf mounts fear fire: must save or become frightened","Written Black Speech orders confirm organized command above the chieftain level"]},{name:"Corrupted Wolves",status:"Encountered",threat:"High",desc:"Wolves affected by Dol Guldur's corruption near Rivendell. DO NOT BURN — produce toxic green mist when killed by fire.",tactics:["Produce toxic green mist when burned — do not use fire against these","Significantly more aggressive and durable than normal wolves"]},{name:"Trolls",status:"All killed",threat:"Very High",desc:"Three trolls in a cave east of the farmstead. Have pride and social hierarchy — can be manipulated through embarrassment. Gilgamesh pulled the leader's loincloth and it fell prone.",tactics:["Operate on a dusk-to-night raiding schedule — predictable","Have pride — can be baited or embarrassed","Regenerative biology — the jet-black dagger grew inside one for long enough for flesh to form around it"]},{name:"Swamp Alligators",status:"Encountered",threat:"High in water",desc:"Pale green, large (12-15 feet), presumably corrupted. Dangerous in water. There was a boat. Carl had seen it. Said nothing.",tactics:["Dangerous in water — can grapple and drag under","Drawn to splashing and movement"]},{name:"Maldwin's Zombies",status:"All destroyed",threat:"High in numbers",desc:"Reanimated humanoids with glowing green eyes. Silent movement. The wardrobe may have held over a thousand. All dropped when Dudo carved the ceiling node free.",tactics:["Silent — no warning sounds","Emerge from the wardrobe in waves — keep it shut","Mayo shutting the wardrobe in Session 15 was the most consequential single action of the arc"]},{name:"Unknown Large Creatures",status:"ACTIVE - Session 18",threat:"High - active threat",desc:"Two large creatures approached the mountain camp at 2-3 AM. Tyr fired a flaming arrow blind and hit one for 20 damage. It yelped but did not retreat. Session 18 opens mid-initiative.",tactics:["Large creatures — significant HP and damage output","One already hit for 20 damage and still advancing","Two of them — splitting party attention","Mountain terrain at night, no fire"]},{name:"Giant Bat Creatures",status:"Observed only",threat:"Unknown",desc:"Large bat-like creatures observed flying north in formation, carrying humanoid corpses. Tyr's lore check: 9 — completely outside his knowledge base. Significant.",tactics:["Unknown — only observed from distance","Carrying humanoid corpses heading north","Borin also pinged orcs within 3 miles at the same camp — connection unknown"]}];
+  if (detail) {
+    const b = BEST.find(x => x.name === detail);
+    if (b) {
+      const p = el('div', {cls:'page'});
+      const inner = el('div', {style:'padding:0 16px'});
+      inner.appendChild(back('Bestiary', () => navigate('bestiary')));
+      inner.innerHTML += `<div style="font-family:Cinzel,serif;font-size:18px;color:#e6cc84;margin-bottom:4px">${b.name}</div><div style="color:#8b2828;font-size:12px;margin-bottom:12px">Threat: ${b.threat} | ${b.status}</div>`;
+      const dc = el('div', {cls:'card', style:'margin-bottom:12px'});
+      dc.innerHTML = `<p style="font-size:15px;line-height:1.7">${b.desc}</p>`;
+      inner.appendChild(dc);
+      inner.appendChild(coll('COMBAT NOTES', b.tactics, true));
+      p.appendChild(inner);
+      return p;
     }
-  ];
-
-  const OVERALL = {
-    sessionsPlayed: 17,
-    orcsKilled: "175+",
-    townspeopleDeaths: "~75",
-    trollsKilled: 3,
-    alligatorsKilled: 2,
-    zombiesKilled: "50+",
-    partyDeaths: 0,
-    ringOfMendingUses: "5+",
-    nat20sTotal: "16+",
-    timesDroppedTo0: "10+",
-    biggestSingleHit: {who:"Mungo",dmg:"45",desc:"Nat 20 + Nat 19 (Keen) on a troll — Session 9.2"},
-    mostDeadly: {who:"Mungo",reason:"Killing blow on Maldwin + 3 silent farmhouse kills + 45-damage troll hit"},
-    mostRevived: {who:"Tyr",reason:"Dropped to 0 HP twice in Session 16 alone"},
-    bestRoller: {who:"Dudo",reason:"6 Nat 20s on record including the node kill that ended the entire arc"},
-    worstLuck: {who:"Dudo",reason:"Also has the only recorded Nat 1 — shot himself and fell out of a tree (Session 3)"},
-    mVP: {who:"Mungo",reason:"The killing blow on Maldwin was thrown blind, running, on disadvantage"},
-  };
-
-  const p = document.createElement('div');
-  p.className = 'page';
-  p.innerHTML = '<div class="page-head"><h1>Player Stats</h1><p>17 sessions · by the numbers</p></div>';
-  const inner = document.createElement('div');
-  inner.style.padding = '0 16px';
-
-  // Overall stats grid
-  const overLabel = document.createElement('span');
-  overLabel.className = 'section-label';
-  overLabel.textContent = 'CAMPAIGN OVERVIEW';
-  inner.appendChild(overLabel);
-
-  const statGrid = document.createElement('div');
-  statGrid.className = 'grid-2';
-  statGrid.style.marginBottom = '14px';
-  [
-    ['Sessions','17'],['Recorded','15'],
-    ['Orcs Killed','175+'],['Townspeople Lost','~75'],
-    ['Trolls Killed','3'],['Party Deaths','0 ✓'],
-    ['Nat 20s Logged','16+'],['Times at 0 HP','10+'],
-    ['Ring Revives','5+'],['Zombies Destroyed','50+'],
-  ].forEach(([l,v]) => {
-    const c = document.createElement('div');
-    c.className = 'card';
-    c.innerHTML = '<div style="font-family:Cinzel,serif;font-size:10px;color:#7a6030;letter-spacing:.1em;margin-bottom:4px">' + l + '</div>'
-      + '<div style="font-family:Cinzel,serif;font-size:22px;color:#e6cc84">' + v + '</div>';
-    statGrid.appendChild(c);
-  });
-  inner.appendChild(statGrid);
-
-  // Awards
-  const awardsLabel = document.createElement('span');
-  awardsLabel.className = 'section-label';
-  awardsLabel.textContent = 'CAMPAIGN AWARDS';
-  inner.appendChild(awardsLabel);
-
-  [
-    ['\uD83C\uDFC6 Most Deadly', OVERALL.mostDeadly.who, OVERALL.mostDeadly.reason],
-    ['\uD83C\uDFB2 Best Roller', OVERALL.bestRoller.who, OVERALL.bestRoller.reason],
-    ['\uD83D\uDC80 Most Revived', OVERALL.mostRevived.who, OVERALL.mostRevived.reason],
-    ['\uD83C\uDFAD Campaign MVP', OVERALL.mVP.who, OVERALL.mVP.reason],
-    ['\uD83C\uDF1F Biggest Hit', OVERALL.biggestSingleHit.who, OVERALL.biggestSingleHit.dmg + ' damage — ' + OVERALL.biggestSingleHit.desc],
-    ['\uD83C\uDFAF Worst Luck', OVERALL.worstLuck.who, OVERALL.worstLuck.reason],
-  ].forEach(([award, who, reason]) => {
-    const c = document.createElement('div');
-    c.className = 'card';
-    c.style.marginBottom = '8px';
-    c.innerHTML = '<div style="font-family:Cinzel,serif;font-size:12px;color:#c8a44a;margin-bottom:4px">' + award + '</div>'
-      + '<div style="font-family:Cinzel,serif;font-size:14px;color:#e6cc84;margin-bottom:3px">' + who + '</div>'
-      + '<div style="font-size:14px;color:#9a8a6a;line-height:1.5">' + reason + '</div>';
+  }
+  const p = el('div', {cls:'page'});
+  p.innerHTML = '<div class="ph"><h1>Bestiary</h1><p>Every creature the party has encountered</p></div>';
+  const inner = el('div', {style:'padding:0 16px'});
+  BEST.forEach(b => {
+    const c = el('div', {cls:'card tap'});
+    c.innerHTML = `<div style="font-family:Cinzel,serif;font-size:14px;color:#e6cc84">${b.name}</div><div style="color:#9a8a6a;font-size:12px">${b.status}</div>`;
+    c.onclick = () => navigate('bestiary', b.name);
     inner.appendChild(c);
   });
-
-  // Zero deaths callout
-  const noDeaths = document.createElement('div');
-  noDeaths.className = 'card';
-  noDeaths.style.cssText = 'margin-bottom:16px;border-color:#4a8a4644;background:#4a8a4611';
-  noDeaths.innerHTML = '<div style="font-family:Cinzel,serif;font-size:11px;color:#4a8a46;letter-spacing:.1em;margin-bottom:6px">PARTY DEATHS: 0</div>'
-    + '<p style="font-size:15px;color:#e6cc84;line-height:1.6">Nobody has permanently died. They have been liver-stabbed, acid-coned, zombie-bitten, and had swords dropped on their necks from the ceiling. They have gone to 0 HP at least ten times combined. Nobody has died.</p>';
-  inner.appendChild(noDeaths);
-
-  // Per-player stats
-  const playerLabel = document.createElement('span');
-  playerLabel.className = 'section-label';
-  playerLabel.textContent = 'PER PLAYER BREAKDOWN';
-  inner.appendChild(playerLabel);
-
-  PLAYER_STATS.forEach(ps => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.style.marginBottom = '12px';
-
-    // Header
-    card.innerHTML = '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #383020">'
-      + '<div style="font-size:24px">' + ps.emoji + '</div>'
-      + '<div><div style="font-family:Cinzel,serif;font-size:16px;color:#e6cc84">' + ps.name + '</div>'
-      + '<div style="color:#9a8a6a;font-size:12px">' + ps.player + '</div></div></div>';
-
-    // Stats sections
-    const sections = [
-      ['\uD83C\uDFB2 NAT 20s (' + ps.nat20s.length + ' recorded)', ps.nat20s, '#c8a44a'],
-      ['\uD83D\uDC80 NAT 1s / Critical Failures', ps.nat1s, '#8b2828'],
-      ['☠ Times Dropped to 0 HP', ps.droppedTo0, '#8b2828'],
-      ['\uD83C\uDFAF Notable Kills', ps.kills, '#7a6030'],
-      ['\uD83D\uDE04 Fun Stats', ps.funStats, '#5a7a9a'],
-    ];
-
-    sections.forEach(([title, items, col]) => {
-      if (!items || !items.length) return;
-      const sec = document.createElement('div');
-      sec.style.marginBottom = '10px';
-      const lbl = document.createElement('div');
-      lbl.style.cssText = 'font-family:Cinzel,serif;font-size:10px;color:' + col + ';letter-spacing:.1em;margin-bottom:5px';
-      lbl.textContent = title;
-      sec.appendChild(lbl);
-      items.forEach(item => {
-        const row = document.createElement('div');
-        row.style.cssText = 'display:flex;gap:8px;margin-bottom:5px;align-items:flex-start';
-        row.innerHTML = '<div style="color:' + col + ';font-size:12px;margin-top:2px;flex-shrink:0">·</div>'
-          + '<div style="font-size:14px;line-height:1.55;color:#ede3cc">' + item + '</div>';
-        sec.appendChild(row);
-      });
-      card.appendChild(sec);
-    });
-
-    // Biggest hit callout
-    const hitBox = document.createElement('div');
-    hitBox.style.cssText = 'background:#2c2a1e;border-radius:5px;padding:8px 10px;margin-top:4px';
-    hitBox.innerHTML = '<div style="font-family:Cinzel,serif;font-size:10px;color:#7a6030;letter-spacing:.1em;margin-bottom:3px">BIGGEST RECORDED HIT</div>'
-      + '<div style="font-family:Cinzel,serif;font-size:18px;color:#c8a44a;margin-bottom:2px">' + ps.biggestHit.dmg + ' damage</div>'
-      + '<div style="font-size:13px;color:#9a8a6a;line-height:1.5">' + ps.biggestHit.desc + '</div>';
-    card.appendChild(hitBox);
-
-    inner.appendChild(card);
-  });
-
   p.appendChild(inner);
   return p;
 }
 
+// ── PAGE: FACTIONS ────────────────────────────────────────────
+function renderFactions() {
+  const FACS=[{name:"Rangers of the North",align:"Allied",desc:"The Dunedain — hidden guardians of Eriador protecting people from threats they don't know exist.",rel:"Tyr is a Ranger. Halvar fought alongside the party. Aragorn files reports on Tyr to Elrond.",members:["Tyr (traveling with party)","Halvar Greycloak (Commander, Grey Watch Hollow)","Aragorn (mentioned — not yet encountered)"]},{name:"Red Claw Orc Clan",align:"Hostile - Destroyed",desc:"Received written Black Speech orders — they were an instrument of something larger, not an independent force.",rel:"The party's primary antagonist for the first half of the campaign. The commander above them has not been identified.",members:["The Chieftain (killed by Dudo — Session 4)","The Farmstead Chieftain (killed by Tyr — Session 7)"]},{name:"Rivendell",align:"Allied",desc:"Both a sanctuary and an intelligence hub. Elrond was already tracking the party through Ranger reports before they arrived.",rel:"The party's mission-giver. The healing pool cleared everything they carried. Elrond chose this party specifically.",members:["Elrond Half-elven (Lord of Rivendell)","Aragorn (mentioned)","Gandalf (assembling for council)","Saruman (assembling for council)"]},{name:"Eli's Organization",align:"Hostile - Active",desc:"A covert intelligence network with prepared wilderness facilities, cursed attunement technology, and an unknown boss.",rel:"The party's most dangerous current enemy. Eli has the Black Speech booklet. His boss has not been identified.",members:["Eli the Tinker (field operative — at large)","The Boss (unknown)","Six bandit operatives (all killed by Beorn)"]},{name:"The Enemy",align:"Hostile - Distant",desc:"Sauron's lingering influence through Dol Guldur. Possesses at least one Palantir and has been using it.",rel:"The party does not fully know who is behind what they've faced. The Red Claw orcs, Eli's network, and Maldwin's seed may all connect upward.",members:["Unknown — the command structure above Eli and the Red Claw has not been identified"]}];
+  const p = el('div', {cls:'page'});
+  p.innerHTML = '<div class="ph"><h1>Factions</h1><p>The powers at play in Middle-earth</p></div>';
+  const inner = el('div', {style:'padding:0 16px'});
+  FACS.forEach(f => {
+    const col = f.align.includes('Allied') ? '#4a8a46' : f.align.includes('Destroyed') ? '#5a4e38' : '#8b2828';
+    const c = el('div', {cls:'card', style:'margin-bottom:12px'});
+    c.innerHTML = `<div style="font-family:Cinzel,serif;font-size:15px;color:#e6cc84;margin-bottom:3px">${f.name}</div><div style="color:${col};font-size:12px;margin-bottom:8px">${f.align}</div><p style="font-size:15px;line-height:1.65;margin-bottom:8px">${f.desc}</p><div class="lbl" style="margin-top:0">RELATIONSHIP TO PARTY</div><p style="font-size:14px;color:#9a8a6a;line-height:1.6;margin-bottom:8px;font-style:italic">${f.rel}</p>`;
+    inner.appendChild(c);
+  });
+  p.appendChild(inner);
+  return p;
+}
 
+// ── PAGE: TIMELINE ────────────────────────────────────────────
+function renderTimeline() {
+  const TL=[{date:"Late October, Day 1",s:"1-2",event:"Annual hunt at the Chetwood Ruins. Ring of Mending and Horn found. Someone yelled Echo — orc chase. Party splits."},{date:"Days 2-3 (the 27th)",s:"3-4",event:"Night march. Intercepted message: attack moved to the 27th. Battle of Bree — ~175 orcs killed. Borin negotiates 2,000 gold. Mungo missing."},{date:"Day 4 (the 28th)",s:"5",event:"Mungo returns. Beorn revealed as the Vanisher. Destination: Rivendell."},{date:"Days 5-7",s:"6-7",event:"Road east. Leah found. Farmstead battle: Dudo burns it, Mungo kills silently, Tyr throws his sword, Mayo saves the barn."},{date:"Day 7 (parallel arc)",s:"9.1",event:"Borin carries Leah to the Weavers. She falls asleep on his shoulders. He waves until out of sight. Then runs."},{date:"Days 7-8",s:"8-9.2",event:"Troll cave. FUCK YOU! Borin hides behind a dead cow. Three trolls killed. Level 4."},{date:"Days 8-9",s:"10.2",event:"Horn dispute — Carl breaks Dudo's kneecap. Ravine ambush. Carl's liver wound. Eli appears."},{date:"Days 9-10",s:"11",event:"Eli revealed. Poisoned mead. Captured. Join or die. Beorn kills all six bandits alone. Eli escapes with the booklet."},{date:"Days 10-12",s:"12",event:"Corrupted wolves (do not burn). The healing pool at Rivendell clears everything."},{date:"Days 12-13",s:"13",event:"Elrond: Palantir mission given. Tyr gets the key ring. Drinking contest. Sacrificial village — Tom drawn and sacrificed. Salted pork escape."},{date:"Days 13-14",s:"14",event:"Swamp. Alligator ambush. Dead Marshes. Ben joins. Carl serves as alligator bait."},{date:"Day 14",s:"15",event:"The Stump. Ben charges Maldwin — killed. Two-phase boss fight. Mungo's blind killing throw."},{date:"Days 14-15",s:"16",event:"Zombie wave. Friendly fire — 0 HP from Dudo's sword. All zombies drop. Iron of Death found. Level up."},{date:"Day 15",s:"17",event:"THE BOAT. Borin nearly drowns. Mountain ascent. Bat creatures. Orc ping. Unknown creatures at camp. Session 18 opens mid-initiative."}];
+  const p = el('div', {cls:'page'});
+  p.innerHTML = '<div class="ph"><h1>Timeline</h1><p>Every in-game date and what happened</p></div>';
+  const inner = el('div', {style:'padding:0 16px'});
+  TL.forEach((t, i) => {
+    const r = el('div', {style:'display:flex;gap:12px;margin-bottom:16px;align-items:flex-start'});
+    r.innerHTML = `<div style="min-width:4px;width:4px;background:${i===TL.length-1?'#8b2828':'#7a6030'};align-self:stretch;border-radius:2px;margin-top:4px;flex-shrink:0"></div><div><div style="font-family:Cinzel,serif;font-size:11px;color:#7a6030;margin-bottom:2px">${t.date}</div><div style="font-family:Cinzel,serif;font-size:10px;color:#5a4e38;margin-bottom:5px">Session ${t.s}</div><div style="font-size:15px;line-height:1.65;color:${i===TL.length-1?'#e6cc84':'#ede3cc'}">${t.event}</div></div>`;
+    inner.appendChild(r);
+  });
+  p.appendChild(inner);
+  return p;
+}
 
+// ── PAGE: STATS ───────────────────────────────────────────────
+function renderStats() {
+  const p = el('div', {cls:'page'});
+  p.innerHTML = '<div class="ph"><h1>Player Stats</h1><p>17 sessions by the numbers</p></div>';
+  const inner = el('div', {style:'padding:0 16px'});
+  // Overview grid
+  const ovLbl = el('div', {cls:'lbl'}); ovLbl.textContent = 'CAMPAIGN OVERVIEW';
+  inner.appendChild(ovLbl);
+  const grid = el('div', {cls:'g2', style:'margin-bottom:16px'});
+  [['Sessions Played','17'],['Sessions Recorded','15'],['Orcs Killed','175+'],['Townspeople Lost','~75'],['Trolls Killed','3'],['Party Deaths','0'],['Nat 20s Logged','16+'],['Times at 0 HP','10+']].forEach(([l,v]) => {
+    const t = el('div', {cls:'stat-tile'});
+    t.innerHTML = `<div class="sl">${l}</div><div class="sv">${v}</div>`;
+    grid.appendChild(t);
+  });
+  inner.appendChild(grid);
+  // Zero deaths
+  const nd = el('div', {cls:'card', style:'margin-bottom:16px;border-color:#4a8a4644;background:#4a8a4611'});
+  nd.innerHTML = '<div style="font-family:Cinzel,serif;font-size:11px;color:#4a8a46;letter-spacing:.1em;margin-bottom:6px">PARTY DEATHS: 0</div><p style="font-size:15px;color:#e6cc84;line-height:1.6">Nobody has permanently died. They have been liver-stabbed, acid-coned, zombie-bitten, and had swords dropped on their necks from the ceiling. They have gone to 0 HP at least ten times combined. Nobody has died.</p>';
+  inner.appendChild(nd);
+  // Per-player
+  const plLbl = el('div', {cls:'lbl'}); plLbl.textContent = 'PER PLAYER BREAKDOWN';
+  inner.appendChild(plLbl);
+  PLAYER_STATS.forEach(ps => {
+    const c = el('div', {cls:'card', style:'margin-bottom:12px'});
+    c.innerHTML = `<div style="font-family:Cinzel,serif;font-size:16px;color:#e6cc84;margin-bottom:2px">${ps.name}</div><div style="color:#9a8a6a;font-size:12px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #383020">${ps.player}</div>`;
+    const secs = [['NAT 20s ('+ps.nat20s.length+' recorded)',ps.nat20s,'#c8a44a'],['NAT 1s / Critical Failures',ps.nat1s,'#8b2828'],['Times Dropped to 0 HP',ps.at0,'#8b2828'],['Fun Stats',ps.funstats,'#5a7a9a']];
+    secs.forEach(([title, items, col]) => {
+      if (!items || !items.length) return;
+      const s = el('div', {style:'margin-bottom:10px'});
+      s.innerHTML = `<div style="font-family:Cinzel,serif;font-size:10px;color:${col};letter-spacing:.1em;margin-bottom:5px">${title}</div>`;
+      items.forEach(item => {
+        const r = el('div', {style:'display:flex;gap:8px;margin-bottom:5px;align-items:flex-start'});
+        r.innerHTML = `<div style="color:${col};font-size:12px;margin-top:2px;flex-shrink:0">·</div><div style="font-size:14px;line-height:1.55;color:#ede3cc">${item}</div>`;
+        s.appendChild(r);
+      });
+      c.appendChild(s);
+    });
+    const hb = el('div', {style:'background:#2c2a1e;border-radius:5px;padding:8px 10px;margin-top:4px'});
+    hb.innerHTML = `<div style="font-family:Cinzel,serif;font-size:10px;color:#7a6030;letter-spacing:.1em;margin-bottom:3px">BIGGEST RECORDED HIT</div><p style="font-size:14px;color:#9a8a6a;line-height:1.5">${ps.bighit}</p>`;
+    c.appendChild(hb);
+    inner.appendChild(c);
+  });
+  p.appendChild(inner);
+  return p;
+}
 
-// ── RENDER ────────────────────────────────────────────────────
+// ── PAGE: SUGGESTIONS ─────────────────────────────────────────
+function renderSuggestions() {
+  let sugs = [];
+  try { sugs = JSON.parse(localStorage.getItem('mew-sugs')||'[]'); } catch(e){}
+  const p = el('div', {cls:'page'});
+  p.innerHTML = '<div class="ph"><h1>Player Suggestions</h1><p>Ideas and feedback for the DM - saves in browser</p></div>';
+  const inner = el('div', {style:'padding:0 16px'});
+  const form = el('div', {cls:'card', style:'margin-bottom:14px'});
+  const nameIn = el('input', {type:'text', style:'width:100%;background:#2c2a1e;border:1px solid #383020;color:#ede3cc;border-radius:5px;padding:8px 10px;font-family:Crimson Text,Georgia,serif;font-size:15px;margin-bottom:8px', placeholder:'Your name (optional)'});
+  const textIn = el('textarea'); textIn.placeholder = 'Story ideas, items you want, anything for the DM...';
+  const submitBtn = el('button', {cls:'btn', style:'width:100%;background:#7a6030;border:none;color:#0d0b08;padding:11px;border-radius:6px;font-family:Cinzel,serif;font-size:12px;letter-spacing:.06em;margin-top:8px'});
+  submitBtn.textContent = 'Submit Suggestion';
+  submitBtn.onclick = () => {
+    if (!textIn.value.trim()) return;
+    sugs.push({text:textIn.value, player:nameIn.value||'Anonymous', date:new Date().toLocaleDateString()});
+    try { localStorage.setItem('mew-sugs', JSON.stringify(sugs)); } catch(e){}
+    textIn.value = ''; nameIn.value = '';
+    document.getElementById('content').innerHTML = '';
+    document.getElementById('content').appendChild(renderSuggestions());
+  };
+  form.appendChild(el('div', {cls:'lbl', style:'margin-top:0'}, 'SUBMIT A SUGGESTION'));
+  form.appendChild(nameIn); form.appendChild(textIn); form.appendChild(submitBtn);
+  inner.appendChild(form);
+  if (!sugs.length) {
+    const empty = el('p', {style:'text-align:center;padding:20px 0;color:#5a4e38;font-style:italic'});
+    empty.textContent = 'No suggestions yet - be the first.';
+    inner.appendChild(empty);
+  } else {
+    [...sugs].reverse().forEach(s => {
+      const c = el('div', {cls:'card'});
+      c.innerHTML = `<div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-family:Cinzel,serif;font-size:11px;color:#c8a44a">${s.player}</span><span style="font-family:Cinzel,serif;font-size:10px;color:#5a4e38">${s.date}</span></div><p style="font-size:15px;line-height:1.65">${s.text}</p>`;
+      inner.appendChild(c);
+    });
+  }
+  p.appendChild(inner);
+  return p;
+}
+
+// ── NAVIGATION & RENDER ───────────────────────────────────────
+function toggleMore() { more = !more; renderNav(); renderMoreDrawer(); }
+
 function getPageContent() {
   switch(page) {
     case 'home': return renderHome();
@@ -1100,13 +581,13 @@ function getPageContent() {
     case 'mysteries': return renderMysteries();
     case 'moments': return renderMoments();
     case 'mustknow': return renderMustKnow();
-    case 'suggestions': return renderSuggestions();
     case 'items': return renderItems();
+    case 'locations': return renderLocations();
     case 'bestiary': return renderBestiary();
     case 'factions': return renderFactions();
     case 'timeline': return renderTimeline();
-    case 'locations': return renderLocations();
     case 'stats': return renderStats();
+    case 'suggestions': return renderSuggestions();
     default: return renderHome();
   }
 }
@@ -1114,26 +595,19 @@ function getPageContent() {
 function renderMoreDrawer() {
   let drawer = document.getElementById('more-drawer');
   let overlay = document.getElementById('more-overlay');
-  if (!more) { if (drawer) drawer.remove(); if (overlay) overlay.remove(); return; }
+  if (!more) { if(drawer) drawer.remove(); if(overlay) overlay.remove(); return; }
   if (!drawer) {
-    overlay = document.createElement('div');
-    overlay.id = 'more-overlay';
-    overlay.className = 'more-overlay';
+    overlay = el('div', {id:'more-overlay', cls:'more-overlay'});
     overlay.onclick = () => { more = false; renderNav(); renderMoreDrawer(); };
-    drawer = document.createElement('div');
-    drawer.id = 'more-drawer';
-    drawer.className = 'more-drawer';
+    drawer = el('div', {id:'more-drawer', cls:'more-drawer'});
     document.getElementById('app').appendChild(overlay);
     document.getElementById('app').appendChild(drawer);
   }
   drawer.innerHTML = '';
-  const grid = document.createElement('div');
-  grid.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:9px';
+  const grid = el('div', {style:'display:grid;grid-template-columns:1fr 1fr;gap:9px'});
   MORE_PAGES.forEach(pg => {
-    const b = document.createElement('button');
-    b.className = 'btn';
-    b.style.cssText = 'background:#222018;border:1px solid #383020;color:#e6cc84;padding:11px 10px;border-radius:7px;text-align:left;display:flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.05em';
-    b.innerHTML = pg.icon + ' ' + pg.label;
+    const b = el('button', {cls:'btn', style:'background:#222018;border:1px solid #383020;color:#e6cc84;padding:11px 10px;border-radius:7px;text-align:left;font-family:Cinzel,serif;font-size:12px;letter-spacing:.05em'});
+    b.textContent = pg.label;
     b.onclick = () => navigate(pg.id);
     grid.appendChild(b);
   });
@@ -1144,9 +618,8 @@ function renderNav() {
   const nav = document.getElementById('nav');
   nav.innerHTML = '';
   TABS.forEach(t => {
-    const b = document.createElement('button');
-    b.className = 'btn-nav' + (t.id === 'more' ? (more ? ' active' : '') : (page === t.id && !more ? ' active' : ''));
-    b.innerHTML = '<span class="icon">' + t.icon + '</span>' + t.label;
+    const b = el('button', {cls:'nav-btn'+(t.id==='more'?(more?' on':''):(page===t.id&&!more?' on':''))});
+    b.innerHTML = `<span class="icon">${t.icon}</span>${t.label}`;
     b.onclick = t.id === 'more' ? toggleMore : () => navigate(t.id);
     nav.appendChild(b);
   });
