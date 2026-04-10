@@ -237,8 +237,334 @@ const TABS = [
   {id:'sessions',label:'Sessions',icon:'📖'},
   {id:'more',label:'More',icon:'✦'},
 ];
+
+const ITEMS=[
+{name:"Iron of Death",holder:"Tyr",emoji:"⚔️",desc:"Numenorean greatsword — silver blade, blue gem in pommel, Sindarin runes. Bane vs. orcs and trolls (extra damage dice on all hits). Bonus action attack. Found buried in Maldwin's weapons pile — the only item in perfect condition after decades of neglect.",q:"How did Tyr's ancestral sword end up in Maldwin's sacrifice pile after 19 winters of victims?"},
+{name:"Ring of Mending",holder:"Gilgamesh",emoji:"💍",desc:"Revive 1 downed creature to 1 HP (once per long rest). Cure poison on a touched creature (twice per day). +2 Medicine checks. Retrieved from a pool in the Chetwood Ruins — it 'slammed down' before Carl took it.",q:"Why was a healing ring sitting in a Red Claw orc tunnel pool? Still unexplained."},
+{name:"Jet-Black Dagger",holder:"Dudo",emoji:"🗡️",desc:"+1 to hit. Targets struck must make a Constitution saving throw. Found inside one of the troll's thighs — the body had grown flesh around it. No runes, unknown make, perfectly sized for a halfling. Used to carve the ceiling node free in Session 16 (Nat 20).",q:"Who made this? How did it end up inside a troll's thigh for long enough for flesh to grow around it?"},
+{name:"Horn of the Ruins",holder:"Carl",emoji:"📯",desc:"When blown loudly and clearly, the blower perceives a 3D echolocation map of surroundings within ~15-20 feet. Only the blower perceives it. Found in the Chetwood Ruins.",q:"Carl blew it at Mungo's disappearance site and wept while holding the note. Its ownership caused the most dramatic intra-party conflict of the campaign (Session 10.2)."},
+{name:"Black Speech Booklet",holder:"ELI — STOLEN",emoji:"📖",desc:"Found on the Orc Chieftain in Session 7. Written orders in Black Speech + maps with X markings. Stolen by Eli in Session 11. Currently in enemy hands.",q:"Confirms Red Claw orcs received written orders from a literate authority using the tongue of the Enemy. Whatever it says, Eli has it now."},
+{name:"Silver Ring Key",holder:"Tyr",emoji:"💍",desc:"A small silver ring with a raised crown motif. Given by Elrond personally to Tyr, over Gilgamesh's vocal objection. Unlocks the Palantir lockbox under the master's hall in Lake Town.",q:"Elrond chose Tyr specifically for this. Tyr has stated he will touch the stone. Whether Elrond anticipated this is unresolved."},
+{name:"Corrupted Seed Pod",holder:"Party",emoji:"🌱",desc:"A foot-tall gray pod covered in roots. Fell when Dudo carved the ceiling node free. Tyr's Nat 20 Lore check: corrupted lineage of the Two Trees of Valinor. Being brought to Elrond.",q:"The tree is dead. But there may be more seeds scattered across Dol Guldur's ruins."},
+{name:"Elven Green Cloaks",holder:"All party members",emoji:"🧥",desc:"+2 stealth. Given by Elrond at Rivendell. Elrond told the party not to show them to dwarves — unspecified reason. Borin is a dwarf and already has one.",q:"Why shouldn't dwarves see them? Borin has one. This hasn't come up."},
+];
+
+const BESTIARY=[
+{name:"Red Claw Orcs",emoji:"⚔️",status:"Destroyed as a field force",threat:"High",desc:"The orc clan that assaulted Bree. More organized than typical orcs — written Black Speech orders, fire arrows, battering ram, a command structure. They were an instrument of something larger.",tactics:["Take damage in direct sunlight — always seek cover, shoot from windows","Wolves fear fire: must save or become frightened when hit with fire/radiant damage","Written orders in Black Speech confirm organized command above the chieftain level"]},
+{name:"Wolves (Red Claw mounts)",emoji:"🐺",status:"Encountered",threat:"Medium",desc:"Large wolves used as combat mounts. Coordinated with riders. Fire breaks them reliably.",tactics:["Fear of fire: save when hit with fire/radiant or become frightened","Evil creatures — not tameable (Mayo tried three times with animal handling 18; wolf refused each time)"]},
+{name:"Corrupted Wolves",emoji:"🐺",status:"Encountered",threat:"High",desc:"Wolves affected by Dol Guldur's lingering corruption near Rivendell. Green-tinged coat. DO NOT BURN — produce toxic green mist when killed by fire.",tactics:["Produce toxic green mist when burned — do not use fire against these","Significantly more aggressive and durable than normal wolves"]},
+{name:"Trolls",emoji:"🪨",status:"All killed",threat:"Very High",desc:"Three trolls in a cave east of the farmstead: a ~15-foot leader and two ~14-foot subordinates. Raided the sacrificial village on a dusk schedule. Have pride and social hierarchy — can be manipulated through embarrassment (Gilgamesh pulled the leader's loincloth and it fell prone).",tactics:["Operate on a dusk-to-night raiding schedule — predictable","Have pride — can be baited or embarrassed","Troll leader suppressed a valid sighting of Borin due to arrogance — overconfident","Regenerative biology — the jet-black dagger grew inside one for long enough for flesh to form around it"]},
+{name:"Swamp Alligators",emoji:"🐊",status:"Encountered",threat:"High in water",desc:"Pale green, unusually large (12-15 feet), presumably corrupted. ~15 were in the lake around the stump. Dangerous in water.",tactics:["Dangerous in water — can grapple and drag under","Drawn to splashing and movement","There was a boat tied to the far side of the stump the entire time. Carl had seen it. Said nothing."]},
+{name:"Maldwin's Zombies",emoji:"💀",status:"All destroyed",threat:"High in numbers",desc:"Reanimated humanoids with glowing green eyes. Silent movement. The wardrobe may have held over a thousand. All dropped simultaneously when Dudo carved the ceiling node free.",tactics:["Silent — no warning sounds","Emerge from the wardrobe in waves — keep it shut","Can breach through walls in large numbers","Controlled by the ceiling node — destroying it drops all of them at once","Mayo shutting the wardrobe in Session 15 was the most consequential single action of the arc"]},
+{name:"Maldwin (Two-Phase Boss)",emoji:"🧙",status:"DECEASED",threat:"Campaign Boss",desc:"Phase 1: large, staff attacks, slime bolts. Phase 2 triggered by Carl's critical hit: absorbed cauldron blood, swelled to Huge size, partially translucent, 30-foot acid cone (4d6, DC 14 Dex save). Killed by Mungo's blind dagger throw.",tactics:["Phase 1 AC was high — most attacks couldn't beat it","Specifically targeted Tyr as the biggest threat","Identified Gilgamesh as an elf instantly and raged — there is history","Phase 2: 30-foot acid cone, much harder hitting melee","Had 4 HP when Mungo's dagger hit"]},
+{name:"Unknown Large Creatures",emoji:"❓",status:"🔴 ACTIVE — Session 18",threat:"High — active threat",desc:"Two large creatures approached the mountain camp at 2-3 AM. Tyr heard shuffling and sniffing at 40-50 feet, fired a flaming arrow blind, hit one for 20 damage. It yelped but did not retreat. Session 18 opens mid-initiative.",tactics:["Large creatures — significant HP and damage output","One already hit for 20 damage and still advancing","Two of them — splitting party attention","Mountain terrain at night, no fire"]},
+{name:"Giant Bat Creatures",emoji:"🦇",status:"Observed — not encountered",threat:"Unknown",desc:"Large bat-like creatures observed flying north in formation, carrying humanoid corpses. Dudo's lore check (19): resembles documented aerial attackers but specific type unknown. Tyr's check (9): completely outside his knowledge base — significant given he is the party's lore engine.",tactics:["Unknown — only observed from distance","Appeared to be carrying humanoid corpses heading north","Borin's Rumor of the Earth also pinged orcs within 3 miles at the same camp — connection unknown"]},
+];
+
+const FACTIONS=[
+{name:"Rangers of the North",emoji:"🏹",alignment:"Allied",desc:"The Dunedain — hidden guardians of Eriador protecting people from threats they don't know exist. Small in number but exceptional fighters.",partyRel:"Tyr is a Ranger. Halvar fought alongside the party. Aragorn files reports on Tyr to Elrond.",members:["Tyr (traveling with party)","Halvar Greycloak (Commander, Grey Watch Hollow)","Aragorn (mentioned — not yet encountered)"]},
+{name:"The Red Claw Orc Clan",emoji:"🩸",alignment:"Hostile — Destroyed",desc:"The orc clan that assaulted Bree. Received written Black Speech orders — they were an instrument of something larger, not an independent force.",partyRel:"The party's primary antagonist for the first half of the campaign. The commander above them has not been identified.",members:["The Chieftain (killed by Dudo — Session 4)","The Farmstead Chieftain (killed by Tyr — Session 7)"]},
+{name:"Rivendell (Elrond's House)",emoji:"⭐",alignment:"Allied",desc:"Both a sanctuary and an intelligence hub. Elrond was already tracking the party through Ranger reports before they arrived. Currently assembling a council of Gandalf, Aragorn, and Saruman.",partyRel:"The party's mission-giver. The healing pool cleared everything they carried. Elrond chose this party specifically.",members:["Elrond Half-elven (Lord of Rivendell)","Aragorn (mentioned — not yet encountered)","Gandalf (mentioned — assembling for council)","Saruman (mentioned — assembling for council)"]},
+{name:"Eli's Organization",emoji:"⚠️",alignment:"Hostile — Active",desc:"A covert intelligence network with prepared wilderness facilities, front operations, cursed attunement technology, and communication upward to an unknown boss. Was searching for the same Palantir in Bree that Elrond had already moved.",partyRel:"The party's most dangerous current enemy. Eli has the Black Speech booklet. His boss has not been identified.",members:["Eli the Tinker (field operative — at large)","The Boss (unknown)","Six bandit operatives (all killed by Beorn in Session 11)"]},
+{name:"Maldwin's Village Pact",emoji:"💀",alignment:"Defunct",desc:"The 19-winter sacrifice pact between Maldwin and the unnamed village. One villager drawn by lottery each night. The bat swarm that raided the village after Maldwin's death suggests someone else was watching.",partyRel:"The party destroyed Maldwin and the stump. The village's fate after the bat raid is unknown.",members:["Maldwin (deceased)","Tyndell (village leader — status unknown)","Mez (innkeeper — status unknown)","Bonkey (water-fetcher — status unknown)"]},
+{name:"The Enemy (Shadow Forces)",emoji:"🔴",alignment:"Hostile — Distant",desc:"The larger force behind the events of the campaign. Sauron's lingering influence through Dol Guldur. Possesses at least one Palantir and has been using it.",partyRel:"The party does not fully know who is behind what they've faced. The Red Claw orcs, Eli's network, and Maldwin's seed may all connect upward to the same source.",members:["Unknown — the command structure above Eli and the Red Claw has not been identified"]},
+];
+
+const TIMELINE=[
+{date:"Late October, Day 1",s:"1-2",event:"Annual hunt at the Chetwood Ruins. Ring of Mending and Horn found. Someone yelled Echo — orc chase. Party splits."},
+{date:"Days 2-3 (the 27th)",s:"3-4",event:"Night march. Intercepted message: attack moved to the 27th. Battle of Bree — ~175 orcs killed. Borin negotiates 2,000 gold. Mungo missing."},
+{date:"Day 4 (the 28th)",s:"5",event:"Mungo returns. Beorn revealed as the Vanisher. Destination: Rivendell."},
+{date:"Days 5-7",s:"6-7",event:"Road east. Leah found — family killed. Farmstead battle: Dudo burns it, Mungo kills silently, Tyr throws his sword, Mayo saves the barn."},
+{date:"Day 7 (parallel)",s:"9.1",event:"Borin carries Leah to the Weavers. She falls asleep on his shoulders. He waves until out of sight. Then runs."},
+{date:"Days 7-8",s:"8-9.2",event:"Troll cave. 'FUCK YOU!' Borin hides behind a dead cow. Three trolls killed. Level 4."},
+{date:"Days 8-9",s:"10.2",event:"Horn dispute — Carl breaks Dudo's kneecap. Ravine ambush. Carl's liver wound. Eli appears."},
+{date:"Days 9-10",s:"11",event:"Eli revealed. Poisoned mead. Captured. 'Join or die.' Beorn kills all six bandits alone. Eli escapes with the booklet."},
+{date:"Days 10-12",s:"12",event:"Corrupted wolves (don't burn). The healing pool at Rivendell clears everything."},
+{date:"Days 12-13",s:"13",event:"Elrond: Palantir mission given. Tyr gets the key ring. Drinking contest. Sacrificial village — Tom drawn and sacrificed. Salted pork escape."},
+{date:"Days 13-14",s:"14",event:"Swamp. Alligator ambush. Dead Marshes. Ben joins. Carl serves as alligator bait."},
+{date:"Day 14",s:"15",event:"The Stump. Ben charges Maldwin — killed. Two-phase boss fight. Mungo's blind killing throw."},
+{date:"Days 14-15",s:"16",event:"Zombie wave. Friendly fire — 0 HP from Dudo's sword. All zombies drop. Iron of Death found. Level up."},
+{date:"Day 15",s:"17",event:"THE BOAT. Borin nearly drowns. Mountain ascent. Bat creatures. Orc ping. Unknown creatures at camp. Session 18 opens mid-initiative. 🔴"},
+];
+
+const LOCATIONS=[
+{id:"bree",name:"Bree",emoji:"🏘️",status:"Standing — recovering",desc:"Crossroads town at the junction of the East Road and the Greenway. The last real settlement before the wild. Site of the Battle of Bree — ~175 orcs killed; ~75 townspeople dead. Home of the Prancing Pony.",facts:["~175 orcs killed in the battle; ~75 townspeople dead","Gate destroyed by Gilgamesh's barrel explosion and later rebuilt","Mayor Graf, Barliman, Finn, and stablemaster Whitman are here","The party's commission and funding originated here"]},
+{id:"chetwood",name:"Chetwood Ruins",emoji:"🏚️",status:"Cleared",desc:"The campaign's starting location. A crumbling outpost in the Chetwood with a cellar connecting to a vast underground orc tunnel network.",facts:["Ring of Mending retrieved from an underground pool — it slammed down before Carl took it","Horn of the Ruins found in a surface room","Someone yelled Echo into the abyss — hundreds of orcs gave chase","Beorn was the Vanisher — his giant footprints took the hunting kills"]},
+{id:"rivendell",name:"Rivendell (Imladris)",emoji:"⭐",status:"Safe — party departed",desc:"The Last Homely House. The healing pool cleared every ailment any party member carried. Elrond gave the mission, equipment, and full support.",facts:["The healing pool cleared every wound, ailment, curse, and scar","Elrond inscribed Tyr's sword personally (+1 to hit)","Tyr given the Palantir key ring over Gilgamesh's objection","Everyone except Gilgamesh fell unconscious at the drinking contest","Horses sent back here — the pass is inhumane for such creatures"]},
+{id:"farmstead",name:"The Farmstead Valley",emoji:"🔥",status:"Cleared — house burned",desc:"Civilian farmstead used by Red Claw orcs as a fortified position. Dudo burned it. Black Speech booklet found on the Chieftain's body.",facts:["Dudo shot fire arrows — the building burned to its stone walls","Mungo killed three orcs silently inside","Black Speech booklet found on the Chieftain","Beneath the barn floor: tunnels leading east toward the troll cave","Leah's family was killed here — she survived in the barn loft"]},
+{id:"stump",name:"The Corrupted Stump",emoji:"🌿",status:"Cleared — destroyed",desc:"An 80-100 foot corrupted tree stump on a lake island in the swamp. Bone altar, zombie wardrobe, Maldwin's quarters. All cleared.",facts:["Dudo's blood activated the bone altar — multiplied significantly on contact","A BOAT was tied to the far side THE ENTIRE TIME. Carl had seen it. Said nothing.","Mayo ran 30 feet to slam the wardrobe shut — prevented a fight-ending zombie wave","Dudo carved the ceiling node free with a Nat 20 — all zombies dropped","Tyr found the Iron of Death buried in the weapons pile here"]},
+{id:"mountains",name:"The Misty Mountains",emoji:"⛰️",status:"⚠️ CURRENT LOCATION",desc:"The party is ascending the High Pass northeast toward Lake Town. ~1,000 feet elevation. Session 18 opens mid-initiative against two large unknown creatures.",facts:["~1,000 feet elevation on the High Pass heading northeast","Giant bat creatures observed flying north carrying humanoid corpses","Orc ping within 3 miles at dusk camp — living or carried by bats, unknown","Two large unknown creatures at camp — one hit for 20 damage — SESSION 18 STARTS HERE 🔴"]},
+];
+
+function renderItems() {
+  const p = document.createElement('div');
+  p.className = 'page';
+  p.innerHTML = '<div class="page-head"><h1>Items of Note</h1><p>Significant gear — who has it, what it means</p></div>';
+  const inner = document.createElement('div');
+  inner.style.padding = '0 16px';
+  ITEMS.forEach(it => {
+    const c = document.createElement('div');
+    c.className = 'card';
+    c.innerHTML = '<div style="display:flex;gap:11px;align-items:flex-start">'
+      + '<div style="font-size:28px">' + it.emoji + '</div>'
+      + '<div><div style="font-family:'Cinzel',serif;font-size:14px;color:#e6cc84">' + it.name + '</div>'
+      + '<div style="color:' + (it.holder.includes('ELI')?'#8b2828':'#7a6030') + ';font-size:12px;margin-bottom:6px">Held by: ' + it.holder + '</div>'
+      + '<p style="font-size:15px;line-height:1.65;margin-bottom:6px">' + it.desc + '</p>'
+      + (it.q ? '<div style="background:#2c2a1e;border-radius:4px;padding:6px 10px;font-size:13px;color:#9a8a6a;font-style:italic">❓ ' + it.q + '</div>' : '')
+      + '</div></div>';
+    inner.appendChild(c);
+  });
+  p.appendChild(inner);
+  return p;
+}
+
+function renderBestiary() {
+  if (detail) {
+    const b = BESTIARY.find(x => x.name === detail);
+    if (b) return renderBestiaryDetail(b);
+  }
+  const p = document.createElement('div');
+  p.className = 'page';
+  p.innerHTML = '<div class="page-head"><h1>Bestiary</h1><p>Every creature the party has encountered</p></div>';
+  const inner = document.createElement('div');
+  inner.style.padding = '0 16px';
+  BESTIARY.forEach(b => {
+    const c = document.createElement('div');
+    c.className = 'card clickable';
+    c.innerHTML = '<div style="display:flex;align-items:center;gap:12px">'
+      + '<div style="font-size:24px">' + b.emoji + '</div>'
+      + '<div style="flex:1"><div style="font-family:'Cinzel',serif;font-size:14px;color:#e6cc84">' + b.name + '</div>'
+      + '<div style="color:#9a8a6a;font-size:12px">' + b.status + '</div></div>'
+      + '<span style="color:#7a6030;font-size:20px">›</span></div>';
+    c.onclick = () => navigate('bestiary', b.name);
+    inner.appendChild(c);
+  });
+  p.appendChild(inner);
+  return p;
+}
+
+function renderBestiaryDetail(b) {
+  const p = document.createElement('div');
+  p.className = 'page';
+  const inner = document.createElement('div');
+  inner.style.padding = '0 16px';
+  inner.appendChild(backBtn('Bestiary', () => navigate('bestiary')));
+  const header = document.createElement('div');
+  header.style.cssText = 'display:flex;gap:12px;align-items:center;margin-bottom:10px';
+  header.innerHTML = '<div style="font-size:30px">' + b.emoji + '</div><div>'
+    + '<div style="font-family:'Cinzel',serif;font-size:18px;color:#e6cc84">' + b.name + '</div>'
+    + '<div style="color:#8b2828;font-size:12px">Threat: ' + b.threat + ' · ' + b.status + '</div></div>';
+  inner.appendChild(header);
+  const descCard = document.createElement('div');
+  descCard.className = 'card';
+  descCard.style.marginBottom = '12px';
+  descCard.innerHTML = '<p style="font-size:15px;line-height:1.7">' + b.desc + '</p>';
+  inner.appendChild(descCard);
+  const tacLabel = document.createElement('span');
+  tacLabel.className = 'section-label';
+  tacLabel.textContent = 'COMBAT NOTES';
+  inner.appendChild(tacLabel);
+  b.tactics.forEach(t => {
+    const row = document.createElement('div');
+    row.className = 'fact-row';
+    row.innerHTML = '<div class="dot" style="color:#8b2828">·</div><div style="font-size:15px;line-height:1.65">' + t + '</div>';
+    inner.appendChild(row);
+  });
+  p.appendChild(inner);
+  return p;
+}
+
+function renderFactions() {
+  if (detail) {
+    const f = FACTIONS.find(x => x.name === detail);
+    if (f) return renderFactionDetail(f);
+  }
+  const p = document.createElement('div');
+  p.className = 'page';
+  p.innerHTML = '<div class="page-head"><h1>Factions</h1><p>The powers at play in Middle-earth</p></div>';
+  const inner = document.createElement('div');
+  inner.style.padding = '0 16px';
+  FACTIONS.forEach(f => {
+    const c = document.createElement('div');
+    c.className = 'card clickable';
+    const col = f.alignment.includes('Allied') ? '#4a8a46' : f.alignment.includes('Defunct') ? '#5a4e38' : '#8b2828';
+    c.innerHTML = '<div style="display:flex;align-items:center;gap:12px">'
+      + '<div style="font-size:24px">' + f.emoji + '</div>'
+      + '<div style="flex:1"><div style="font-family:'Cinzel',serif;font-size:14px;color:#e6cc84">' + f.name + '</div>'
+      + '<div style="color:' + col + ';font-size:12px">' + f.alignment + '</div></div>'
+      + '<span style="color:#7a6030;font-size:20px">›</span></div>';
+    c.onclick = () => navigate('factions', f.name);
+    inner.appendChild(c);
+  });
+  p.appendChild(inner);
+  return p;
+}
+
+function renderFactionDetail(f) {
+  const p = document.createElement('div');
+  p.className = 'page';
+  const inner = document.createElement('div');
+  inner.style.padding = '0 16px';
+  inner.appendChild(backBtn('Factions', () => navigate('factions')));
+  inner.innerHTML += '<div style="font-size:30px;margin-bottom:8px">' + f.emoji + '</div>'
+    + '<div style="font-family:'Cinzel',serif;font-size:18px;color:#e6cc84;margin-bottom:4px">' + f.name + '</div>'
+    + '<div style="color:#9a8a6a;font-size:13px;margin-bottom:12px">' + f.alignment + '</div>';
+  const descCard = document.createElement('div');
+  descCard.className = 'card';
+  descCard.style.marginBottom = '12px';
+  descCard.innerHTML = '<p style="font-size:15px;line-height:1.7">' + f.desc + '</p>';
+  inner.appendChild(descCard);
+  ['Relationship to Party|partyRel', 'Known Members|members'].forEach(pair => {
+    const [label, key] = pair.split('|');
+    const lbl = document.createElement('span');
+    lbl.className = 'section-label';
+    lbl.textContent = label.toUpperCase();
+    inner.appendChild(lbl);
+    const val = f[key];
+    if (Array.isArray(val)) {
+      val.forEach(m => {
+        const row = document.createElement('div');
+        row.className = 'fact-row';
+        row.innerHTML = '<div class="dot">·</div><div style="font-size:15px;line-height:1.65">' + m + '</div>';
+        inner.appendChild(row);
+      });
+    } else {
+      const d = document.createElement('p');
+      d.style.cssText = 'font-size:15px;line-height:1.65;margin-bottom:12px;padding-left:12px;border-left:2px solid #383020';
+      d.textContent = val;
+      inner.appendChild(d);
+    }
+  });
+  p.appendChild(inner);
+  return p;
+}
+
+function renderTimeline() {
+  const p = document.createElement('div');
+  p.className = 'page';
+  p.innerHTML = '<div class="page-head"><h1>Timeline</h1><p>Every in-game date and what happened</p></div>';
+  const inner = document.createElement('div');
+  inner.style.padding = '0 16px';
+  TIMELINE.forEach((t, i) => {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;gap:12px;margin-bottom:16px;align-items:flex-start';
+    const bar = document.createElement('div');
+    bar.style.cssText = 'min-width:4px;width:4px;background:' + (i===TIMELINE.length-1?'#8b2828':'#7a6030') + ';align-self:stretch;border-radius:2px;margin-top:4px';
+    const txt = document.createElement('div');
+    txt.innerHTML = '<div style="font-family:'Cinzel',serif;font-size:11px;color:#7a6030;letter-spacing:.08em;margin-bottom:2px">' + t.date + '</div>'
+      + '<div style="font-family:'Cinzel',serif;font-size:10px;color:#5a4e38;margin-bottom:5px">Session ' + t.s + '</div>'
+      + '<div style="font-size:15px;line-height:1.65;color:' + (i===TIMELINE.length-1?'#e6cc84':'#ede3cc') + '">' + t.event + '</div>';
+    row.appendChild(bar); row.appendChild(txt);
+    inner.appendChild(row);
+  });
+  p.appendChild(inner);
+  return p;
+}
+
+function renderLocations() {
+  if (detail) {
+    const loc = LOCATIONS.find(x => x.id === detail);
+    if (loc) return renderLocationDetail(loc);
+  }
+  const p = document.createElement('div');
+  p.className = 'page';
+  p.innerHTML = '<div class="page-head"><h1>Locations</h1><p>Places the party has been</p></div>';
+  const inner = document.createElement('div');
+  inner.style.padding = '0 16px';
+  LOCATIONS.forEach(loc => {
+    const c = document.createElement('div');
+    c.className = 'card clickable';
+    c.innerHTML = '<div style="display:flex;gap:11px;align-items:flex-start">'
+      + '<div style="font-size:26px">' + loc.emoji + '</div>'
+      + '<div style="flex:1"><div style="font-family:'Cinzel',serif;font-size:14px;color:#e6cc84">' + loc.name + '</div>'
+      + '<div style="color:' + (loc.status.includes('CURRENT')?'#8b2828':'#9a8a6a') + ';font-size:12px;margin-bottom:4px">' + loc.status + '</div>'
+      + '<div style="font-size:14px;line-height:1.5;color:#ede3cc">' + loc.desc.slice(0,90) + '…</div></div>'
+      + '<span style="color:#7a6030;font-size:20px">›</span></div>';
+    c.onclick = () => navigate('locations', loc.id);
+    inner.appendChild(c);
+  });
+  p.appendChild(inner);
+  return p;
+}
+
+function renderLocationDetail(loc) {
+  const p = document.createElement('div');
+  p.className = 'page';
+  const inner = document.createElement('div');
+  inner.style.padding = '0 16px';
+  inner.appendChild(backBtn('Locations', () => navigate('locations')));
+  const header = document.createElement('div');
+  header.style.cssText = 'display:flex;gap:12px;align-items:center;margin-bottom:10px';
+  header.innerHTML = '<div style="font-size:30px">' + loc.emoji + '</div><div>'
+    + '<div style="font-family:'Cinzel',serif;font-size:18px;color:#e6cc84">' + loc.name + '</div>'
+    + '<div style="color:#9a8a6a;font-size:13px">' + loc.status + '</div></div>';
+  inner.appendChild(header);
+  const descCard = document.createElement('div');
+  descCard.className = 'card';
+  descCard.style.marginBottom = '12px';
+  descCard.innerHTML = '<p style="font-size:15px;line-height:1.7">' + loc.desc + '</p>';
+  inner.appendChild(descCard);
+  const factsLabel = document.createElement('span');
+  factsLabel.className = 'section-label';
+  factsLabel.textContent = 'KEY FACTS';
+  inner.appendChild(factsLabel);
+  loc.facts.forEach(f => {
+    const row = document.createElement('div');
+    row.className = 'fact-row';
+    row.innerHTML = '<div class="dot">·</div><div style="font-size:15px;line-height:1.65">' + f + '</div>';
+    inner.appendChild(row);
+  });
+  p.appendChild(inner);
+  return p;
+}
+
+function renderStats() {
+  const NAT20S=[
+    {who:"Dudo",s:"3",t:"Sneak Attack up through an orc's groin — campaign's opening kill"},
+    {who:"Gilgamesh",s:"4",t:"Painted sniper nest to look permanently like part of the mayor's building"},
+    {who:"Mungo",s:"7",t:"Jugular kill inside the burning farmhouse — silent"},
+    {who:"Borin",s:"9.1",t:"Spotted smoke column 10-12 miles away at dusk"},
+    {who:"Dudo",s:"15",t:"Blended into vine wall during stealth ascent — Tyr walked into him"},
+    {who:"Mungo",s:"15",t:"Blind dagger throw on disadvantage — hit Maldwin in the head"},
+    {who:"Tyr",s:"16",t:"Lore check — identified the seed pod as corrupted Valinor lineage"},
+    {who:"Tyr",s:"16",t:"Strength check 24 — catapulted Mungo to the ceiling"},
+    {who:"Dudo",s:"16",t:"Carved the ceiling node free — all zombies dropped simultaneously"},
+    {who:"Tyr",s:"17.2",t:"Found the rocky cove shelter in the mountains"},
+  ];
+  const p = document.createElement('div');
+  p.className = 'page';
+  p.innerHTML = '<div class="page-head"><h1>Campaign Stats</h1><p>The numbers behind 17 sessions</p></div>';
+  const inner = document.createElement('div');
+  inner.style.padding = '0 16px';
+  inner.innerHTML = '<div class="grid-2" style="margin-bottom:16px">'
+    + [['Sessions Played','17'],['Sessions Recorded','15'],['Orcs Killed','175+'],['Townspeople Lost','~75'],['Trolls Killed','3'],['Party Deaths','0']].map(([l,v]) =>
+      '<div class="card"><div style="font-family:'Cinzel',serif;font-size:10px;color:#7a6030;letter-spacing:.1em;margin-bottom:6px">' + l + '</div>'
+      + '<div style="font-family:'Cinzel',serif;font-size:24px;color:#e6cc84">' + v + '</div></div>'
+    ).join('') + '</div>'
+    + '<div class="card" style="margin-bottom:16px;border-color:#4a8a4644;background:#4a8a4611"><p style="font-size:15px;color:#e6cc84;line-height:1.6">Zero party deaths. Nobody has died. They have gone to 0 HP many times. They have had Nat 20 death saves. They have been poisoned, liver-stabbed, acid-coned, and bitten by zombies. Nobody has died.</p></div>';
+  const natLabel = document.createElement('span');
+  natLabel.className = 'section-label';
+  natLabel.textContent = 'CONFIRMED NAT 20s (' + NAT20S.length + ' recorded)';
+  inner.appendChild(natLabel);
+  NAT20S.forEach(n => {
+    const c = document.createElement('div');
+    c.className = 'card';
+    c.innerHTML = '<div style="font-family:'Cinzel',serif;font-size:11px;color:#c8a44a;margin-bottom:4px">' + n.who + ' · Session ' + n.s + '</div>'
+      + '<p style="font-size:14px;line-height:1.6">' + n.t + '</p>';
+    inner.appendChild(c);
+  });
+  p.appendChild(inner);
+  return p;
+}
+
 const MORE_PAGES = [
   {id:'mustknow',label:'Must Know',icon:'📋'},
+  {id:'locations',label:'Locations',icon:'🗺️'},
+  {id:'items',label:'Items',icon:'💎'},
+  {id:'bestiary',label:'Bestiary',icon:'🐉'},
+  {id:'factions',label:'Factions',icon:'⚔️'},
+  {id:'timeline',label:'Timeline',icon:'📅'},
+  {id:'stats',label:'Stats',icon:'📊'},
   {id:'mysteries',label:'Mysteries',icon:'❓'},
   {id:'moments',label:'Moments',icon:'⭐'},
   {id:'suggestions',label:'Suggestions',icon:'💬'},
@@ -648,6 +974,12 @@ function getPageContent() {
     case 'moments': return renderMoments();
     case 'mustknow': return renderMustKnow();
     case 'suggestions': return renderSuggestions();
+    case 'items': return renderItems();
+    case 'bestiary': return renderBestiary();
+    case 'factions': return renderFactions();
+    case 'timeline': return renderTimeline();
+    case 'locations': return renderLocations();
+    case 'stats': return renderStats();
     default: return renderHome();
   }
 }
