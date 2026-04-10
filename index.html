@@ -1112,60 +1112,66 @@ function Home({go}){
   </PW>;
 }
 
+function CharDetail({c,edits,onBack,onSave}){
+  const note=(edits[c.id]||{}).note||"";
+  const[editMode,setEditMode]=useState(false);
+  const[draft,setDraft]=useState(note);
+  return<PW>
+    <div style={{padding:"16px 16px 0"}}><Back onClick={onBack} label="Party"/></div>
+    <div style={{padding:"0 16px"}}>
+      <div style={{display:"flex",gap:12,alignItems:"center",marginBottom:14}}>
+        <div style={{fontSize:36}}>{c.emoji}</div>
+        <div>
+          <div style={{...cin,fontSize:18,color:C.gl}}>{c.name}</div>
+          <div style={{color:C.dm,fontSize:13,...cri}}>{c.player} · {c.race} · {c.cls}</div>
+        </div>
+      </div>
+      <Card style={{marginBottom:10}}>
+        <div style={{...cri,fontSize:15,fontStyle:"italic",color:C.gl,lineHeight:1.6,marginBottom:8}}>"{c.tag}"</div>
+        <div style={{...cri,fontSize:15,color:C.tx,lineHeight:1.7}}>{c.bio}</div>
+      </Card>
+      <Coll title="ABILITIES" open>
+        {c.abilities.map((a,i)=><div key={i} style={{marginBottom:10}}>
+          <div style={{...cin,fontSize:12,color:C.g,marginBottom:3}}>{a.n}</div>
+          <div style={{paddingLeft:12,borderLeft:`2px solid ${C.gd}`,color:C.tx,...cri,fontSize:15}}>{a.d}</div>
+        </div>)}
+      </Coll>
+      <Coll title="EQUIPMENT">
+        {c.gear.map((g,i)=><div key={i} style={{marginBottom:6,paddingLeft:12,borderLeft:`2px solid ${C.bd}`,color:C.tx,...cri,fontSize:15}}>{g}</div>)}
+      </Coll>
+      <Coll title="KEY MOMENTS BY SESSION">
+        {c.moments.map((m,i)=><div key={i} style={{marginBottom:14}}>
+          <div style={{...cin,fontSize:11,color:C.gd,marginBottom:4}}>SESSION {m.s}</div>
+          <div style={{paddingLeft:12,borderLeft:`2px solid ${C.gd}`,color:C.tx,...cri,fontSize:15,lineHeight:1.7}}>{m.t}</div>
+        </div>)}
+      </Coll>
+      <Coll title="FUNNY MOMENTS">
+        <ul style={{paddingLeft:18}}>{c.funny.map((f,i)=><li key={i} style={{marginBottom:6}}>{f}</li>)}</ul>
+      </Coll>
+      <Coll title="CHARACTER ARC"><div>{c.arc}</div></Coll>
+      <div style={{marginTop:16,borderTop:`1px solid ${C.bd}`,paddingTop:14}}>
+        <Cin sz={10} col={C.gd} style={{letterSpacing:"0.12em",display:"block",marginBottom:8}}>YOUR NOTES (saves in your browser)</Cin>
+        {editMode?<div>
+          <textarea value={draft} onChange={e=>setDraft(e.target.value)} style={{width:"100%",background:C.s3,border:`1px solid ${C.bd}`,color:C.tx,borderRadius:5,padding:"8px 10px",...cri,fontSize:15,minHeight:80}} placeholder="Add your own notes about this character..."/>
+          <div style={{display:"flex",gap:8,marginTop:8}}>
+            <button onClick={()=>{onSave(c.id,draft);setEditMode(false);}} style={{background:C.gd,border:"none",color:C.bg,padding:"6px 14px",borderRadius:5,cursor:"pointer",...cin,fontSize:11}}>Save</button>
+            <button onClick={()=>{setDraft(note);setEditMode(false);}} style={{background:"none",border:`1px solid ${C.bd}`,color:C.dm,padding:"6px 14px",borderRadius:5,cursor:"pointer",...cin,fontSize:11}}>Cancel</button>
+          </div>
+        </div>:<div onClick={()=>setEditMode(true)} style={{background:C.s3,border:`1px solid ${C.bd}`,borderRadius:5,padding:"9px 11px",cursor:"text",minHeight:44,...cri,fontSize:15,color:note?C.tx:C.mt,lineHeight:1.6}}>{note||"Click to add your own notes about this character..."}</div>}
+      </div>
+    </div>
+  </PW>;
+}
+
 function Party({edits,onSave,directSel,onDirectClear}){
   const[sel,setSel]=useState(directSel||null);
   useEffect(()=>{if(directSel){setSel(directSel);if(onDirectClear)onDirectClear();}},[directSel]);
-  const c=sel?PARTY.find(p=>p.id===sel):null;
-  if(c){
-    const note=(edits[c.id]||{}).note||"";
-    const[editMode,setEditMode]=useState(false);
-    const[draft,setDraft]=useState(note);
-    return<PW>
-      <div style={{padding:"16px 16px 0"}}><Back onClick={()=>setSel(null)} label="Party"/></div>
-      <div style={{padding:"0 16px"}}>
-        <div style={{display:"flex",gap:12,alignItems:"center",marginBottom:14}}>
-          <div style={{fontSize:36}}>{c.emoji}</div>
-          <div>
-            <div style={{...cin,fontSize:18,color:C.gl}}>{c.name}</div>
-            <div style={{color:C.dm,fontSize:13,...cri}}>{c.player} · {c.race} · {c.cls}</div>
-          </div>
-        </div>
-        <Card style={{marginBottom:10}}>
-          <div style={{...cri,fontSize:15,fontStyle:"italic",color:C.gl,lineHeight:1.6,marginBottom:8}}>"{c.tag}"</div>
-          <div style={{...cri,fontSize:15,color:C.tx,lineHeight:1.7}}>{c.bio}</div>
-        </Card>
-        <Coll title="ABILITIES" open>
-          {c.abilities.map((a,i)=><div key={i} style={{marginBottom:10}}>
-            <div style={{...cin,fontSize:12,color:C.g,marginBottom:3}}>{a.n}</div>
-            <div style={{paddingLeft:12,borderLeft:`2px solid ${C.gd}`,color:C.tx,...cri,fontSize:15}}>{a.d}</div>
-          </div>)}
-        </Coll>
-        <Coll title="EQUIPMENT">
-          {c.gear.map((g,i)=><div key={i} style={{marginBottom:6,paddingLeft:12,borderLeft:`2px solid ${C.bd}`,color:C.tx,...cri,fontSize:15}}>{g}</div>)}
-        </Coll>
-        <Coll title="KEY MOMENTS BY SESSION">
-          {c.moments.map((m,i)=><div key={i} style={{marginBottom:14}}>
-            <div style={{...cin,fontSize:11,color:C.gd,marginBottom:4}}>SESSION {m.s}</div>
-            <div style={{paddingLeft:12,borderLeft:`2px solid ${C.gd}`,color:C.tx,...cri,fontSize:15,lineHeight:1.7}}>{m.t}</div>
-          </div>)}
-        </Coll>
-        <Coll title="FUNNY MOMENTS">
-          <ul style={{paddingLeft:18}}>{c.funny.map((f,i)=><li key={i} style={{marginBottom:6}}>{f}</li>)}</ul>
-        </Coll>
-        <Coll title="CHARACTER ARC"><div>{c.arc}</div></Coll>
-        <div style={{marginTop:16,borderTop:`1px solid ${C.bd}`,paddingTop:14}}>
-          <Cin sz={10} col={C.gd} style={{letterSpacing:"0.12em",display:"block",marginBottom:8}}>YOUR NOTES (saves in your browser)</Cin>
-          {editMode?<div>
-            <textarea value={draft} onChange={e=>setDraft(e.target.value)} style={{width:"100%",background:C.s3,border:`1px solid ${C.bd}`,color:C.tx,borderRadius:5,padding:"8px 10px",...cri,fontSize:15,minHeight:80}} placeholder="Add your own notes about this character..."/>
-            <div style={{display:"flex",gap:8,marginTop:8}}>
-              <button onClick={()=>{onSave(c.id,draft);setEditMode(false);}} style={{background:C.gd,border:"none",color:C.bg,padding:"6px 14px",borderRadius:5,cursor:"pointer",...cin,fontSize:11}}>Save</button>
-              <button onClick={()=>{setDraft(note);setEditMode(false);}} style={{background:"none",border:`1px solid ${C.bd}`,color:C.dm,padding:"6px 14px",borderRadius:5,cursor:"pointer",...cin,fontSize:11}}>Cancel</button>
-            </div>
-          </div>:<div onClick={()=>setEditMode(true)} style={{background:C.s3,border:`1px solid ${C.bd}`,borderRadius:5,padding:"9px 11px",cursor:"text",minHeight:44,...cri,fontSize:15,color:note?C.tx:C.mt,lineHeight:1.6}}>{note||"Click to add your own notes about this character..."}</div>}
-        </div>
-      </div>
-    </PW>;
+
+  if(sel){
+    const c=PARTY.find(p=>p.id===sel);
+    if(c)return<CharDetail c={c} edits={edits} onBack={()=>setSel(null)} onSave={onSave}/>;
   }
+
   return<PW>
     <PH title="The Party" sub="Seven adventurers on an increasingly dangerous road"/>
     <div style={{padding:"0 16px"}}>
