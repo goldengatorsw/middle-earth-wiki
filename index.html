@@ -508,7 +508,9 @@ function renderSessionDetail(s) {
   const p = el('div', {className: 'page'});
   const inner = el('div', {style: 'padding:0 16px'});
   inner.appendChild(backBtn('Sessions', () => navigate('sessions')));
-  inner.innerHTML += `<div style="font-family:'Cinzel',serif;font-size:11px;color:#7a6030;letter-spacing:.1em;margin-bottom:5px">SESSION ${s.num}</div>`;
+  const sesLabel = el('div', {style: "font-family:'Cinzel',serif;font-size:11px;color:#7a6030;letter-spacing:.1em;margin-bottom:5px"});
+  sesLabel.textContent = 'SESSION ' + s.num;
+  inner.appendChild(sesLabel);
   const title = el('div', {style: 'font-family:Cinzel,serif;font-size:20px;color:#e6cc84;margin-bottom:14px'});
   title.textContent = s.title;
   const c = el('div', {className: 'card'});
@@ -605,7 +607,8 @@ function renderSuggestions() {
   form.appendChild(nameIn); form.appendChild(textIn); form.appendChild(submitBtn);
   inner.appendChild(form);
   if (!sugs.length) {
-    inner.innerHTML += '<p style="text-align:center;padding:20px 0;color:#5a4e38;font-style:italic">No suggestions yet — be the first.</p>';
+    const empty = el('p', {style: 'text-align:center;padding:20px 0;color:#5a4e38;font-style:italic'}, 'No suggestions yet — be the first.');
+    inner.appendChild(empty);
   } else {
     inner.appendChild(el('span', {className: 'section-label'}, `SUBMITTED (${sugs.length})`));
     [...sugs].reverse().forEach(s => {
