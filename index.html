@@ -784,537 +784,307 @@ function renderLocationDetail(loc) {
 }
 
 function renderStats() {
-  const NAT20S=[
-    {who:"Dudo",s:"3",t:"Sneak Attack up through an orc's groin — campaign's opening kill"},
-    {who:"Gilgamesh",s:"4",t:"Painted sniper nest to look permanently like part of the mayor's building"},
-    {who:"Mungo",s:"7",t:"Jugular kill inside the burning farmhouse — silent"},
-    {who:"Borin",s:"9.1",t:"Spotted smoke column 10-12 miles away at dusk"},
-    {who:"Dudo",s:"15",t:"Blended into vine wall during stealth ascent — Tyr walked into him"},
-    {who:"Mungo",s:"15",t:"Blind dagger throw on disadvantage — hit Maldwin in the head"},
-    {who:"Tyr",s:"16",t:"Lore check — identified the seed pod as corrupted Valinor lineage"},
-    {who:"Tyr",s:"16",t:"Strength check 24 — catapulted Mungo to the ceiling"},
-    {who:"Dudo",s:"16",t:"Carved the ceiling node free — all zombies dropped simultaneously"},
-    {who:"Tyr",s:"17.2",t:"Found the rocky cove shelter in the mountains"},
+  const PLAYER_STATS = [
+    {
+      id:"borin", name:"Borin", player:"Josh", emoji:"⚒️", color:"#8a6a3a",
+      nat20s:[
+        "Dirty 20 perception at the Weaver cottage — spotted smoke column 10-12 miles away at dusk (Session 9.1)",
+        "Tracking roll 27 — followed wagon and horse tracks 200+ feet to confirm Eli had taken them (Session 10.2)",
+        "Baruch Kazan — DC 15 Charisma: 5 of 6 zombies became frightened simultaneously (Session 16)",
+        "Strength check 24 — locked arms with Tyr and catapulted Mungo to the ceiling (Session 16)"
+      ],
+      nat1s:["Rolled a 2 on navigation through pitch-black forest — was very confident he knew the way (Session 10.2)"],
+      droppedTo0:["Session 11 — hog-tied and knocked unconscious by Eli's bandits after fighting 6v2"],
+      biggestHit:{dmg:"39",desc:"Orc commander in the Battle of Bree (Session 4)"},
+      notableHits:["24 damage — going up with the axe in the ravine ambush (Session 10.2)","14 damage on the alligator Tyr was fighting (Session 14)"],
+      kills:["Killing blow on the troll that had spotted him in the field — cut it nearly in half, emerged covered in intestines (Session 9.2)","Multiple orcs in the Battle of Bree"],
+      funStats:[
+        "Miles walked carrying a sleeping child on his back: ~5",
+        "Times he tried to find a shield in Bree before giving up: 4+",
+        "Palm-leaf rain hats fashioned and named: 1 (Leafster)",
+        "Times he urinated on himself: 1 (noted as warm and comforting)",
+        "Times he threw a hobbit at another party member: 1"
+      ]
+    },
+    {
+      id:"carl", name:"Carl", player:"Tyler", emoji:"🪓", color:"#8a3a3a",
+      nat20s:[
+        "Killing blow on the final orc of the forest road ambush — a beheading; the head landed on the axe hilt (Session 3)",
+        "Critical hit on Maldwin that triggered phase 2 — four d12 damage dice (Session 15)"
+      ],
+      nat1s:["No confirmed Nat 1s on record — Carl's failures tend to involve life choices, not dice"],
+      droppedTo0:[
+        "Session 10.2 — liver stab from an orc (poisoned condition: 2 days, cannot drink alcohol)",
+        "Session 16 — multiple downs during the zombie siege"
+      ],
+      biggestHit:{dmg:"27+",desc:"Critical hit on Maldwin triggering phase 2 — four d12 dice (Session 15)"},
+      notableHits:["39 damage? No — that was Borin. Carl dealt consistent moderate damage throughout the battle of Bree","Used Challenge to lock down the wolf chieftain in Session 7"],
+      kills:["Final orc of the forest road ambush — beheading (Session 3)","Dedicated a kill to Mungo in the Battle of Bree — Thats for Mungo, bitch! (Session 4)"],
+      funStats:[
+        "Times he blew the Horn of the Ruins and wept: 1",
+        "Times he served as living alligator bait: 1 (voluntary)",
+        "Times he accidentally broke someone's kneecap: 1 (Dudo, Session 10.2)",
+        "Times he was drunk before a major battle: 1",
+        "A BOAT was tied to the far side of the stump the entire time. Carl had seen it. Times he mentioned it: 0"
+      ]
+    },
+    {
+      id:"dudo", name:"Dudo", player:"Calvin", emoji:"🗡️", color:"#3a5a8a",
+      nat20s:[
+        "Nat 20 Sneak Attack — short sword up through an orc's groin; the campaign's opening kill (Session 3)",
+        "Jumped from 15 feet onto a wolf's back and stabbed through the neck on impact (Session 3)",
+        "Shot a glowing fire arrow into a cliff face to anchor the rope (attack roll 24, then climbed roll 30) (Session 6)",
+        "Killed the third-floor goblin archer — grabbed him by the eye sockets and threw him out the window (Session 7)",
+        "Stealth roll blended so completely into the vine wall that Tyr walked straight into him (Session 15)",
+        "Nat 20 — carved the ceiling node free with the flesh-pocket dagger; all zombies dropped simultaneously (Session 16)"
+      ],
+      nat1s:["Nat 1 while shooting from a tree at the wolf pack — arrow sliced his own leg; fell out of the tree, took 3 damage (Session 3)"],
+      droppedTo0:["Session 10.2 — Carl's greataxe accidentally swung into him during the Horn dispute; landed on a rock; broke his kneecap (8-day injury)"],
+      biggestHit:{dmg:"~19",desc:"Carved the ceiling node free with a Nat 20 — destroying Maldwin's entire zombie army at once (Session 16)"},
+      notableHits:["Stealth 26 — described as becoming one with the shadows (Session 3)","21 poison arrows looted and carried throughout the campaign"],
+      kills:["The campaign's most dramatic opening kill — Nat 20 up through an orc's groin (Session 3)","Ceiling node (Session 16) — the action that dropped every zombie in the stump simultaneously"],
+      funStats:[
+        "Highest stealth roll recorded: 26",
+        "Written on Tyr's forehead without being detected: 1 message (Santa's Little Helper)",
+        "Kneecaps broken by friendly fire: 1 (his own, by Carl)",
+        "Swords accidentally dropped onto Tyr's neck: 1",
+        "Walking sticks fashioned from broken furniture at exact halfling height: 1",
+        "Times he skied off the back of a moving wagon for fun: 1"
+      ]
+    },
+    {
+      id:"gilgamesh", name:"Gilgamesh", player:"Aaron / AP", emoji:"🏹", color:"#3a7a5a",
+      nat20s:[
+        "Painted the sniper nest Nat 20 after the Battle of Bree — permanently looks like part of the mayor's building (Session 4)",
+        "Caught Mungo mid-air after Borin threw him — Dex save 21; described as a torpedo head-first, swung around and set him down (Session 10.2)",
+        "Nat 20-equivalent (19 + craft slot = crit) shot between an alligator's eyes underwater — freed Mungo instantly (Session 14)"
+      ],
+      nat1s:["Nat 1 Dex save — blinded by acid when Dudo carved out the ceiling node; a glob of green acid splashed across his face and eyes (Session 16)"],
+      droppedTo0:["Session 17.2 — failed Con save against the poisoned mead; was unconscious for the entire bandit capture sequence"],
+      biggestHit:{dmg:"16",desc:"Nat 20-equivalent shot between an alligator's eyes underwater — killed it instantly, freed Mungo (Session 14)"},
+      notableHits:["Barrel explosion — gate destroyed + 15-20 orcs eliminated simultaneously (Session 4)","Toppled the wardrobe (strength 13 + Rhymes die = 23 vs DC 20) — pinned the zombie horde (Session 15)"],
+      kills:["15-20 orcs simultaneously via barrel explosion (Session 4)","The alligator holding Mungo underwater — Nat 20-equivalent shot between the eyes (Session 14)"],
+      funStats:[
+        "Ring of Mending revives performed: 4+ confirmed",
+        "Times he was the only one still conscious during the mead incident: 1",
+        "Wine barrels investigated and gotten buzzed from: 1",
+        "Times he nearly fell off the mayor's 3-story roof: 1",
+        "Times he protested Elrond's decisions: 1 (the key ring; Elrond gave it to Tyr anyway)",
+        "Reaction at Rivendell that Mungo and Tyr caught: 1 (still unexplained)"
+      ]
+    },
+    {
+      id:"mayo", name:"Mayo", player:"Alec", emoji:"🛡️", color:"#7a5a8a",
+      nat20s:[
+        "Death save Nat 20 — stabilized at 1 HP after going down to a zombie bite (Session 16)",
+        "Constitution save 21 — continued operating the artesian well pump while wounded at ~4 HP (Session 8)"
+      ],
+      nat1s:["No confirmed Nat 1s on record — Mayo's failures tend to be narrow misses, not catastrophic ones"],
+      droppedTo0:[
+        "Session 7 — wolf bite (dirty 20, 11 damage); revived by Ring of Mending; kept fighting",
+        "Session 16 — zombie bite while at 1 HP; death save Nat 20; Borin woke her with gentle face-slaps"
+      ],
+      biggestHit:{dmg:"Unknown",desc:"Most damage output was through healing enabling others — Mayo's contribution is measured in allies kept alive"},
+      notableHits:["Ran 30 feet to slam the wardrobe shut — strength 12, barely — single most consequential action of the stump arc (Session 15)","Saved the barn at the farmstead by bucket-brigading the artesian well (Session 7)"],
+      kills:["Multiple wolves and orcs across Sessions 4-7","Sustained contributions throughout every combat"],
+      funStats:[
+        "Times she tried to tame an evil wolf that had just eaten a family: 3",
+        "First words after being woken from death's door with face-slaps: 'That hurt.'",
+        "Times Mungo nudged the wagon horses faster after being told to slow down: multiple",
+        "Artesian well pumping sessions while critically wounded: 1",
+        "Zombie wave prevented by a single strength-12 door slam: 1 (potentially hundreds of zombies)"
+      ]
+    },
+    {
+      id:"mungo", name:"Mungo", player:"Jesse (DM)", emoji:"🔪", color:"#7a3a2a",
+      nat20s:[
+        "Nat 20 jugular kill — first silent kill inside the burning farmhouse (Session 7)",
+        "Nat 20 jugular kill — second silent kill inside the burning farmhouse (Session 7)",
+        "Nat 20 initiative — went first in the boss fight (Session 15)",
+        "Blind dagger throw, running, on disadvantage — hit Maldwin in the side of the head; the killing blow (Session 15)"
+      ],
+      nat1s:["Called out to Beorn's bear form while imprisoned in the pit (performance check: 7) — described as a wimpy yell; the bandits told them to shut up (Session 11)"],
+      droppedTo0:["Session 14 — grappled underwater by an alligator; Gilgamesh's Nat 20-equivalent freed him"],
+      biggestHit:{dmg:"45",desc:"Nat 20 + Nat 19 (Keen) on a troll in a single attack sequence — one troll killed outright (Session 9.2)"},
+      notableHits:["13 damage on reanimated Ben: sorry I gotta do this to ya (Session 15)","14 damage driving his short sword into the ceiling node (Session 16)"],
+      kills:[
+        "Three orcs silently inside the burning farmhouse — Gilgamesh watched from 200 feet and never heard a thing (Session 7)",
+        "Reanimated Ben (Session 15)",
+        "Maldwin — the killing blow; blind dagger throw running on disadvantage (Session 15)"
+      ],
+      funStats:[
+        "Silent kills achieved without the party hearing anything: 3",
+        "Briar-patch camps lit on fire: 1",
+        "Times he yelled FOR CARL! charging at an enemy: 1",
+        "Health potions contaminated by a sanitizing finger: 1",
+        "Times Beorn has personally rescued him: 1",
+        "Times a blind dagger throw landed the campaign-defining killing blow: 1"
+      ]
+    },
+    {
+      id:"tyr", name:"Tyr", player:"Gabe", emoji:"⚔️", color:"#3a3a7a",
+      nat20s:[
+        "Nat 20 Lore check — identified the seed pod as corrupted lineage of the Two Trees of Valinor (Session 16)",
+        "Nat 20 strength check — locked arms with Borin and catapulted Mungo to the ceiling (Session 16)",
+        "Nat 20 nature check — found the rocky cove shelter in the mountains (Session 17.2)",
+        "Nat 20 on ceiling node attack (at disadvantage from elevation) — all zombies briefly seized (Session 16)"
+      ],
+      nat1s:["No confirmed Nat 1s on record — though his navigation roll of 2 through pitch-black forest was stated with full confidence"],
+      droppedTo0:[
+        "Session 16 — Dudo's sword fell from the ceiling and hit his neck; went to 0 HP from friendly fire",
+        "Session 16 — zombie attack while at 1 HP; Gilgamesh's botched health potion went down the wrong pipe; spent the rest of the fight coughing at 1 HP"
+      ],
+      biggestHit:{dmg:"16",desc:"Hit Maldwin for the most damage any single party member dealt to him in one blow — Maldwin laughed and said You think that's gonna stop me? (Session 15)"},
+      notableHits:["Killed the Orc Chieftain with a greatsword throw (Session 7)","Hit one of the unknown creatures for 20 damage with a flaming arrow blind at night (Session 17.2)"],
+      kills:["The Orc Chieftain — greatsword throw (Session 7)","Multiple orcs and wolves across the campaign"],
+      funStats:[
+        "Shouted FUCK YOU at trolls before sprinting away: 1 (trolls gave chase; session ended)",
+        "Times Santa's Little Helper was written on his forehead while he meditated: 1",
+        "Ranger lore checks completely failed on creatures outside his knowledge base: 1 (the bat creatures)",
+        "Times Elrond personally inscribed his sword and gave him a mission: 1",
+        "Stated intention to touch the Palantir despite explicit warning: 1",
+        "Times he was taken down by friendly fire in the same session: 1 (Dudo's sword to the neck)"
+      ]
+    }
   ];
+
+  const OVERALL = {
+    sessionsPlayed: 17,
+    orcsKilled: "175+",
+    townspeopleDeaths: "~75",
+    trollsKilled: 3,
+    alligatorsKilled: 2,
+    zombiesKilled: "50+",
+    partyDeaths: 0,
+    ringOfMendingUses: "5+",
+    nat20sTotal: "16+",
+    timesDroppedTo0: "10+",
+    biggestSingleHit: {who:"Mungo",dmg:"45",desc:"Nat 20 + Nat 19 (Keen) on a troll — Session 9.2"},
+    mostDeadly: {who:"Mungo",reason:"Killing blow on Maldwin + 3 silent farmhouse kills + 45-damage troll hit"},
+    mostRevived: {who:"Tyr",reason:"Dropped to 0 HP twice in Session 16 alone"},
+    bestRoller: {who:"Dudo",reason:"6 Nat 20s on record including the node kill that ended the entire arc"},
+    worstLuck: {who:"Dudo",reason:"Also has the only recorded Nat 1 — shot himself and fell out of a tree (Session 3)"},
+    mVP: {who:"Mungo",reason:"The killing blow on Maldwin was thrown blind, running, on disadvantage"},
+  };
+
   const p = document.createElement('div');
   p.className = 'page';
-  p.innerHTML = '<div class="page-head"><h1>Campaign Stats</h1><p>The numbers behind 17 sessions</p></div>';
+  p.innerHTML = '<div class="page-head"><h1>Player Stats</h1><p>17 sessions · by the numbers</p></div>';
   const inner = document.createElement('div');
   inner.style.padding = '0 16px';
-  inner.innerHTML = '<div class="grid-2" style="margin-bottom:16px">'
-    + [['Sessions Played','17'],['Sessions Recorded','15'],['Orcs Killed','175+'],['Townspeople Lost','~75'],['Trolls Killed','3'],['Party Deaths','0']].map(([l,v]) =>
-      '<div class="card"><div style="font-family:Cinzel,serif;font-size:10px;color:#7a6030;letter-spacing:.1em;margin-bottom:6px">' + l + '</div>'
-      + '<div style="font-family:Cinzel,serif;font-size:24px;color:#e6cc84">' + v + '</div></div>'
-    ).join('') + '</div>'
-    + '<div class="card" style="margin-bottom:16px;border-color:#4a8a4644;background:#4a8a4611"><p style="font-size:15px;color:#e6cc84;line-height:1.6">Zero party deaths. Nobody has died. They have gone to 0 HP many times. They have had Nat 20 death saves. They have been poisoned, liver-stabbed, acid-coned, and bitten by zombies. Nobody has died.</p></div>';
-  const natLabel = document.createElement('span');
-  natLabel.className = 'section-label';
-  natLabel.textContent = 'CONFIRMED NAT 20s (' + NAT20S.length + ' recorded)';
-  inner.appendChild(natLabel);
-  NAT20S.forEach(n => {
+
+  // Overall stats grid
+  const overLabel = document.createElement('span');
+  overLabel.className = 'section-label';
+  overLabel.textContent = 'CAMPAIGN OVERVIEW';
+  inner.appendChild(overLabel);
+
+  const statGrid = document.createElement('div');
+  statGrid.className = 'grid-2';
+  statGrid.style.marginBottom = '14px';
+  [
+    ['Sessions','17'],['Recorded','15'],
+    ['Orcs Killed','175+'],['Townspeople Lost','~75'],
+    ['Trolls Killed','3'],['Party Deaths','0 ✓'],
+    ['Nat 20s Logged','16+'],['Times at 0 HP','10+'],
+    ['Ring Revives','5+'],['Zombies Destroyed','50+'],
+  ].forEach(([l,v]) => {
     const c = document.createElement('div');
     c.className = 'card';
-    c.innerHTML = '<div style="font-family:Cinzel,serif;font-size:11px;color:#c8a44a;margin-bottom:4px">' + n.who + ' · Session ' + n.s + '</div>'
-      + '<p style="font-size:14px;line-height:1.6">' + n.t + '</p>';
-    inner.appendChild(c);
+    c.innerHTML = '<div style="font-family:Cinzel,serif;font-size:10px;color:#7a6030;letter-spacing:.1em;margin-bottom:4px">' + l + '</div>'
+      + '<div style="font-family:Cinzel,serif;font-size:22px;color:#e6cc84">' + v + '</div>';
+    statGrid.appendChild(c);
   });
-  p.appendChild(inner);
-  return p;
-}
+  inner.appendChild(statGrid);
 
-const MORE_PAGES = [
-  {id:'mustknow',label:'Must Know',icon:'📋'},
-  {id:'locations',label:'Locations',icon:'🗺️'},
-  {id:'items',label:'Items',icon:'💎'},
-  {id:'bestiary',label:'Bestiary',icon:'🐉'},
-  {id:'factions',label:'Factions',icon:'⚔️'},
-  {id:'timeline',label:'Timeline',icon:'📅'},
-  {id:'stats',label:'Stats',icon:'📊'},
-  {id:'mysteries',label:'Mysteries',icon:'❓'},
-  {id:'moments',label:'Moments',icon:'⭐'},
-  {id:'suggestions',label:'Suggestions',icon:'💬'},
-];
+  // Awards
+  const awardsLabel = document.createElement('span');
+  awardsLabel.className = 'section-label';
+  awardsLabel.textContent = 'CAMPAIGN AWARDS';
+  inner.appendChild(awardsLabel);
 
-function navigate(p, d, skipHistory) {
-  page = p; detail = d || null; more = false;
-  if (!skipHistory) {
-    const state = {page: p, detail: d || null};
-    const url = d ? '#' + p + '/' + d : '#' + p;
-    history.pushState(state, '', url);
-  }
-  render();
-}
-
-window.addEventListener('popstate', function(e) {
-  if (e.state) {
-    page = e.state.page || 'home';
-    detail = e.state.detail || null;
-  } else {
-    page = 'home'; detail = null;
-  }
-  more = false;
-  render();
-});
-
-function toggleMore() { more = !more; renderNav(); renderMoreDrawer(); }
-
-// ── HELPERS ────────────────────────────────────────────────────
-function el(tag, attrs, ...children) {
-  const e = document.createElement(tag);
-  if (attrs) Object.entries(attrs).forEach(([k,v]) => {
-    if (k === 'className') e.className = v;
-    else if (k === 'html') e.innerHTML = v;
-    else if (k.startsWith('on')) e[k.toLowerCase()] = v;
-    else e.setAttribute(k, v);
-  });
-  children.flat().forEach(c => { if (c != null) e.append(typeof c === 'string' ? c : c); });
-  return e;
-}
-
-function badge(status) {
-  const cls = status === 'alive' ? 'alive' : status === 'safe' ? 'safe' : status === 'hostile' ? 'hostile' : status === 'dead' ? 'dead' : 'unknown';
-  const label = status === 'alive' ? 'Alive' : status === 'safe' ? 'Alive — Safe' : status === 'hostile' ? 'Hostile' : status === 'dead' ? 'Deceased' : 'Unknown';
-  return el('span', {className: `badge badge-${cls}`}, label);
-}
-
-function card(content, onClick) {
-  const d = el('div', {className: 'card' + (onClick ? ' clickable' : '')});
-  if (typeof content === 'string') d.innerHTML = content;
-  else if (content instanceof Element) d.appendChild(content);
-  else if (Array.isArray(content)) content.forEach(c => { if (c) d.appendChild(typeof c === 'string' ? (() => { const s = document.createElement('span'); s.textContent = c; return s; })() : c); });
-  if (onClick) d.onclick = onClick;
-  return d;
-}
-
-function backBtn(label, cb) {
-  const b = el('button', {className: 'back-btn'}, '← ' + label);
-  b.onclick = cb;
-  return b;
-}
-
-function collapsible(title, content, open) {
-  const div = el('div', {className: 'collapsible'});
-  const btn = el('button', {className: 'coll-btn'});
-  btn.innerHTML = `<span>${title}</span><span>${open ? '▲' : '▼'}</span>`;
-  const body = el('div', {className: 'coll-body'});
-  body.style.display = open ? 'block' : 'none';
-  if (typeof content === 'string') body.innerHTML = content;
-  else body.appendChild(content);
-  btn.onclick = () => {
-    const isOpen = body.style.display !== 'none';
-    body.style.display = isOpen ? 'none' : 'block';
-    btn.querySelector('span:last-child').textContent = isOpen ? '▼' : '▲';
-  };
-  div.appendChild(btn); div.appendChild(body);
-  return div;
-}
-
-// ── PAGES ──────────────────────────────────────────────────────
-function renderHome() {
-  const p = el('div', {className: 'page'});
-  p.innerHTML = `
-    <div class="page-head"><h1>Wanderings In Middle Earth</h1><p>Campaign Wiki — Through Session 17.2</p></div>
-    <div style="padding:0 16px">
-      <div class="card" style="background:#1e3a5a33;border:1px solid #2a5a8a44;margin-bottom:12px">
-        <span style="font-family:Cinzel,serif;font-size:10px;color:#7a6030;letter-spacing:.12em;display:block;margin-bottom:6px">CURRENT STATUS</span>
-        <p style="font-size:15px;color:#e6cc84;line-height:1.65">The party ascends the Misty Mountains heading northeast toward Lake Town. ~1,000 feet elevation. <strong>Session 18 opens mid-initiative against two large unknown creatures</strong> — one already hit for 20 damage.</p>
-      </div>
-      <div class="card" style="background:#3a280033;border:1px solid #c8a44a33;margin-bottom:12px">
-        <span style="font-family:Cinzel,serif;font-size:10px;color:#7a6030;letter-spacing:.12em;display:block;margin-bottom:6px">PRIMARY MISSION</span>
-        <p style="font-size:15px;line-height:1.65">Retrieve the <span style="color:#e6cc84">Palantir</span> from under the master's hall in Lake Town, as tasked by Elrond. Tyr holds the silver ring key. <span style="color:#c8a44a">Tyr has stated in character that he will touch the stone.</span></p>
-      </div>
-      <div class="grid-3" style="margin-bottom:14px" id="home-grid"></div>
-    </div>`;
-  const grid = p.querySelector('#home-grid');
   [
-    ['📋','Must Know','Before session 18','mustknow'],
-    ['⚔️','Party','7 adventurers','party'],
-    ['👥','NPCs','Who you\'ve met','npcs'],
-    ['📖','Sessions','17 logged','sessions'],
-    ['🗺️','Locations','Places visited','locations'],
-    ['💎','Items','Notable gear','items'],
-    ['🐉','Bestiary','Every creature','bestiary'],
-    ['⚔️','Factions','Powers at play','factions'],
-    ['📅','Timeline','Full journey','timeline'],
-    ['📊','Stats','By the numbers','stats'],
-    ['❓','Mysteries','Open questions','mysteries'],
-    ['⭐','Moments','Epic + funny','moments'],
-    ['💬','Suggestions','For the DM','suggestions'],
-  ].forEach(([icon,title,sub,pg]) => {
-    const c = el('div', {className: 'card clickable', style: 'text-align:center;padding:10px 6px'});
-    c.innerHTML = `<div style="font-family:Cinzel,serif;font-size:13px;color:#e6cc84;margin-bottom:2px">${icon} ${title}</div><div style="color:#9a8a6a;font-size:12px">${sub}</div>`;
-    c.onclick = () => navigate(pg);
-    grid.appendChild(c);
-  });
-  return p;
-}
-
-function renderParty() {
-  if (detail) {
-    const c = PARTY.find(p => p.id === detail);
-    if (!c) return renderPartyList();
-    return renderCharDetail(c);
-  }
-  return renderPartyList();
-}
-
-function renderPartyList() {
-  const p = el('div', {className: 'page'});
-  const head = el('div', {className: 'page-head'});
-  head.innerHTML = '<h1>The Party</h1><p>Seven adventurers on an increasingly dangerous road</p>';
-  p.appendChild(head);
-  const inner = el('div', {style: 'padding:0 16px'});
-  PARTY.forEach(ch => {
-    const c = el('div', {className: 'card clickable'});
-    c.innerHTML = `<div style="display:flex;align-items:center;gap:12px">
-      <div style="font-size:28px">${ch.emoji}</div>
-      <div style="flex:1">
-        <div style="font-family:Cinzel,serif;font-size:14px;color:#e6cc84">${ch.name}</div>
-        <div style="color:#9a8a6a;font-size:13px">${ch.player} · ${ch.race}</div>
-        <div style="font-size:14px;color:#ede3cc;margin-top:3px;font-style:italic">${ch.tag}</div>
-      </div>
-      <span style="color:#7a6030;font-size:20px">›</span>
-    </div>`;
-    c.onclick = () => navigate('party', ch.id);
+    ['🏆 Most Deadly', OVERALL.mostDeadly.who, OVERALL.mostDeadly.reason],
+    ['🎲 Best Roller', OVERALL.bestRoller.who, OVERALL.bestRoller.reason],
+    ['💀 Most Revived', OVERALL.mostRevived.who, OVERALL.mostRevived.reason],
+    ['🎭 Campaign MVP', OVERALL.mVP.who, OVERALL.mVP.reason],
+    ['🌟 Biggest Hit', OVERALL.biggestSingleHit.who, OVERALL.biggestSingleHit.dmg + ' damage — ' + OVERALL.biggestSingleHit.desc],
+    ['🎯 Worst Luck', OVERALL.worstLuck.who, OVERALL.worstLuck.reason],
+  ].forEach(([award, who, reason]) => {
+    const c = document.createElement('div');
+    c.className = 'card';
+    c.style.marginBottom = '8px';
+    c.innerHTML = '<div style="font-family:Cinzel,serif;font-size:12px;color:#c8a44a;margin-bottom:4px">' + award + '</div>'
+      + '<div style="font-family:Cinzel,serif;font-size:14px;color:#e6cc84;margin-bottom:3px">' + who + '</div>'
+      + '<div style="font-size:14px;color:#9a8a6a;line-height:1.5">' + reason + '</div>';
     inner.appendChild(c);
   });
-  p.appendChild(inner);
-  return p;
-}
 
-function renderCharDetail(c) {
-  const p = el('div', {className: 'page'});
-  const inner = el('div', {style: 'padding:0 16px'});
-  inner.appendChild(backBtn('Party', () => navigate('party')));
-  
-  const header = el('div', {style: 'display:flex;gap:12px;align-items:center;margin-bottom:14px'});
-  header.innerHTML = `<div style="font-size:36px">${c.emoji}</div><div><div style="font-family:Cinzel,serif;font-size:18px;color:#e6cc84">${c.name}</div><div style="color:#9a8a6a;font-size:13px">${c.player} · ${c.race}</div></div>`;
-  inner.appendChild(header);
+  // Zero deaths callout
+  const noDeaths = document.createElement('div');
+  noDeaths.className = 'card';
+  noDeaths.style.cssText = 'margin-bottom:16px;border-color:#4a8a4644;background:#4a8a4611';
+  noDeaths.innerHTML = '<div style="font-family:Cinzel,serif;font-size:11px;color:#4a8a46;letter-spacing:.1em;margin-bottom:6px">PARTY DEATHS: 0</div>'
+    + '<p style="font-size:15px;color:#e6cc84;line-height:1.6">Nobody has permanently died. They have been liver-stabbed, acid-coned, zombie-bitten, and had swords dropped on their necks from the ceiling. They have gone to 0 HP at least ten times combined. Nobody has died.</p>';
+  inner.appendChild(noDeaths);
 
-  const bioCard = el('div', {className: 'card', style: 'margin-bottom:10px'});
-  bioCard.innerHTML = `<p style="font-style:italic;color:#e6cc84;font-size:15px;line-height:1.6;margin-bottom:8px">"${c.tag}"</p><p style="font-size:15px;line-height:1.7">${c.bio}</p>`;
-  inner.appendChild(bioCard);
+  // Per-player stats
+  const playerLabel = document.createElement('span');
+  playerLabel.className = 'section-label';
+  playerLabel.textContent = 'PER PLAYER BREAKDOWN';
+  inner.appendChild(playerLabel);
 
-  // Facts
-  const factsDiv = el('div');
-  factsDiv.innerHTML = c.facts.map(f => `<div class="fact-row"><div class="dot">·</div><div style="font-size:15px;line-height:1.65">${f}</div></div>`).join('');
-  inner.appendChild(collapsible('KEY FACTS', factsDiv, true));
+  PLAYER_STATS.forEach(ps => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.style.marginBottom = '12px';
 
-  // Funny
-  const funDiv = el('div');
-  funDiv.innerHTML = c.funny.map(f => `<div class="fact-row"><div class="dot">·</div><div style="font-size:15px;line-height:1.65">${f}</div></div>`).join('');
-  inner.appendChild(collapsible('FUNNY MOMENTS', funDiv, false));
+    // Header
+    card.innerHTML = '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #383020">'
+      + '<div style="font-size:24px">' + ps.emoji + '</div>'
+      + '<div><div style="font-family:Cinzel,serif;font-size:16px;color:#e6cc84">' + ps.name + '</div>'
+      + '<div style="color:#9a8a6a;font-size:12px">' + ps.player + '</div></div></div>';
 
-  // Arc
-  const arcDiv = el('p', {}, c.arc);
-  inner.appendChild(collapsible('CHARACTER ARC', arcDiv, false));
+    // Stats sections
+    const sections = [
+      ['🎲 NAT 20s (' + ps.nat20s.length + ' recorded)', ps.nat20s, '#c8a44a'],
+      ['💀 NAT 1s / Critical Failures', ps.nat1s, '#8b2828'],
+      ['☠️ Times Dropped to 0 HP', ps.droppedTo0, '#8b2828'],
+      ['🎯 Notable Kills', ps.kills, '#7a6030'],
+      ['😄 Fun Stats', ps.funStats, '#5a7a9a'],
+    ];
 
-  // Notes
-  const notesSection = el('div', {style: 'margin-top:16px;border-top:1px solid #383020;padding-top:14px'});
-  const notesLabel = el('span', {className: 'section-label'}, 'YOUR NOTES (saves in browser)');
-  const savedNote = (charEdits[c.id] || {}).note || '';
-  
-  const noteDisplay = el('div', {className: 'note-area' + (savedNote ? ' has-note' : '')});
-  noteDisplay.textContent = savedNote || 'Click to add your own notes about this character...';
-  
-  const noteEdit = el('div', {style: 'display:none'});
-  const ta = el('textarea');
-  ta.value = savedNote;
-  ta.placeholder = 'Add your own notes...';
-  const saveBtns = el('div', {style: 'display:flex;gap:8px;margin-top:8px'});
-  const saveBtn = el('button', {className: 'btn', style: 'background:#7a6030;border:none;color:#0d0b08;padding:6px 14px;border-radius:5px;font-family:Cinzel,serif;font-size:11px'}, 'Save');
-  const cancelBtn = el('button', {className: 'btn', style: 'background:none;border:1px solid #383020;color:#9a8a6a;padding:6px 14px;border-radius:5px;font-family:Cinzel,serif;font-size:11px'}, 'Cancel');
-  
-  saveBtn.onclick = () => {
-    charEdits[c.id] = {...(charEdits[c.id]||{}), note: ta.value};
-    try { localStorage.setItem('mew-edits', JSON.stringify(charEdits)); } catch(e) {}
-    noteDisplay.textContent = ta.value || 'Click to add your own notes...';
-    noteDisplay.className = 'note-area' + (ta.value ? ' has-note' : '');
-    noteEdit.style.display = 'none'; noteDisplay.style.display = 'block';
-  };
-  cancelBtn.onclick = () => { noteEdit.style.display = 'none'; noteDisplay.style.display = 'block'; };
-  noteDisplay.onclick = () => { ta.value = (charEdits[c.id]||{}).note||''; noteDisplay.style.display='none'; noteEdit.style.display='block'; };
-  
-  saveBtns.appendChild(saveBtn); saveBtns.appendChild(cancelBtn);
-  noteEdit.appendChild(ta); noteEdit.appendChild(saveBtns);
-  notesSection.appendChild(notesLabel); notesSection.appendChild(noteDisplay); notesSection.appendChild(noteEdit);
-  inner.appendChild(notesSection);
-  p.appendChild(inner);
-  return p;
-}
-
-function renderNPCs() {
-  if (detail) {
-    const n = NPCS.find(x => x.id === detail);
-    if (!n) return renderNPCList();
-    return renderNPCDetail(n);
-  }
-  return renderNPCList();
-}
-
-function renderNPCList() {
-  const p = el('div', {className: 'page'});
-  const head = el('div', {className: 'page-head'});
-  head.innerHTML = '<h1>NPCs</h1><p>Everyone the party has encountered</p>';
-  p.appendChild(head);
-  const inner = el('div', {style: 'padding:0 16px'});
-  const groups = [['Allies & Friendly', n => n.status==='alive'||n.status==='safe'], ['Hostile', n => n.status==='hostile'], ['Unknown Status', n => n.status==='unknown'], ['Deceased', n => n.status==='dead']];
-  groups.forEach(([label, filter]) => {
-    const list = NPCS.filter(filter);
-    if (!list.length) return;
-    inner.appendChild(el('span', {className: 'section-label'}, label.toUpperCase()));
-    list.forEach(n => {
-      const c = el('div', {className: 'card clickable'});
-      const b = badge(n.status);
-      const row = el('div', {style: 'display:flex;align-items:center;gap:10px'});
-      row.innerHTML = `<div style="font-size:22px">${n.emoji}</div><div style="flex:1"><div style="font-family:Cinzel,serif;font-size:13px;color:#e6cc84">${n.name}</div><div style="color:#9a8a6a;font-size:12px">${n.role}</div></div>`;
-      row.appendChild(b);
-      c.appendChild(row);
-      c.onclick = () => navigate('npcs', n.id);
-      inner.appendChild(c);
+    sections.forEach(([title, items, col]) => {
+      if (!items || !items.length) return;
+      const sec = document.createElement('div');
+      sec.style.marginBottom = '10px';
+      const lbl = document.createElement('div');
+      lbl.style.cssText = 'font-family:Cinzel,serif;font-size:10px;color:' + col + ';letter-spacing:.1em;margin-bottom:5px';
+      lbl.textContent = title;
+      sec.appendChild(lbl);
+      items.forEach(item => {
+        const row = document.createElement('div');
+        row.style.cssText = 'display:flex;gap:8px;margin-bottom:5px;align-items:flex-start';
+        row.innerHTML = '<div style="color:' + col + ';font-size:12px;margin-top:2px;flex-shrink:0">·</div>'
+          + '<div style="font-size:14px;line-height:1.55;color:#ede3cc">' + item + '</div>';
+        sec.appendChild(row);
+      });
+      card.appendChild(sec);
     });
+
+    // Biggest hit callout
+    const hitBox = document.createElement('div');
+    hitBox.style.cssText = 'background:#2c2a1e;border-radius:5px;padding:8px 10px;margin-top:4px';
+    hitBox.innerHTML = '<div style="font-family:Cinzel,serif;font-size:10px;color:#7a6030;letter-spacing:.1em;margin-bottom:3px">BIGGEST RECORDED HIT</div>'
+      + '<div style="font-family:Cinzel,serif;font-size:18px;color:#c8a44a;margin-bottom:2px">' + ps.biggestHit.dmg + ' damage</div>'
+      + '<div style="font-size:13px;color:#9a8a6a;line-height:1.5">' + ps.biggestHit.desc + '</div>';
+    card.appendChild(hitBox);
+
+    inner.appendChild(card);
   });
+
   p.appendChild(inner);
   return p;
 }
 
-function renderNPCDetail(n) {
-  const p = el('div', {className: 'page'});
-  const inner = el('div', {style: 'padding:0 16px'});
-  inner.appendChild(backBtn('NPCs', () => navigate('npcs')));
-  const header = el('div', {style: 'display:flex;gap:12px;align-items:center;margin-bottom:10px'});
-  header.innerHTML = `<div style="font-size:30px">${n.emoji}</div><div><div style="font-family:Cinzel,serif;font-size:18px;color:#e6cc84">${n.name}</div><div style="color:#9a8a6a;font-size:13px">${n.role}</div></div>`;
-  inner.appendChild(header);
-  inner.appendChild(badge(n.status));
-  const c = el('div', {className: 'card', style: 'margin-top:10px'});
-  c.innerHTML = `<p style="font-size:15px;line-height:1.7">${n.desc}</p>`;
-  inner.appendChild(c);
-  p.appendChild(inner);
-  return p;
-}
 
-function renderSessions() {
-  if (detail) {
-    const s = SESSIONS.find(x => x.num === detail);
-    if (!s) return renderSessionList();
-    return renderSessionDetail(s);
-  }
-  return renderSessionList();
-}
-
-function renderSessionList() {
-  const p = el('div', {className: 'page'});
-  const head = el('div', {className: 'page-head'});
-  head.innerHTML = '<h1>Session Log</h1><p>Every session condensed — tap for full summary</p>';
-  p.appendChild(head);
-  const inner = el('div', {style: 'padding:0 16px'});
-  SESSIONS.forEach(s => {
-    const c = el('div', {className: 'card clickable'});
-    c.innerHTML = `<div style="display:flex;gap:10px;align-items:flex-start">
-      <div style="font-family:Cinzel,serif;font-size:11px;color:#7a6030;min-width:36px;margin-top:2px">${s.num}</div>
-      <div style="flex:1">
-        <div style="font-family:Cinzel,serif;font-size:14px;color:#e6cc84">${s.title}</div>
-        <div style="font-size:14px;color:#ede3cc;margin-top:3px;line-height:1.5">${s.summary.slice(0,100)}…</div>
-      </div>
-      <span style="color:#7a6030;font-size:20px">›</span>
-    </div>`;
-    c.onclick = () => navigate('sessions', s.num);
-    inner.appendChild(c);
-  });
-  p.appendChild(inner);
-  return p;
-}
-
-function renderSessionDetail(s) {
-  const p = el('div', {className: 'page'});
-  const inner = el('div', {style: 'padding:0 16px'});
-  inner.appendChild(backBtn('Sessions', () => navigate('sessions')));
-  const sesLabel = el('div', {style: "font-family:Cinzel,serif;font-size:11px;color:#7a6030;letter-spacing:.1em;margin-bottom:5px"});
-  sesLabel.textContent = 'SESSION ' + s.num;
-  inner.appendChild(sesLabel);
-  const title = el('div', {style: 'font-family:Cinzel,serif;font-size:20px;color:#e6cc84;margin-bottom:14px'});
-  title.textContent = s.title;
-  const c = el('div', {className: 'card'});
-  c.innerHTML = `<p style="font-size:15px;line-height:1.75">${s.summary}</p>`;
-  inner.appendChild(title); inner.appendChild(c);
-  p.appendChild(inner);
-  return p;
-}
-
-function renderMysteries() {
-  const p = el('div', {className: 'page'});
-  const head = el('div', {className: 'page-head'});
-  head.innerHTML = '<h1>Open Mysteries</h1><p>Questions the party hasn\'t answered yet</p>';
-  p.appendChild(head);
-  const inner = el('div', {style: 'padding:0 16px'});
-  MYSTERIES.forEach((m, i) => {
-    const c = el('div', {className: 'card'});
-    c.innerHTML = `<div style="display:flex;gap:12px;align-items:flex-start"><div style="font-family:Cinzel,serif;font-size:20px;color:#7a6030;min-width:24px">${i+1}</div><p style="font-size:15px;line-height:1.7">${m}</p></div>`;
-    inner.appendChild(c);
-  });
-  p.appendChild(inner);
-  return p;
-}
-
-let momentsTab = 'epic';
-function renderMoments() {
-  const p = el('div', {className: 'page'});
-  const head = el('div', {className: 'page-head'});
-  head.innerHTML = '<h1>Moments</h1><p>The plays that defined the campaign</p>';
-  p.appendChild(head);
-  const inner = el('div', {style: 'padding:0 16px'});
-  const tabs = el('div', {style: 'display:flex;gap:8px;margin-bottom:14px'});
-  const epicBtn = el('button', {className: 'tab-btn' + (momentsTab==='epic'?' active':'')}, 'Epic Moments');
-  const funBtn = el('button', {className: 'tab-btn' + (momentsTab==='funny'?' active':'')}, 'Funny Moments');
-  epicBtn.onclick = () => { momentsTab='epic'; const updated=renderMoments(); document.getElementById('content').innerHTML=''; document.getElementById('content').appendChild(updated); };
-  funBtn.onclick = () => { momentsTab='funny'; const updated=renderMoments(); document.getElementById('content').innerHTML=''; document.getElementById('content').appendChild(updated); };
-  tabs.appendChild(epicBtn); tabs.appendChild(funBtn);
-  inner.appendChild(tabs);
-  (momentsTab==='epic' ? GREATEST : FUNNY).forEach(m => {
-    const c = el('div', {className: 'card'});
-    c.innerHTML = `<div style="font-family:Cinzel,serif;font-size:11px;color:${momentsTab==='epic'?'#c8a44a':'#9a8a6a'};display:block;margin-bottom:5px">${m.who} · Session ${m.s}</div><p style="font-size:15px;line-height:1.7">${m.t}</p>`;
-    inner.appendChild(c);
-  });
-  p.appendChild(inner);
-  return p;
-}
-
-function renderMustKnow() {
-  const p = el('div', {className: 'page'});
-  const head = el('div', {className: 'page-head'});
-  head.innerHTML = '<h1>Must Know</h1><p>Everything you need walking into Session 18</p>';
-  p.appendChild(head);
-  const inner = el('div', {style: 'padding:0 16px'});
-  MUST_KNOW.forEach(sec => {
-    const div = el('div', {className: 'must-section'});
-    const titleRow = el('div', {className: 'must-title', style: `border-bottom-color:${sec.color}44`});
-    titleRow.innerHTML = `<span style="font-size:18px">${sec.icon}</span><span style="font-family:Cinzel,serif;font-size:12px;color:${sec.color};letter-spacing:.1em">${sec.title}</span>`;
-    div.appendChild(titleRow);
-    sec.items.forEach(item => {
-      const row = el('div', {style: 'display:flex;gap:10px;margin-bottom:7px;align-items:flex-start'});
-      row.innerHTML = `<div style="color:${sec.color};font-size:14px;margin-top:2px;flex-shrink:0">·</div><div style="font-size:15px;line-height:1.65;color:#ede3cc">${item}</div>`;
-      div.appendChild(row);
-    });
-    inner.appendChild(div);
-  });
-  p.appendChild(inner);
-  return p;
-}
-
-let sugs = [];
-try { sugs = JSON.parse(localStorage.getItem('mew-sugs') || '[]'); } catch(e) {}
-
-function renderSuggestions() {
-  const p = el('div', {className: 'page'});
-  const head = el('div', {className: 'page-head'});
-  head.innerHTML = '<h1>Player Suggestions</h1><p>Ideas and feedback for the DM — saves in browser</p>';
-  p.appendChild(head);
-  const inner = el('div', {style: 'padding:0 16px'});
-  const form = el('div', {className: 'card', style: 'margin-bottom:14px'});
-  form.innerHTML = '<span class="section-label" style="margin-top:0">SUBMIT A SUGGESTION</span>';
-  const nameIn = el('input', {type: 'text', placeholder: 'Your name (optional)'});
-  const textIn = el('textarea');
-  textIn.placeholder = 'Story ideas, items you want, NPCs to revisit, anything for the DM…';
-  const submitBtn = el('button', {className: 'btn', style: 'width:100%;background:#7a6030;border:none;color:#0d0b08;padding:11px;border-radius:6px;font-family:Cinzel,serif;font-size:12px;letter-spacing:.06em'}, 'Submit Suggestion');
-  submitBtn.onclick = () => {
-    if (!textIn.value.trim()) return;
-    const s = {text: textIn.value, player: nameIn.value || 'Anonymous', date: new Date().toLocaleDateString()};
-    sugs.push(s);
-    try { localStorage.setItem('mew-sugs', JSON.stringify(sugs)); } catch(e) {}
-    textIn.value = ''; nameIn.value = '';
-    document.getElementById('content').innerHTML = '';
-    document.getElementById('content').appendChild(renderSuggestions());
-  };
-  form.appendChild(nameIn); form.appendChild(textIn); form.appendChild(submitBtn);
-  inner.appendChild(form);
-  if (!sugs.length) {
-    const empty = el('p', {style: 'text-align:center;padding:20px 0;color:#5a4e38;font-style:italic'}, 'No suggestions yet — be the first.');
-    inner.appendChild(empty);
-  } else {
-    inner.appendChild(el('span', {className: 'section-label'}, `SUBMITTED (${sugs.length})`));
-    [...sugs].reverse().forEach(s => {
-      const c = el('div', {className: 'card'});
-      c.innerHTML = `<div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-family:Cinzel,serif;font-size:11px;color:#c8a44a">${s.player}</span><span style="font-family:Cinzel,serif;font-size:10px;color:#5a4e38">${s.date}</span></div><p style="font-size:15px;line-height:1.65">${s.text}</p>`;
-      inner.appendChild(c);
-    });
-  }
-  p.appendChild(inner);
-  return p;
-}
-
-// ── RENDER ────────────────────────────────────────────────────
-function getPageContent() {
-  switch(page) {
-    case 'home': return renderHome();
-    case 'party': return renderParty();
-    case 'npcs': return renderNPCs();
-    case 'sessions': return renderSessions();
-    case 'mysteries': return renderMysteries();
-    case 'moments': return renderMoments();
-    case 'mustknow': return renderMustKnow();
-    case 'suggestions': return renderSuggestions();
-    case 'items': return renderItems();
-    case 'bestiary': return renderBestiary();
-    case 'factions': return renderFactions();
-    case 'timeline': return renderTimeline();
-    case 'locations': return renderLocations();
-    case 'stats': return renderStats();
-    default: return renderHome();
-  }
-}
-
-function renderMoreDrawer() {
-  let drawer = document.getElementById('more-drawer');
-  let overlay = document.getElementById('more-overlay');
-  if (!more) { if (drawer) drawer.remove(); if (overlay) overlay.remove(); return; }
-  if (!drawer) {
-    overlay = el('div', {id: 'more-overlay', className: 'more-overlay'});
-    overlay.onclick = () => { more = false; renderNav(); renderMoreDrawer(); };
-    drawer = el('div', {id: 'more-drawer', className: 'more-drawer'});
-    document.getElementById('app').appendChild(overlay);
-    document.getElementById('app').appendChild(drawer);
-  }
-  drawer.innerHTML = '';
-  const grid = el('div', {style: 'display:grid;grid-template-columns:1fr 1fr;gap:9px'});
-  MORE_PAGES.forEach(pg => {
-    const b = el('button', {className: 'btn', style: 'background:#222018;border:1px solid #383020;color:#e6cc84;padding:11px 10px;border-radius:7px;text-align:left;display:flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.05em'});
-    b.innerHTML = `<span style="font-size:16px">${pg.icon}</span>${pg.label}`;
-    b.onclick = () => navigate(pg.id);
-    grid.appendChild(b);
-  });
-  drawer.appendChild(grid);
-}
-
-function renderNav() {
-  const nav = document.getElementById('nav');
-  nav.innerHTML = '';
-  TABS.forEach(t => {
-    const b = el('button', {className: 'btn-nav' + (t.id==='more' ? (more?' active':'') : (page===t.id&&!more?' active':''))});
-    b.innerHTML = `<span class="icon">${t.icon}</span>${t.label}`;
-    b.onclick = t.id === 'more' ? toggleMore : () => navigate(t.id);
-    nav.appendChild(b);
-  });
-}
-
-function render() {
-  const content = document.getElementById('content');
-  content.innerHTML = '';
-  content.appendChild(getPageContent());
-  content.scrollTop = 0;
-  renderNav();
-  renderMoreDrawer();
-}
-
-// ── INIT ──────────────────────────────────────────────────────
-try {
-  render();
-} catch(e) {
-  document.body.style.background = '#0d0b08';
-  document.body.style.color = '#e6cc84';
-  document.body.style.fontFamily = 'monospace';
-  document.body.style.padding = '20px';
-  document.body.innerHTML = '<h2 style="color:#8b2828;margin-bottom:12px">Runtime Error</h2><p style="margin-bottom:8px"><strong>' + e.message + '</strong></p><pre style="color:#9a8a6a;white-space:pre-wrap;font-size:12px">' + e.stack + '</pre>';
-}
-</script>
-</body>
-</html>
