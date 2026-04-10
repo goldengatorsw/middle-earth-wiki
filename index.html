@@ -307,7 +307,7 @@ function renderItems() {
     c.className = 'card';
     c.innerHTML = '<div style="display:flex;gap:11px;align-items:flex-start">'
       + '<div style="font-size:28px">' + it.emoji + '</div>'
-      + '<div><div style="font-family:'Cinzel',serif;font-size:14px;color:#e6cc84">' + it.name + '</div>'
+      + '<div><div style="font-family:Cinzel,serif;font-size:14px;color:#e6cc84">' + it.name + '</div>'
       + '<div style="color:' + (it.holder.includes('ELI')?'#8b2828':'#7a6030') + ';font-size:12px;margin-bottom:6px">Held by: ' + it.holder + '</div>'
       + '<p style="font-size:15px;line-height:1.65;margin-bottom:6px">' + it.desc + '</p>'
       + (it.q ? '<div style="background:#2c2a1e;border-radius:4px;padding:6px 10px;font-size:13px;color:#9a8a6a;font-style:italic">❓ ' + it.q + '</div>' : '')
@@ -333,7 +333,7 @@ function renderBestiary() {
     c.className = 'card clickable';
     c.innerHTML = '<div style="display:flex;align-items:center;gap:12px">'
       + '<div style="font-size:24px">' + b.emoji + '</div>'
-      + '<div style="flex:1"><div style="font-family:'Cinzel',serif;font-size:14px;color:#e6cc84">' + b.name + '</div>'
+      + '<div style="flex:1"><div style="font-family:Cinzel,serif;font-size:14px;color:#e6cc84">' + b.name + '</div>'
       + '<div style="color:#9a8a6a;font-size:12px">' + b.status + '</div></div>'
       + '<span style="color:#7a6030;font-size:20px">›</span></div>';
     c.onclick = () => navigate('bestiary', b.name);
@@ -352,7 +352,7 @@ function renderBestiaryDetail(b) {
   const header = document.createElement('div');
   header.style.cssText = 'display:flex;gap:12px;align-items:center;margin-bottom:10px';
   header.innerHTML = '<div style="font-size:30px">' + b.emoji + '</div><div>'
-    + '<div style="font-family:'Cinzel',serif;font-size:18px;color:#e6cc84">' + b.name + '</div>'
+    + '<div style="font-family:Cinzel,serif;font-size:18px;color:#e6cc84">' + b.name + '</div>'
     + '<div style="color:#8b2828;font-size:12px">Threat: ' + b.threat + ' · ' + b.status + '</div></div>';
   inner.appendChild(header);
   const descCard = document.createElement('div');
@@ -390,7 +390,7 @@ function renderFactions() {
     const col = f.alignment.includes('Allied') ? '#4a8a46' : f.alignment.includes('Defunct') ? '#5a4e38' : '#8b2828';
     c.innerHTML = '<div style="display:flex;align-items:center;gap:12px">'
       + '<div style="font-size:24px">' + f.emoji + '</div>'
-      + '<div style="flex:1"><div style="font-family:'Cinzel',serif;font-size:14px;color:#e6cc84">' + f.name + '</div>'
+      + '<div style="flex:1"><div style="font-family:Cinzel,serif;font-size:14px;color:#e6cc84">' + f.name + '</div>'
       + '<div style="color:' + col + ';font-size:12px">' + f.alignment + '</div></div>'
       + '<span style="color:#7a6030;font-size:20px">›</span></div>';
     c.onclick = () => navigate('factions', f.name);
@@ -407,7 +407,7 @@ function renderFactionDetail(f) {
   inner.style.padding = '0 16px';
   inner.appendChild(backBtn('Factions', () => navigate('factions')));
   inner.innerHTML += '<div style="font-size:30px;margin-bottom:8px">' + f.emoji + '</div>'
-    + '<div style="font-family:'Cinzel',serif;font-size:18px;color:#e6cc84;margin-bottom:4px">' + f.name + '</div>'
+    + '<div style="font-family:Cinzel,serif;font-size:18px;color:#e6cc84;margin-bottom:4px">' + f.name + '</div>'
     + '<div style="color:#9a8a6a;font-size:13px;margin-bottom:12px">' + f.alignment + '</div>';
   const descCard = document.createElement('div');
   descCard.className = 'card';
@@ -451,8 +451,8 @@ function renderTimeline() {
     const bar = document.createElement('div');
     bar.style.cssText = 'min-width:4px;width:4px;background:' + (i===TIMELINE.length-1?'#8b2828':'#7a6030') + ';align-self:stretch;border-radius:2px;margin-top:4px';
     const txt = document.createElement('div');
-    txt.innerHTML = '<div style="font-family:'Cinzel',serif;font-size:11px;color:#7a6030;letter-spacing:.08em;margin-bottom:2px">' + t.date + '</div>'
-      + '<div style="font-family:'Cinzel',serif;font-size:10px;color:#5a4e38;margin-bottom:5px">Session ' + t.s + '</div>'
+    txt.innerHTML = '<div style="font-family:Cinzel,serif;font-size:11px;color:#7a6030;letter-spacing:.08em;margin-bottom:2px">' + t.date + '</div>'
+      + '<div style="font-family:Cinzel,serif;font-size:10px;color:#5a4e38;margin-bottom:5px">Session ' + t.s + '</div>'
       + '<div style="font-size:15px;line-height:1.65;color:' + (i===TIMELINE.length-1?'#e6cc84':'#ede3cc') + '">' + t.event + '</div>';
     row.appendChild(bar); row.appendChild(txt);
     inner.appendChild(row);
@@ -476,7 +476,7 @@ function renderLocations() {
     c.className = 'card clickable';
     c.innerHTML = '<div style="display:flex;gap:11px;align-items:flex-start">'
       + '<div style="font-size:26px">' + loc.emoji + '</div>'
-      + '<div style="flex:1"><div style="font-family:'Cinzel',serif;font-size:14px;color:#e6cc84">' + loc.name + '</div>'
+      + '<div style="flex:1"><div style="font-family:Cinzel,serif;font-size:14px;color:#e6cc84">' + loc.name + '</div>'
       + '<div style="color:' + (loc.status.includes('CURRENT')?'#8b2828':'#9a8a6a') + ';font-size:12px;margin-bottom:4px">' + loc.status + '</div>'
       + '<div style="font-size:14px;line-height:1.5;color:#ede3cc">' + loc.desc.slice(0,90) + '…</div></div>'
       + '<span style="color:#7a6030;font-size:20px">›</span></div>';
@@ -496,7 +496,7 @@ function renderLocationDetail(loc) {
   const header = document.createElement('div');
   header.style.cssText = 'display:flex;gap:12px;align-items:center;margin-bottom:10px';
   header.innerHTML = '<div style="font-size:30px">' + loc.emoji + '</div><div>'
-    + '<div style="font-family:'Cinzel',serif;font-size:18px;color:#e6cc84">' + loc.name + '</div>'
+    + '<div style="font-family:Cinzel,serif;font-size:18px;color:#e6cc84">' + loc.name + '</div>'
     + '<div style="color:#9a8a6a;font-size:13px">' + loc.status + '</div></div>';
   inner.appendChild(header);
   const descCard = document.createElement('div');
@@ -538,8 +538,8 @@ function renderStats() {
   inner.style.padding = '0 16px';
   inner.innerHTML = '<div class="grid-2" style="margin-bottom:16px">'
     + [['Sessions Played','17'],['Sessions Recorded','15'],['Orcs Killed','175+'],['Townspeople Lost','~75'],['Trolls Killed','3'],['Party Deaths','0']].map(([l,v]) =>
-      '<div class="card"><div style="font-family:'Cinzel',serif;font-size:10px;color:#7a6030;letter-spacing:.1em;margin-bottom:6px">' + l + '</div>'
-      + '<div style="font-family:'Cinzel',serif;font-size:24px;color:#e6cc84">' + v + '</div></div>'
+      '<div class="card"><div style="font-family:Cinzel,serif;font-size:10px;color:#7a6030;letter-spacing:.1em;margin-bottom:6px">' + l + '</div>'
+      + '<div style="font-family:Cinzel,serif;font-size:24px;color:#e6cc84">' + v + '</div></div>'
     ).join('') + '</div>'
     + '<div class="card" style="margin-bottom:16px;border-color:#4a8a4644;background:#4a8a4611"><p style="font-size:15px;color:#e6cc84;line-height:1.6">Zero party deaths. Nobody has died. They have gone to 0 HP many times. They have had Nat 20 death saves. They have been poisoned, liver-stabbed, acid-coned, and bitten by zombies. Nobody has died.</p></div>';
   const natLabel = document.createElement('span');
@@ -549,7 +549,7 @@ function renderStats() {
   NAT20S.forEach(n => {
     const c = document.createElement('div');
     c.className = 'card';
-    c.innerHTML = '<div style="font-family:'Cinzel',serif;font-size:11px;color:#c8a44a;margin-bottom:4px">' + n.who + ' · Session ' + n.s + '</div>'
+    c.innerHTML = '<div style="font-family:Cinzel,serif;font-size:11px;color:#c8a44a;margin-bottom:4px">' + n.who + ' · Session ' + n.s + '</div>'
       + '<p style="font-size:14px;line-height:1.6">' + n.t + '</p>';
     inner.appendChild(c);
   });
@@ -651,11 +651,11 @@ function renderHome() {
     <div class="page-head"><h1>Wanderings In Middle Earth</h1><p>Campaign Wiki — Through Session 17.2</p></div>
     <div style="padding:0 16px">
       <div class="card" style="background:#1e3a5a33;border:1px solid #2a5a8a44;margin-bottom:12px">
-        <span style="font-family:'Cinzel',serif;font-size:10px;color:#7a6030;letter-spacing:.12em;display:block;margin-bottom:6px">CURRENT STATUS</span>
+        <span style="font-family:Cinzel,serif;font-size:10px;color:#7a6030;letter-spacing:.12em;display:block;margin-bottom:6px">CURRENT STATUS</span>
         <p style="font-size:15px;color:#e6cc84;line-height:1.65">The party ascends the Misty Mountains heading northeast toward Lake Town. ~1,000 feet elevation. <strong>Session 18 opens mid-initiative against two large unknown creatures</strong> — one already hit for 20 damage.</p>
       </div>
       <div class="card" style="background:#3a280033;border:1px solid #c8a44a33;margin-bottom:12px">
-        <span style="font-family:'Cinzel',serif;font-size:10px;color:#7a6030;letter-spacing:.12em;display:block;margin-bottom:6px">PRIMARY MISSION</span>
+        <span style="font-family:Cinzel,serif;font-size:10px;color:#7a6030;letter-spacing:.12em;display:block;margin-bottom:6px">PRIMARY MISSION</span>
         <p style="font-size:15px;line-height:1.65">Retrieve the <span style="color:#e6cc84">Palantir</span> from under the master's hall in Lake Town, as tasked by Elrond. Tyr holds the silver ring key. <span style="color:#c8a44a">Tyr has stated in character that he will touch the stone.</span></p>
       </div>
       <div class="grid-3" style="margin-bottom:14px" id="home-grid"></div>
@@ -663,7 +663,7 @@ function renderHome() {
   const grid = p.querySelector('#home-grid');
   [['📋','Must Know','Before session 18','mustknow'],['⚔️','Party','7 adventurers','party'],['👥','NPCs','Who you\'ve met','npcs'],['📖','Sessions','17 logged','sessions'],['❓','Mysteries','Open questions','mysteries'],['⭐','Moments','Epic + funny','moments']].forEach(([icon,title,sub,pg]) => {
     const c = el('div', {className: 'card clickable', style: 'text-align:center;padding:10px 6px'});
-    c.innerHTML = `<div style="font-family:'Cinzel',serif;font-size:13px;color:#e6cc84;margin-bottom:2px">${icon} ${title}</div><div style="color:#9a8a6a;font-size:12px">${sub}</div>`;
+    c.innerHTML = `<div style="font-family:Cinzel,serif;font-size:13px;color:#e6cc84;margin-bottom:2px">${icon} ${title}</div><div style="color:#9a8a6a;font-size:12px">${sub}</div>`;
     c.onclick = () => navigate(pg);
     grid.appendChild(c);
   });
@@ -690,7 +690,7 @@ function renderPartyList() {
     c.innerHTML = `<div style="display:flex;align-items:center;gap:12px">
       <div style="font-size:28px">${ch.emoji}</div>
       <div style="flex:1">
-        <div style="font-family:'Cinzel',serif;font-size:14px;color:#e6cc84">${ch.name}</div>
+        <div style="font-family:Cinzel,serif;font-size:14px;color:#e6cc84">${ch.name}</div>
         <div style="color:#9a8a6a;font-size:13px">${ch.player} · ${ch.race}</div>
         <div style="font-size:14px;color:#ede3cc;margin-top:3px;font-style:italic">${ch.tag}</div>
       </div>
@@ -709,7 +709,7 @@ function renderCharDetail(c) {
   inner.appendChild(backBtn('Party', () => navigate('party')));
   
   const header = el('div', {style: 'display:flex;gap:12px;align-items:center;margin-bottom:14px'});
-  header.innerHTML = `<div style="font-size:36px">${c.emoji}</div><div><div style="font-family:'Cinzel',serif;font-size:18px;color:#e6cc84">${c.name}</div><div style="color:#9a8a6a;font-size:13px">${c.player} · ${c.race}</div></div>`;
+  header.innerHTML = `<div style="font-size:36px">${c.emoji}</div><div><div style="font-family:Cinzel,serif;font-size:18px;color:#e6cc84">${c.name}</div><div style="color:#9a8a6a;font-size:13px">${c.player} · ${c.race}</div></div>`;
   inner.appendChild(header);
 
   const bioCard = el('div', {className: 'card', style: 'margin-bottom:10px'});
@@ -788,7 +788,7 @@ function renderNPCList() {
       const c = el('div', {className: 'card clickable'});
       const b = badge(n.status);
       const row = el('div', {style: 'display:flex;align-items:center;gap:10px'});
-      row.innerHTML = `<div style="font-size:22px">${n.emoji}</div><div style="flex:1"><div style="font-family:'Cinzel',serif;font-size:13px;color:#e6cc84">${n.name}</div><div style="color:#9a8a6a;font-size:12px">${n.role}</div></div>`;
+      row.innerHTML = `<div style="font-size:22px">${n.emoji}</div><div style="flex:1"><div style="font-family:Cinzel,serif;font-size:13px;color:#e6cc84">${n.name}</div><div style="color:#9a8a6a;font-size:12px">${n.role}</div></div>`;
       row.appendChild(b);
       c.appendChild(row);
       c.onclick = () => navigate('npcs', n.id);
@@ -804,7 +804,7 @@ function renderNPCDetail(n) {
   const inner = el('div', {style: 'padding:0 16px'});
   inner.appendChild(backBtn('NPCs', () => navigate('npcs')));
   const header = el('div', {style: 'display:flex;gap:12px;align-items:center;margin-bottom:10px'});
-  header.innerHTML = `<div style="font-size:30px">${n.emoji}</div><div><div style="font-family:'Cinzel',serif;font-size:18px;color:#e6cc84">${n.name}</div><div style="color:#9a8a6a;font-size:13px">${n.role}</div></div>`;
+  header.innerHTML = `<div style="font-size:30px">${n.emoji}</div><div><div style="font-family:Cinzel,serif;font-size:18px;color:#e6cc84">${n.name}</div><div style="color:#9a8a6a;font-size:13px">${n.role}</div></div>`;
   inner.appendChild(header);
   inner.appendChild(badge(n.status));
   const c = el('div', {className: 'card', style: 'margin-top:10px'});
@@ -832,9 +832,9 @@ function renderSessionList() {
   SESSIONS.forEach(s => {
     const c = el('div', {className: 'card clickable'});
     c.innerHTML = `<div style="display:flex;gap:10px;align-items:flex-start">
-      <div style="font-family:'Cinzel',serif;font-size:11px;color:#7a6030;min-width:36px;margin-top:2px">${s.num}</div>
+      <div style="font-family:Cinzel,serif;font-size:11px;color:#7a6030;min-width:36px;margin-top:2px">${s.num}</div>
       <div style="flex:1">
-        <div style="font-family:'Cinzel',serif;font-size:14px;color:#e6cc84">${s.title}</div>
+        <div style="font-family:Cinzel,serif;font-size:14px;color:#e6cc84">${s.title}</div>
         <div style="font-size:14px;color:#ede3cc;margin-top:3px;line-height:1.5">${s.summary.slice(0,100)}…</div>
       </div>
       <span style="color:#7a6030;font-size:20px">›</span>
@@ -850,7 +850,7 @@ function renderSessionDetail(s) {
   const p = el('div', {className: 'page'});
   const inner = el('div', {style: 'padding:0 16px'});
   inner.appendChild(backBtn('Sessions', () => navigate('sessions')));
-  const sesLabel = el('div', {style: "font-family:'Cinzel',serif;font-size:11px;color:#7a6030;letter-spacing:.1em;margin-bottom:5px"});
+  const sesLabel = el('div', {style: "font-family:Cinzel,serif;font-size:11px;color:#7a6030;letter-spacing:.1em;margin-bottom:5px"});
   sesLabel.textContent = 'SESSION ' + s.num;
   inner.appendChild(sesLabel);
   const title = el('div', {style: 'font-family:Cinzel,serif;font-size:20px;color:#e6cc84;margin-bottom:14px'});
@@ -870,7 +870,7 @@ function renderMysteries() {
   const inner = el('div', {style: 'padding:0 16px'});
   MYSTERIES.forEach((m, i) => {
     const c = el('div', {className: 'card'});
-    c.innerHTML = `<div style="display:flex;gap:12px;align-items:flex-start"><div style="font-family:'Cinzel',serif;font-size:20px;color:#7a6030;min-width:24px">${i+1}</div><p style="font-size:15px;line-height:1.7">${m}</p></div>`;
+    c.innerHTML = `<div style="display:flex;gap:12px;align-items:flex-start"><div style="font-family:Cinzel,serif;font-size:20px;color:#7a6030;min-width:24px">${i+1}</div><p style="font-size:15px;line-height:1.7">${m}</p></div>`;
     inner.appendChild(c);
   });
   p.appendChild(inner);
@@ -893,7 +893,7 @@ function renderMoments() {
   inner.appendChild(tabs);
   (momentsTab==='epic' ? GREATEST : FUNNY).forEach(m => {
     const c = el('div', {className: 'card'});
-    c.innerHTML = `<div style="font-family:'Cinzel',serif;font-size:11px;color:${momentsTab==='epic'?'#c8a44a':'#9a8a6a'};display:block;margin-bottom:5px">${m.who} · Session ${m.s}</div><p style="font-size:15px;line-height:1.7">${m.t}</p>`;
+    c.innerHTML = `<div style="font-family:Cinzel,serif;font-size:11px;color:${momentsTab==='epic'?'#c8a44a':'#9a8a6a'};display:block;margin-bottom:5px">${m.who} · Session ${m.s}</div><p style="font-size:15px;line-height:1.7">${m.t}</p>`;
     inner.appendChild(c);
   });
   p.appendChild(inner);
@@ -909,7 +909,7 @@ function renderMustKnow() {
   MUST_KNOW.forEach(sec => {
     const div = el('div', {className: 'must-section'});
     const titleRow = el('div', {className: 'must-title', style: `border-bottom-color:${sec.color}44`});
-    titleRow.innerHTML = `<span style="font-size:18px">${sec.icon}</span><span style="font-family:'Cinzel',serif;font-size:12px;color:${sec.color};letter-spacing:.1em">${sec.title}</span>`;
+    titleRow.innerHTML = `<span style="font-size:18px">${sec.icon}</span><span style="font-family:Cinzel,serif;font-size:12px;color:${sec.color};letter-spacing:.1em">${sec.title}</span>`;
     div.appendChild(titleRow);
     sec.items.forEach(item => {
       const row = el('div', {style: 'display:flex;gap:10px;margin-bottom:7px;align-items:flex-start'});
@@ -955,7 +955,7 @@ function renderSuggestions() {
     inner.appendChild(el('span', {className: 'section-label'}, `SUBMITTED (${sugs.length})`));
     [...sugs].reverse().forEach(s => {
       const c = el('div', {className: 'card'});
-      c.innerHTML = `<div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-family:'Cinzel',serif;font-size:11px;color:#c8a44a">${s.player}</span><span style="font-family:'Cinzel',serif;font-size:10px;color:#5a4e38">${s.date}</span></div><p style="font-size:15px;line-height:1.65">${s.text}</p>`;
+      c.innerHTML = `<div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-family:Cinzel,serif;font-size:11px;color:#c8a44a">${s.player}</span><span style="font-family:Cinzel,serif;font-size:10px;color:#5a4e38">${s.date}</span></div><p style="font-size:15px;line-height:1.65">${s.text}</p>`;
       inner.appendChild(c);
     });
   }
