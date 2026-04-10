@@ -20,7 +20,7 @@ textarea{resize:vertical}
 </head>
 <body><div id="root"></div>
 <script type="text/babel">
-const {useState,useEffect,useRef}=React;
+const {useState,useEffect,useRef,useCallback}=React;
 const C={bg:"#0d0b08",s1:"#191410",s2:"#222018",s3:"#2c2a1e",bd:"#383020",g:"#c8a44a",gl:"#e6cc84",gd:"#7a6030",tx:"#ede3cc",dm:"#9a8a6a",mt:"#5a4e38",re:"#8b2828"};
 const cin={fontFamily:"'Cinzel','Times New Roman',serif"};
 const cri={fontFamily:"'Crimson Text',Georgia,serif"};
@@ -1084,19 +1084,19 @@ function Home({go}){
         <Cin sz={10} col={C.gd} style={{letterSpacing:"0.12em",display:"block",marginBottom:6}}>CURRENT STATUS</Cin>
         <div style={{...cri,fontSize:15,color:C.gl,lineHeight:1.65,marginBottom:10}}>The party ascends the Misty Mountains heading northeast toward Lake Town. ~1,000 feet elevation. <strong>Session 18 opens mid-initiative against two large unknown creatures</strong> — one already hit for 20 damage by Tyr's flaming arrow.</div>
         <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
-          <button onClick={()=>go("session-17.2")} style={{background:C.gd+"33",border:`1px solid ${C.gd}`,color:C.gl,padding:"4px 12px",borderRadius:4,cursor:"pointer",...cin,fontSize:10,letterSpacing:"0.06em"}}>Session 17.2 →</button>
+          <button onClick={()=>go("sessions/17.2")} style={{background:C.gd+"33",border:`1px solid ${C.gd}`,color:C.gl,padding:"4px 12px",borderRadius:4,cursor:"pointer",...cin,fontSize:10,letterSpacing:"0.06em"}}>Session 17.2 →</button>
           <button onClick={()=>go("bestiary-unknown-creatures")} style={{background:C.re+"22",border:`1px solid ${C.re}44`,color:C.re,padding:"4px 12px",borderRadius:4,cursor:"pointer",...cin,fontSize:10,letterSpacing:"0.06em"}}>Unknown Creatures →</button>
-          <button onClick={()=>go("bestiary-giant-bats")} style={{background:C.re+"22",border:`1px solid ${C.re}44`,color:C.re,padding:"4px 12px",borderRadius:4,cursor:"pointer",...cin,fontSize:10,letterSpacing:"0.06em"}}>Bat Creatures →</button>
+          <button onClick={()=>go("bestiary/giant-bats")} style={{background:C.re+"22",border:`1px solid ${C.re}44`,color:C.re,padding:"4px 12px",borderRadius:4,cursor:"pointer",...cin,fontSize:10,letterSpacing:"0.06em"}}>Bat Creatures →</button>
         </div>
       </Card>
       <Card style={{background:"#3a280033",border:`1px solid ${C.g}33`,marginBottom:12}}>
         <Cin sz={10} col={C.gd} style={{letterSpacing:"0.12em",display:"block",marginBottom:6}}>PRIMARY MISSION</Cin>
         <div style={{...cri,fontSize:15,color:C.tx,lineHeight:1.65,marginBottom:10}}>Retrieve the <span style={{color:C.gl}}>Palantir</span> from under the master's hall in Lake Town, as tasked by Elrond at Rivendell. Tyr holds the silver ring key. <span style={{color:C.g}}>Tyr has stated in character that he will touch the stone.</span></div>
         <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
-          <button onClick={()=>go("npc-elrond")} style={{background:C.gd+"22",border:`1px solid ${C.gd}44`,color:C.gd,padding:"4px 12px",borderRadius:4,cursor:"pointer",...cin,fontSize:10,letterSpacing:"0.06em"}}>Elrond →</button>
-          <button onClick={()=>go("party-tyr")} style={{background:C.gd+"22",border:`1px solid ${C.gd}44`,color:C.gd,padding:"4px 12px",borderRadius:4,cursor:"pointer",...cin,fontSize:10,letterSpacing:"0.06em"}}>Tyr →</button>
-          <button onClick={()=>go("session-13")} style={{background:C.gd+"22",border:`1px solid ${C.gd}44`,color:C.gd,padding:"4px 12px",borderRadius:4,cursor:"pointer",...cin,fontSize:10,letterSpacing:"0.06em"}}>Session 13 →</button>
-          <button onClick={()=>go("faction-eli-network")} style={{background:C.re+"22",border:`1px solid ${C.re}44`,color:C.re,padding:"4px 12px",borderRadius:4,cursor:"pointer",...cin,fontSize:10,letterSpacing:"0.06em"}}>Eli's Network →</button>
+          <button onClick={()=>go("world/elrond")} style={{background:C.gd+"22",border:`1px solid ${C.gd}44`,color:C.gd,padding:"4px 12px",borderRadius:4,cursor:"pointer",...cin,fontSize:10,letterSpacing:"0.06em"}}>Elrond →</button>
+          <button onClick={()=>go("party/tyr")} style={{background:C.gd+"22",border:`1px solid ${C.gd}44`,color:C.gd,padding:"4px 12px",borderRadius:4,cursor:"pointer",...cin,fontSize:10,letterSpacing:"0.06em"}}>Tyr →</button>
+          <button onClick={()=>go("sessions/13")} style={{background:C.gd+"22",border:`1px solid ${C.gd}44`,color:C.gd,padding:"4px 12px",borderRadius:4,cursor:"pointer",...cin,fontSize:10,letterSpacing:"0.06em"}}>Session 13 →</button>
+          <button onClick={()=>go("factions/eli-network")} style={{background:C.re+"22",border:`1px solid ${C.re}44`,color:C.re,padding:"4px 12px",borderRadius:4,cursor:"pointer",...cin,fontSize:10,letterSpacing:"0.06em"}}>Eli's Network →</button>
         </div>
       </Card>
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:9,marginBottom:14}}>
@@ -1163,19 +1163,11 @@ function CharDetail({c,edits,onBack,onSave}){
   </PW>;
 }
 
-function Party({edits,onSave,directSel,onDirectClear}){
-  const[sel,setSel]=useState(directSel||null);
-  useEffect(()=>{if(directSel){setSel(directSel);if(onDirectClear)onDirectClear();}},[directSel]);
-
-  if(sel){
-    const c=PARTY.find(p=>p.id===sel);
-    if(c)return<CharDetail c={c} edits={edits} onBack={()=>setSel(null)} onSave={onSave}/>;
-  }
-
+function Party({edits,onSave,go}){
   return<PW>
     <PH title="The Party" sub="Seven adventurers on an increasingly dangerous road"/>
     <div style={{padding:"0 16px"}}>
-      {PARTY.map(p=><Card key={p.id} onClick={()=>setSel(p.id)}>
+      {PARTY.map(p=><Card key={p.id} onClick={()=>go("party/"+p.id)}>
         <div style={{display:"flex",alignItems:"center",gap:12}}>
           <div style={{fontSize:28}}>{p.emoji}</div>
           <div style={{flex:1}}>
@@ -1190,12 +1182,12 @@ function Party({edits,onSave,directSel,onDirectClear}){
   </PW>;
 }
 
-function Npcs({directSel,onDirectClear}){
+function Npcs({directSel,go}){
   const[sel,setSel]=useState(directSel||null);
-  useEffect(()=>{if(directSel){setSel(directSel);if(onDirectClear)onDirectClear();}},[directSel]);
+  useEffect(()=>{if(directSel)setSel(directSel);},[directSel]);
   const n=sel?NPCS.find(x=>x.id===sel):null;
   if(n)return<PW>
-    <div style={{padding:"16px 16px 0"}}><Back onClick={()=>setSel(null)} label="NPCs"/></div>
+    <div style={{padding:"16px 16px 0"}}><Back onClick={()=>{setSel(null);window.history.back();}} label="NPCs"/></div>
     <div style={{padding:"0 16px"}}>
       <div style={{display:"flex",gap:12,alignItems:"center",marginBottom:10}}>
         <div style={{fontSize:30}}>{n.emoji}</div>
@@ -1284,12 +1276,10 @@ function Locs(){
   </PW>;
 }
 
-function Sessions({directSel,onDirectClear}){
-  const[sel,setSel]=useState(directSel||null);
-  useEffect(()=>{if(directSel){setSel(directSel);if(onDirectClear)onDirectClear();}},[directSel]);
-  const s=sel?SESSIONS.find(x=>x.num===sel):null;
-  if(s)return<PW>
-    <div style={{padding:"16px 16px 0"}}><Back onClick={()=>setSel(null)} label="Sessions"/></div>
+function SessionDetail({s,onBack}){
+  if(!s)return<PW><div style={{padding:"16px",...cri,color:C.dm}}>Session not found.</div></PW>;
+  return<PW>
+    <div style={{padding:"16px 16px 0"}}><Back onClick={onBack} label="Sessions"/></div>
     <div style={{padding:"0 16px"}}>
       <Cin sz={11} col={C.gd} style={{letterSpacing:"0.1em",display:"block",marginBottom:5}}>SESSION {s.num} · {s.date}</Cin>
       <div style={{...cin,fontSize:20,color:C.gl,marginBottom:10}}>{s.title}</div>
@@ -1303,10 +1293,14 @@ function Sessions({directSel,onDirectClear}){
       </div>}
     </div>
   </PW>;
+}
+
+function Sessions({go}){
+
   return<PW>
     <PH title="Session Log" sub="Every session — tap for full beat-by-beat breakdown"/>
     <div style={{padding:"0 16px"}}>
-      {SESSIONS.map(s=><Card key={s.num} onClick={()=>setSel(s.num)}>
+      {SESSIONS.map(s=><Card key={s.num} onClick={()=>go("sessions/"+s.num)}>
         <div style={{display:"flex",gap:10,alignItems:"flex-start"}}>
           <div style={{...cin,fontSize:11,color:C.gd,minWidth:36,marginTop:2,letterSpacing:"0.05em"}}>{s.num}</div>
           <div style={{flex:1}}>
@@ -1429,12 +1423,10 @@ function AiPage(){
 }
 
 
-function Bestiary({directSel,onDirectClear}){
-  const[sel,setSel]=useState(directSel||null);
-  useEffect(()=>{if(directSel){setSel(directSel);if(onDirectClear)onDirectClear();}},[directSel]);
-  const b=sel?BESTIARY.find(x=>x.id===sel):null;
-  if(b)return<PW>
-    <div style={{padding:"16px 16px 0"}}><Back onClick={()=>setSel(null)} label="Bestiary"/></div>
+function BestiaryDetail({b,onBack}){
+  if(!b)return null;
+  return<PW>
+    <div style={{padding:"16px 16px 0"}}><Back onClick={onBack} label="Bestiary"/></div>
     <div style={{padding:"0 16px"}}>
       <div style={{display:"flex",gap:12,alignItems:"center",marginBottom:10}}>
         <div style={{fontSize:30}}>{b.emoji}</div>
@@ -1454,10 +1446,14 @@ function Bestiary({directSel,onDirectClear}){
       {b.notes&&<div style={{marginTop:12,background:C.s3,borderRadius:6,padding:"10px 12px",...cri,fontSize:14,color:C.dm,fontStyle:"italic"}}>{b.notes}</div>}
     </div>
   </PW>;
+}
+
+function Bestiary({go}){
+
   return<PW>
     <PH title="Bestiary" sub="Every creature the party has encountered"/>
     <div style={{padding:"0 16px"}}>
-      {BESTIARY.map(b=><Card key={b.id} onClick={()=>setSel(b.id)}>
+      {BESTIARY.map(b=><Card key={b.id} onClick={()=>go("bestiary/"+b.id)}>
         <div style={{display:"flex",alignItems:"center",gap:12}}>
           <div style={{fontSize:24}}>{b.emoji}</div>
           <div style={{flex:1}}>
@@ -1472,12 +1468,10 @@ function Bestiary({directSel,onDirectClear}){
   </PW>;
 }
 
-function Factions({directSel,onDirectClear}){
-  const[sel,setSel]=useState(directSel||null);
-  useEffect(()=>{if(directSel){setSel(directSel);if(onDirectClear)onDirectClear();}},[directSel]);
-  const f=sel?FACTIONS.find(x=>x.id===sel):null;
-  if(f)return<PW>
-    <div style={{padding:"16px 16px 0"}}><Back onClick={()=>setSel(null)} label="Factions"/></div>
+function FactionDetail({f,onBack}){
+  if(!f)return null;
+  return<PW>
+    <div style={{padding:"16px 16px 0"}}><Back onClick={onBack} label="Factions"/></div>
     <div style={{padding:"0 16px"}}>
       <div style={{display:"flex",gap:12,alignItems:"center",marginBottom:10}}>
         <div style={{fontSize:30}}>{f.emoji}</div>
@@ -1497,10 +1491,14 @@ function Factions({directSel,onDirectClear}){
       {f.knownMembers.map((m,i)=><div key={i} style={{...cri,fontSize:15,color:C.tx,lineHeight:1.6,marginBottom:5,paddingLeft:12,borderLeft:`2px solid ${C.bd}`}}>{m}</div>)}
     </div>
   </PW>;
+}
+
+function Factions({go}){
+
   return<PW>
     <PH title="Factions" sub="The powers at play in Middle-earth"/>
     <div style={{padding:"0 16px"}}>
-      {FACTIONS.map(f=><Card key={f.id} onClick={()=>setSel(f.id)}>
+      {FACTIONS.map(f=><Card key={f.id} onClick={()=>go("factions/"+f.id)}>
         <div style={{display:"flex",alignItems:"center",gap:12}}>
           <div style={{fontSize:24}}>{f.emoji}</div>
           <div style={{flex:1}}>
@@ -1576,22 +1574,22 @@ function Search({go}){
     const r=[];
     PARTY.forEach(p=>{
       if(p.name.toLowerCase().includes(s)||p.bio.toLowerCase().includes(s)||p.tag.toLowerCase().includes(s)||p.arc.toLowerCase().includes(s)){
-        r.push({type:"Character",icon:p.emoji,title:p.name,sub:p.player+" · "+p.race,action:()=>go("party-"+p.id)});
+        r.push({type:"Character",icon:p.emoji,title:p.name,sub:p.player+" · "+p.race,action:()=>go("party/"+p.id)});
       }
-      p.facts.forEach(f=>{if(f.toLowerCase().includes(s)&&!r.find(x=>x.title===p.name))r.push({type:"Character",icon:p.emoji,title:p.name,sub:"Fact: "+f.slice(0,60)+"…",action:()=>go("party-"+p.id)});});
-      p.moments.forEach(m=>{if(m.t.toLowerCase().includes(s)&&!r.find(x=>x.title===p.name))r.push({type:"Character",icon:p.emoji,title:p.name,sub:"Session "+m.s+": "+m.t.slice(0,60)+"…",action:()=>go("party-"+p.id)});});
+      p.facts.forEach(f=>{if(f.toLowerCase().includes(s)&&!r.find(x=>x.title===p.name))r.push({type:"Character",icon:p.emoji,title:p.name,sub:"Fact: "+f.slice(0,60)+"…",action:()=>go("party/"+p.id)});});
+      p.moments.forEach(m=>{if(m.t.toLowerCase().includes(s)&&!r.find(x=>x.title===p.name))r.push({type:"Character",icon:p.emoji,title:p.name,sub:"Session "+m.s+": "+m.t.slice(0,60)+"…",action:()=>go("party/"+p.id)});});
     });
     NPCS.forEach(n=>{
       if(n.name.toLowerCase().includes(s)||n.desc.toLowerCase().includes(s)||n.role.toLowerCase().includes(s)){
-        r.push({type:"NPC",icon:n.emoji,title:n.name,sub:n.role,action:()=>go("npc-"+n.id)});
+        r.push({type:"NPC",icon:n.emoji,title:n.name,sub:n.role,action:()=>go("world/"+n.id)});
       }
-      if(n.facts)n.facts.forEach(f=>{if(f.toLowerCase().includes(s)&&!r.find(x=>x.title===n.name))r.push({type:"NPC",icon:n.emoji,title:n.name,sub:"Known: "+f.slice(0,60)+"…",action:()=>go("npc-"+n.id)});});
+      if(n.facts)n.facts.forEach(f=>{if(f.toLowerCase().includes(s)&&!r.find(x=>x.title===n.name))r.push({type:"NPC",icon:n.emoji,title:n.name,sub:"Known: "+f.slice(0,60)+"…",action:()=>go("world/"+n.id)});});
     });
     SESSIONS.forEach(ses=>{
       if(ses.title.toLowerCase().includes(s)||ses.summary.toLowerCase().includes(s)){
-        r.push({type:"Session",icon:"📖",title:"Session "+ses.num+": "+ses.title,sub:ses.date,action:()=>go("session-"+ses.num)});
+        r.push({type:"Session",icon:"📖",title:"Session "+ses.num+": "+ses.title,sub:ses.date,action:()=>go("sessions/"+ses.num)});
       }
-      if(ses.events)ses.events.forEach(e=>{if(e.toLowerCase().includes(s)&&!r.find(x=>x.title==="Session "+ses.num+": "+ses.title))r.push({type:"Session",icon:"📖",title:"Session "+ses.num+": "+ses.title,sub:e.slice(0,70)+"…",action:()=>go("session-"+ses.num)});});
+      if(ses.events)ses.events.forEach(e=>{if(e.toLowerCase().includes(s)&&!r.find(x=>x.title==="Session "+ses.num+": "+ses.title))r.push({type:"Session",icon:"📖",title:"Session "+ses.num+": "+ses.title,sub:e.slice(0,70)+"…",action:()=>go("sessions/"+ses.num)});});
     });
     ITEMS.forEach(it=>{
       if(it.name.toLowerCase().includes(s)||it.desc.toLowerCase().includes(s)){
@@ -1600,12 +1598,12 @@ function Search({go}){
     });
     BESTIARY.forEach(b=>{
       if(b.name.toLowerCase().includes(s)||b.desc.toLowerCase().includes(s)){
-        r.push({type:"Creature",icon:b.emoji,title:b.name,sub:b.status,action:()=>go("bestiary-"+b.id)});
+        r.push({type:"Creature",icon:b.emoji,title:b.name,sub:b.status,action:()=>go("bestiary/"+b.id)});
       }
     });
     FACTIONS.forEach(f=>{
       if(f.name.toLowerCase().includes(s)||f.desc.toLowerCase().includes(s)){
-        r.push({type:"Faction",icon:f.emoji,title:f.name,sub:f.alignment+" · "+f.status,action:()=>go("faction-"+f.id)});
+        r.push({type:"Faction",icon:f.emoji,title:f.name,sub:f.alignment+" · "+f.status,action:()=>go("factions/"+f.id)});
       }
     });
     MYSTERIES.forEach((m,i)=>{
@@ -1651,69 +1649,90 @@ function Search({go}){
 const TABS=[{id:"home",label:"Home",icon:"🏠"},{id:"party",label:"Party",icon:"⚔️"},{id:"sessions",label:"Sessions",icon:"📖"},{id:"search",label:"Search",icon:"🔍"},{id:"more",label:"More",icon:"✦"}];
 const MORE=[{id:"world",label:"World",icon:"🌍"},{id:"items",label:"Items",icon:"💎"},{id:"mysteries",label:"Mysteries",icon:"❓"},{id:"moments",label:"Moments",icon:"⭐"},{id:"bestiary",label:"Bestiary",icon:"🐉"},{id:"factions",label:"Factions",icon:"⚔️"},{id:"timeline",label:"Timeline",icon:"📅"},{id:"stats",label:"Campaign Stats",icon:"📊"},{id:"suggestions",label:"Suggestions",icon:"💬"},{id:"ai",label:"Wiki AI",icon:"🔮"}];
 
+function useHash(){
+  const[hash,setHash]=useState(()=>window.location.hash.slice(1)||"home");
+  useEffect(()=>{
+    const onHash=()=>setHash(window.location.hash.slice(1)||"home");
+    window.addEventListener("hashchange",onHash);
+    return()=>window.removeEventListener("hashchange",onHash);
+  },[]);
+  const go=useCallback((h)=>{
+    window.location.hash=h;
+  },[]);
+  return[hash,go];
+}
+
 function App(){
-  const[page,setPage]=useState("home");
-  const[more,setMore]=useState(false);
+  const[hash,go]=useHash();
   const[worldTab,setWorldTab]=useState("npcs");
   const[sugs,setSugs]=useState(()=>lsGet("mew-sugs")||[]);
   const[edits,setEdits]=useState(()=>lsGet("mew-edits")||{});
-  const[npcDirect,setNpcDirect]=useState(null);
-  const[partyDirect,setPartyDirect]=useState(null);
-  const[sessionDirect,setSessionDirect]=useState(null);
-  const[bestiaryDirect,setBestiaryDirect]=useState(null);
-  const[factionDirect,setFactionDirect]=useState(null);
-  const go=p=>{
+  const[more,setMore]=useState(false);
+
+  // Parse hash into page + optional detail id
+  // Format: #page or #page/detail
+  const parts=hash.split("/");
+  const page=parts[0]||"home";
+  const detail=parts[1]||null;
+
+  const navigate=(target)=>{
     setMore(false);
-    if(p.startsWith("npc-")){setPage("world");setNpcDirect(p.slice(4));setPartyDirect(null);setSessionDirect(null);setBestiaryDirect(null);setFactionDirect(null);return;}
-    if(p.startsWith("party-")){setPage("party");setPartyDirect(p.slice(6));setNpcDirect(null);setSessionDirect(null);setBestiaryDirect(null);setFactionDirect(null);return;}
-    if(p.startsWith("session-")){setPage("sessions");setSessionDirect(p.slice(8));setNpcDirect(null);setPartyDirect(null);setBestiaryDirect(null);setFactionDirect(null);return;}
-    if(p.startsWith("bestiary-")){setPage("bestiary");setBestiaryDirect(p.slice(9));setNpcDirect(null);setPartyDirect(null);setSessionDirect(null);setFactionDirect(null);return;}
-    if(p.startsWith("faction-")){setPage("factions");setFactionDirect(p.slice(8));setNpcDirect(null);setPartyDirect(null);setSessionDirect(null);setBestiaryDirect(null);return;}
-    setPage(p);setNpcDirect(null);setPartyDirect(null);setSessionDirect(null);setBestiaryDirect(null);setFactionDirect(null);
+    go(target);
   };
+
   const onSaveNote=(id,note)=>{const e={...edits,[id]:{...(edits[id]||{}),note}};setEdits(e);lsSet("mew-edits",e);};
   const onAddSug=s=>{const arr=[...sugs,s];setSugs(arr);lsSet("mew-sugs",arr);};
+
   const renderPage=()=>{
-    if(page==="home")return<Home go={go}/>;
-    if(page==="party")return<Party edits={edits} onSave={onSaveNote} directSel={partyDirect} onDirectClear={()=>setPartyDirect(null)}/>;
-    if(page==="world")return<div style={{display:"flex",flexDirection:"column",height:"100%",overflow:"hidden"}}>
-      {npcDirect&&<style>{".npc-auto-open{}"}</style>}
-      <div style={{display:"flex",gap:8,padding:"12px 16px 0",flexShrink:0}}>
-        {[["npcs","NPCs"],["locations","Locations"]].map(([id,label])=><button key={id} onClick={()=>setWorldTab(id)} style={{flex:1,background:worldTab===id?C.gd:C.s2,border:`1px solid ${worldTab===id?C.gd:C.bd}`,color:worldTab===id?C.bg:C.dm,padding:8,borderRadius:6,cursor:"pointer",...cin,fontSize:12,letterSpacing:"0.05em"}}>{label}</button>)}
-      </div>
-      <div style={{flex:1,overflowY:"auto"}}>{worldTab==="npcs"?<Npcs directSel={npcDirect} onDirectClear={()=>setNpcDirect(null)}/>:<Locs/>}</div>
-    </div>;
-    if(page==="sessions")return<Sessions directSel={sessionDirect} onDirectClear={()=>setSessionDirect(null)}/>;
+    if(page==="home")return<Home go={navigate}/>;
+    if(page==="party"){
+      if(detail)return<CharDetail c={PARTY.find(p=>p.id===detail)||PARTY[0]} edits={edits} onBack={()=>navigate("party")} onSave={onSaveNote}/>;
+      return<Party edits={edits} onSave={onSaveNote} go={navigate}/>;
+    }
+    if(page==="world"){
+      if(detail)return<Npcs directSel={detail} go={navigate}/>;
+      return<div style={{display:"flex",flexDirection:"column",height:"100%",overflow:"hidden"}}>
+        <div style={{display:"flex",gap:8,padding:"12px 16px 0",flexShrink:0}}>
+          {[["npcs","NPCs"],["locations","Locations"]].map(([id,label])=><button key={id} onClick={()=>setWorldTab(id)} style={{flex:1,background:worldTab===id?C.gd:C.s2,border:`1px solid ${worldTab===id?C.gd:C.bd}`,color:worldTab===id?C.bg:C.dm,padding:8,borderRadius:6,cursor:"pointer",...cin,fontSize:12,letterSpacing:"0.05em"}}>{label}</button>)}
+        </div>
+        <div style={{flex:1,overflowY:"auto"}}>{worldTab==="npcs"?<Npcs go={navigate}/>:<Locs go={navigate}/>}</div>
+      </div>;
+    }
+    if(page==="sessions"){
+      if(detail)return<SessionDetail s={SESSIONS.find(x=>x.num===detail)} onBack={()=>navigate("sessions")}/>;
+      return<Sessions go={navigate}/>;
+    }
+    if(page==="bestiary"){
+      if(detail)return<BestiaryDetail b={BESTIARY.find(x=>x.id===detail)} onBack={()=>navigate("bestiary")}/>;
+      return<Bestiary go={navigate}/>;
+    }
+    if(page==="factions"){
+      if(detail)return<FactionDetail f={FACTIONS.find(x=>x.id===detail)} onBack={()=>navigate("factions")}/>;
+      return<Factions go={navigate}/>;
+    }
     if(page==="items")return<Items/>;
     if(page==="mysteries")return<Mysteries/>;
     if(page==="moments")return<Moments/>;
     if(page==="suggestions")return<Suggestions sugs={sugs} onAdd={onAddSug}/>;
     if(page==="ai")return<AiPage/>;
-    if(page==="bestiary")return<Bestiary directSel={bestiaryDirect} onDirectClear={()=>setBestiaryDirect(null)}/>;
-    if(page==="factions")return<Factions directSel={factionDirect} onDirectClear={()=>setFactionDirect(null)}/>;
     if(page==="timeline")return<Timeline/>;
     if(page==="stats")return<CampaignStats/>;
-    if(page==="search")return<Search go={go}/>;
-    return<Home go={go}/>;
-  };
-  const canGoBack=page!=="home";
-  const handleBack=()=>{
-    if(more){setMore(false);return;}
-    setPage("home");setNpcDirect(null);setPartyDirect(null);setSessionDirect(null);setBestiaryDirect(null);setFactionDirect(null);
+    if(page==="search")return<Search go={navigate}/>;
+    return<Home go={navigate}/>;
   };
 
   return<div style={{background:C.bg,color:C.tx,height:"100vh",display:"flex",flexDirection:"column",overflow:"hidden",position:"relative",...cri}}>
+    {more&&<div onClick={()=>setMore(false)} style={{position:"absolute",inset:0,zIndex:15}}/>}
     {more&&<div style={{position:"absolute",bottom:60,left:0,right:0,background:C.s1,borderTop:`1px solid ${C.bd}`,padding:"12px 16px",zIndex:20}}>
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:9}}>
-        {MORE.map(m=><button key={m.id} onClick={()=>go(m.id)} style={{background:C.s2,border:`1px solid ${C.bd}`,color:C.gl,padding:"11px 10px",borderRadius:7,cursor:"pointer",...cin,fontSize:12,letterSpacing:"0.05em",textAlign:"left",display:"flex",alignItems:"center",gap:8}}><span style={{fontSize:16}}>{m.icon}</span>{m.label}</button>)}
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:9}}>
+        {MORE.map(m=><button key={m.id} onClick={()=>{navigate(m.id);setMore(false);}} style={{background:C.s2,border:`1px solid ${C.bd}`,color:C.gl,padding:"11px 10px",borderRadius:7,cursor:"pointer",...cin,fontSize:12,letterSpacing:"0.05em",textAlign:"left",display:"flex",alignItems:"center",gap:8}}><span style={{fontSize:16}}>{m.icon}</span>{m.label}</button>)}
       </div>
     </div>}
     <div style={{flex:1,overflowY:"auto"}}>{renderPage()}</div>
-    {page!=="home"&&!more&&<button onClick={handleBack} style={{position:"absolute",bottom:70,left:12,zIndex:30,background:C.s2,border:`1px solid ${C.bd}`,color:C.dm,width:38,height:38,borderRadius:"50%",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,boxShadow:`0 2px 8px #00000066`,transition:"all 0.15s"}} onMouseEnter={e=>{e.currentTarget.style.borderColor=C.gd;e.currentTarget.style.color=C.gl;}} onMouseLeave={e=>{e.currentTarget.style.borderColor=C.bd;e.currentTarget.style.color=C.dm;}}>‹</button>}
     <nav style={{height:60,background:C.s1,borderTop:`1px solid ${C.bd}`,display:"flex",flexShrink:0}}>
       {TABS.map(t=>{
         const active=t.id==="more"?more:(page===t.id&&!more);
-        return<button key={t.id} onClick={()=>t.id==="more"?setMore(!more):go(t.id)} style={{flex:1,background:"none",border:"none",cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:3,color:active?C.gl:C.mt,borderTop:active?`2px solid ${C.g}`:"2px solid transparent",transition:"all 0.15s"}}>
+        return<button key={t.id} onClick={()=>t.id==="more"?setMore(!more):navigate(t.id)} style={{flex:1,background:"none",border:"none",cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:3,color:active?C.gl:C.mt,borderTop:active?`2px solid ${C.g}`:"2px solid transparent",transition:"all 0.15s"}}>
           <span style={{fontSize:18}}>{t.icon}</span>
           <span style={{...cin,fontSize:9,letterSpacing:"0.05em"}}>{t.label}</span>
         </button>;
@@ -1721,6 +1740,7 @@ function App(){
     </nav>
   </div>;
 }
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
 </script>
