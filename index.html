@@ -1099,7 +1099,7 @@ function Home({go}){
         </div>
       </Card>
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:9,marginBottom:14}}>
-        {[["Party","7 adventurers","party"],["NPCs","Who you've met","world"],["Locations","Places visited","world/loc"],["Sessions","17 logged","sessions"],["Items","Notable gear","items"],["Mysteries","Open questions","mysteries"]].map(([t,s,p])=>
+        {[["Must Know","Before session 18","mustknow"],["Party","7 adventurers","party"],["NPCs","Who you've met","world"],["Sessions","17 logged","sessions"],["Items","Notable gear","items"],["Mysteries","Open questions","mysteries"]].map(([t,s,p])=>
           <Card key={p} onClick={()=>go(p)} style={{textAlign:"center",padding:"10px 6px"}}>
             <div style={{...cin,fontSize:13,color:C.gl,marginBottom:2}}>{t}</div>
             <div style={{color:C.dm,fontSize:12,...cri}}>{s}</div>
@@ -1642,8 +1642,230 @@ function Search({go}){
   </PW>;
 }
 
-const TABS=[{id:"home",label:"Home",icon:"🏠"},{id:"party",label:"Party",icon:"⚔️"},{id:"sessions",label:"Sessions",icon:"📖"},{id:"search",label:"Search",icon:"🔍"},{id:"more",label:"More",icon:"✦"}];
-const MORE=[{id:"world",label:"World",icon:"🌍"},{id:"items",label:"Items",icon:"💎"},{id:"mysteries",label:"Mysteries",icon:"❓"},{id:"moments",label:"Moments",icon:"⭐"},{id:"bestiary",label:"Bestiary",icon:"🐉"},{id:"factions",label:"Factions",icon:"⚔️"},{id:"timeline",label:"Timeline",icon:"📅"},{id:"stats",label:"Campaign Stats",icon:"📊"},{id:"suggestions",label:"Suggestions",icon:"💬"},{id:"ai",label:"Wiki AI",icon:"🔮"}];
+
+function MustKnow(){
+  const sections=[
+    {
+      title:"WHERE WE ARE RIGHT NOW",
+      icon:"🔴",
+      urgent:true,
+      items:[
+        "The party is ascending the Misty Mountains, heading northeast toward Lake Town",
+        "Approximately 1,000 feet elevation on the High Pass — camped in a rocky cove",
+        "SESSION 18 OPENS MID-INITIATIVE against two large unknown creatures — Tyr's flaming arrow already hit one for 20 damage",
+        "Tyr has 1 point of exhaustion from poor sleep (nightmares during the long rest in the stump)",
+        "No fire at camp — agreed due to giant bat-like creatures flying overhead carrying humanoid corpses",
+        "Borin's Rumor of the Earth pinged orcs within 3 miles at dusk — living or carried by bats, unknown"
+      ]
+    },
+    {
+      title:"THE PRIMARY MISSION",
+      icon:"🎯",
+      urgent:false,
+      items:[
+        "Retrieve the Palantir (a seeing stone) from under the master's hall in Lake Town",
+        "Mission given by Elrond at Rivendell — the Enemy possesses one and used it to locate the Bree stone, explaining the entire Red Claw assault",
+        "Tyr holds the silver ring key that unlocks the Palantir lockbox",
+        "Tyr has stated in character: 'For sure gonna touch that Palantir' — despite Elrond's explicit warning",
+        "Elrond fears the master of Lake Town may already be compromised",
+        "Lake Town is approximately 150 miles northeast — the Misty Mountains are in the way"
+      ]
+    },
+    {
+      title:"WHAT THE PARTY JUST DID",
+      icon:"⚔️",
+      urgent:false,
+      items:[
+        "Defeated Maldwin — a centuries-old sea warden who fed a village blood for 19 winters to build a zombie army aimed at Rivendell",
+        "Maldwin's zombie wardrobe may have held over a thousand undead — all dropped when Dudo carved the ceiling node free with a Nat 20",
+        "Mungo killed Maldwin with a blind dagger throw — running, on disadvantage — the killing blow",
+        "Ben (19 years old, Tom's brother) charged Maldwin the instant he saw him and was killed instantly",
+        "The party found a corrupted seed pod from the Two Trees of Valinor — being brought to Elrond",
+        "Tyr found the Iron of Death (his ancestral Numenorean greatsword) in Maldwin's sacrifice pile",
+        "Party leveled up after the fight"
+      ]
+    },
+    {
+      title:"KEY ITEMS — WHO HAS WHAT",
+      icon:"💎",
+      urgent:false,
+      items:[
+        "Tyr — Iron of Death (Numenorean greatsword, bane vs. orcs and trolls, bonus action attack)",
+        "Tyr — Silver Ring Key (unlocks the Palantir lockbox in Lake Town)",
+        "Gilgamesh — Ring of Mending (revive 1 downed creature to 1 HP once/long rest; cure poison 2/day)",
+        "Dudo — Jet-black dagger (found inside a troll's thigh; +1 to hit; Con save on hit)",
+        "Carl — Horn of the Ruins (echolocation ability when blown clearly)",
+        "ELI HAS — Black Speech booklet (stolen Session 11; written orders + maps from the Orc Chieftain)",
+        "All party members — Elven Forest-Green Cloaks (+2 stealth, gifted by Elrond)"
+      ]
+    },
+    {
+      title:"ACTIVE THREATS & OPEN QUESTIONS",
+      icon:"⚠️",
+      urgent:false,
+      items:[
+        "Eli the Tinker is at large with the Black Speech booklet — reports to an unknown 'boss'",
+        "Giant bat-like creatures flying north carrying humanoid corpses — unknown species, unknown origin",
+        "Orcs within 3 miles at dusk — living or carried by the bats, unknown",
+        "The sacrificial village was raided by bats after Maldwin died — Mez, Tyndell, and Bonkey's fate unknown",
+        "Who is the true mastermind behind the 19-winter sacrifice pact? Maldwin was likely an instrument",
+        "Why did the blood altar respond specifically to Dudo's blood?"
+      ]
+    },
+    {
+      title:"THINGS TO REMEMBER AT THE TABLE",
+      icon:"🎲",
+      urgent:false,
+      items:[
+        "Ring of Mending: Gilgamesh should track uses — 1 revive per long rest, 2 poison cures per day",
+        "Iron of Death: Tyr must have attuned it during the long rest in the stump — now active",
+        "Tyr has 1 exhaustion point — disadvantage on ability checks until a full long rest clears it",
+        "The party has Lembas bread (60 days) and 2 health potions each (D4+2)",
+        "Horses are stabled at Rivendell — the party is on foot",
+        "Gilgamesh had a reaction at Rivendell when the swamp creature was described — Mungo and Tyr noticed; it has never been explained"
+      ]
+    },
+    {
+      title:"WHO'S WHO — QUICK REFERENCE",
+      icon:"👥",
+      urgent:false,
+      items:[
+        "Elrond (Rivendell) — gave the mission; inscribed Tyr's sword; assembling a council with Gandalf, Aragorn, and Saruman",
+        "Beorn (skin-changer) — personal friend of Mungo; rescued the party from Eli's pit; destroyed the second orc wave",
+        "Eli the Tinker — enemy operative at large; has the Black Speech booklet; reports to unknown boss",
+        "Maldwin — DEAD. Killed by Mungo's blind dagger throw.",
+        "Ben — DEAD. Charged Maldwin instantly. Killed. Tom's killer is destroyed.",
+        "Leah — SAFE. Living with the Weaver family in the hills off the East Road. Borin escorted her.",
+        "Halvar Greycloak — Ranger commander in Bree area; allied"
+      ]
+    }
+  ];
+
+  return<PW>
+    <PH title="Must Know" sub="Essential information before next session"/>
+    <div style={{padding:"0 16px"}}>
+      {sections.map((sec,i)=><div key={i} style={{marginBottom:16}}>
+        <div style={{display:"flex",alignItems:"center",gap:8,padding:"10px 14px",background:sec.urgent?"#3a150044":C.s3,border:`1px solid ${sec.urgent?C.re+"66":C.bd}`,borderRadius:"8px 8px 0 0",borderBottom:"none"}}>
+          <span style={{fontSize:16}}>{sec.icon}</span>
+          <Cin sz={11} col={sec.urgent?C.re:C.gd} style={{letterSpacing:"0.1em"}}>{sec.title}</Cin>
+        </div>
+        <div style={{background:C.s2,border:`1px solid ${sec.urgent?C.re+"44":C.bd}`,borderRadius:"0 0 8px 8px",padding:"10px 14px"}}>
+          {sec.items.map((item,j)=><div key={j} style={{display:"flex",gap:10,marginBottom:j<sec.items.length-1?8:0,alignItems:"flex-start"}}>
+            <div style={{color:sec.urgent?C.re:C.gd,fontSize:14,marginTop:2,flexShrink:0}}>·</div>
+            <div style={{...cri,fontSize:15,color:sec.urgent&&j===0?C.gl:C.tx,lineHeight:1.65}}>{item}</div>
+          </div>)}
+        </div>
+      </div>)}
+    </div>
+  </PW>;
+}
+
+
+function MustKnow(){
+  const sections=[
+    {
+      icon:"🔴",title:"RIGHT NOW",color:C.re,
+      items:[
+        "The party is on the Misty Mountains ascending the High Pass northeast toward Lake Town",
+        "Elevation: approximately 1,000 feet. Cold, damp, no fire (bat creatures overhead)",
+        "SESSION 18 OPENS MID-INITIATIVE — two large unknown creatures are approaching camp",
+        "Tyr fired a flaming arrow blind and hit one for 20 damage — it yelped but did not retreat",
+        "Tyr has 1 point of exhaustion from nightmares during the previous long rest",
+        "Borin's Rumor of the Earth pinged orcs within 3 miles at dusk — living or carried by bats, unknown"
+      ]
+    },
+    {
+      icon:"🎯",title:"THE MISSION",color:C.g,
+      items:[
+        "Retrieve the Palantir from under the master's hall in Lake Town — tasked by Elrond at Rivendell",
+        "Tyr holds the silver ring key that unlocks the Palantir lockbox",
+        "Elrond warned: never touch the stone",
+        "Tyr has stated explicitly in character: 'For sure gonna touch that Palantir'",
+        "Lake Town is approximately 150+ miles northeast — still a significant journey",
+        "Elrond fears the master of Lake Town may already be compromised"
+      ]
+    },
+    {
+      icon:"⚠️",title:"ACTIVE THREATS",color:"#8b6020",
+      items:[
+        "Two large unknown creatures at camp RIGHT NOW — initiative called",
+        "Giant bat-like creatures flying north carrying humanoid corpses — unknown species, unknown connection",
+        "Eli the Tinker is at large — has the Black Speech booklet, reports to an unknown boss",
+        "Orc presence within 3 miles — living orcs or corpses carried by bats, not confirmed",
+        "The Enemy possesses a Palantir and has been using it — knows the party is coming"
+      ]
+    },
+    {
+      icon:"💀",title:"WHO IS DEAD",color:C.re,
+      items:[
+        "Maldwin — killed by Mungo's blind dagger throw (Session 15). The Last Sea Warden. Gone.",
+        "Ben — 19 years old, Tom's brother. Charged Maldwin instantly. Killed instantly. He died doing the only thing he had left to do.",
+        "The entire Red Claw orc field force — destroyed across Sessions 3-11",
+        "Six of Eli's bandit operatives — killed by Beorn alone in the dark (Session 11)"
+      ]
+    },
+    {
+      icon:"❓",title:"UNKNOWN STATUS",color:C.gd,
+      items:[
+        "The sacrificial village — bat swarm raided it after Maldwin's death; party did not return",
+        "Mez (innkeeper), Tyndell (village leader), Bonkey (water-fetcher) — status unknown",
+        "Eli the Tinker — alive, at large, location unknown"
+      ]
+    },
+    {
+      icon:"💎",title:"KEY ITEMS THE PARTY HAS",color:C.gl,
+      items:[
+        "Iron of Death (Tyr) — Numenorean greatsword, bane vs. orcs and trolls, bonus action attack",
+        "Silver Ring Key (Tyr) — unlocks the Palantir lockbox in Lake Town",
+        "Ring of Mending (Gilgamesh) — revive 1 downed creature to 1 HP once per long rest; cure poison 2x/day",
+        "Jet-Black Dagger (Dudo) — found inside a troll's thigh; +1 to hit, Con save on hit",
+        "Horn of the Ruins (Carl) — 3D echolocation map when blown clearly",
+        "Corrupted Seed Pod (party) — Valinor lineage, being brought to Elrond",
+        "Elven Green Cloaks (all) — +2 stealth"
+      ]
+    },
+    {
+      icon:"🧵",title:"THREADS TO REMEMBER",color:"#5a7a9a",
+      items:[
+        "Dudo's blood activated the bone altar in a way that multiplied it — nobody asked why",
+        "Gilgamesh had a reaction at Rivendell when the creature was described — caught by Mungo and Tyr; never explained",
+        "The Black Speech booklet had maps with X markings — Eli has it now",
+        "The Iron of Death was in Maldwin's sacrifice pile — how did Tyr's ancestral sword get there?",
+        "The village mastermind may not have been Maldwin — something sent the bats after he died",
+        "Carl's ring — retrieved from an orc pool in Sessions 1-2; why was a healing ring in an orc tunnel?"
+      ]
+    },
+    {
+      icon:"🗺️",title:"WHERE YOU'VE BEEN",color:C.dm,
+      items:[
+        "Started: Chetwood Ruins (Sessions 1-2) → Bree Battle (Sessions 3-4) → Road east (Sessions 5-6)",
+        "Farmstead & troll cave (Sessions 7-9) → Captured by Eli, freed by Beorn (Session 11)",
+        "Rivendell: healing pool, mission from Elrond, drinking contest (Sessions 12-13)",
+        "Sacrificial village → Swamp → The Stump: Maldwin defeated (Sessions 13-17)",
+        "NOW: Misty Mountains, heading northeast to Lake Town"
+      ]
+    }
+  ];
+
+  return<PW>
+    <PH title="Must Know" sub="Everything you need walking into the next session"/>
+    <div style={{padding:"0 16px"}}>
+      {sections.map((sec,i)=><div key={i} style={{marginBottom:16}}>
+        <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:8,paddingBottom:6,borderBottom:`1px solid ${sec.color}44`}}>
+          <span style={{fontSize:18}}>{sec.icon}</span>
+          <Cin sz={12} col={sec.color} style={{letterSpacing:"0.1em"}}>{sec.title}</Cin>
+        </div>
+        {sec.items.map((item,j)=><div key={j} style={{display:"flex",gap:10,marginBottom:7,alignItems:"flex-start"}}>
+          <div style={{color:sec.color,fontSize:12,marginTop:3,flexShrink:0}}>·</div>
+          <div style={{...cri,fontSize:15,color:C.tx,lineHeight:1.65}}>{item}</div>
+        </div>)}
+      </div>)}
+    </div>
+  </PW>;
+}
+
+const TABS=[{id:"home",label:"Home",icon:"🏠"},{id:"party",label:"Party",icon:"⚔️"},{id:"sessions",label:"Sessions",icon:"📖"},{id:"mustknow",label:"Must Know",icon:"📌"},{id:"more",label:"More",icon:"✦"}];
+const MORE=[{id:"world",label:"World",icon:"🌍"},{id:"items",label:"Items",icon:"💎"},{id:"mysteries",label:"Mysteries",icon:"❓"},{id:"moments",label:"Moments",icon:"⭐"},{id:"bestiary",label:"Bestiary",icon:"🐉"},{id:"factions",label:"Factions",icon:"⚔️"},{id:"timeline",label:"Timeline",icon:"📅"},{id:"stats",label:"Campaign Stats",icon:"📊"},{id:"suggestions",label:"Suggestions",icon:"💬"},{id:"mustknow",label:"Must Know",icon:"📌"}];
 
 function useHash(){
   const[hash,setHash]=useState(()=>window.location.hash.slice(1)||"home");
@@ -1715,10 +1937,10 @@ function App(){
     if(page==="mysteries")return<Mysteries/>;
     if(page==="moments")return<Moments/>;
     if(page==="suggestions")return<Suggestions sugs={sugs} onAdd={onAddSug}/>;
-    if(page==="ai")return<AiPage/>;
+
     if(page==="timeline")return<Timeline/>;
     if(page==="stats")return<CampaignStats/>;
-    if(page==="search")return<Search go={navigate}/>;
+    if(page==="mustknow")return<MustKnow/>;
     return<Home go={navigate}/>;
   };
 
