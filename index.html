@@ -1088,3 +1088,86 @@ function renderStats() {
 }
 
 
+
+
+// ── RENDER ────────────────────────────────────────────────────
+function getPageContent() {
+  switch(page) {
+    case 'home': return renderHome();
+    case 'party': return renderParty();
+    case 'npcs': return renderNPCs();
+    case 'sessions': return renderSessions();
+    case 'mysteries': return renderMysteries();
+    case 'moments': return renderMoments();
+    case 'mustknow': return renderMustKnow();
+    case 'suggestions': return renderSuggestions();
+    case 'items': return renderItems();
+    case 'bestiary': return renderBestiary();
+    case 'factions': return renderFactions();
+    case 'timeline': return renderTimeline();
+    case 'locations': return renderLocations();
+    case 'stats': return renderStats();
+    default: return renderHome();
+  }
+}
+
+function renderMoreDrawer() {
+  let drawer = document.getElementById('more-drawer');
+  let overlay = document.getElementById('more-overlay');
+  if (!more) { if (drawer) drawer.remove(); if (overlay) overlay.remove(); return; }
+  if (!drawer) {
+    overlay = document.createElement('div');
+    overlay.id = 'more-overlay';
+    overlay.className = 'more-overlay';
+    overlay.onclick = () => { more = false; renderNav(); renderMoreDrawer(); };
+    drawer = document.createElement('div');
+    drawer.id = 'more-drawer';
+    drawer.className = 'more-drawer';
+    document.getElementById('app').appendChild(overlay);
+    document.getElementById('app').appendChild(drawer);
+  }
+  drawer.innerHTML = '';
+  const grid = document.createElement('div');
+  grid.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:9px';
+  MORE_PAGES.forEach(pg => {
+    const b = document.createElement('button');
+    b.className = 'btn';
+    b.style.cssText = 'background:#222018;border:1px solid #383020;color:#e6cc84;padding:11px 10px;border-radius:7px;text-align:left;display:flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.05em';
+    b.innerHTML = pg.icon + ' ' + pg.label;
+    b.onclick = () => navigate(pg.id);
+    grid.appendChild(b);
+  });
+  drawer.appendChild(grid);
+}
+
+function renderNav() {
+  const nav = document.getElementById('nav');
+  nav.innerHTML = '';
+  TABS.forEach(t => {
+    const b = document.createElement('button');
+    b.className = 'btn-nav' + (t.id === 'more' ? (more ? ' active' : '') : (page === t.id && !more ? ' active' : ''));
+    b.innerHTML = '<span class="icon">' + t.icon + '</span>' + t.label;
+    b.onclick = t.id === 'more' ? toggleMore : () => navigate(t.id);
+    nav.appendChild(b);
+  });
+}
+
+function render() {
+  const content = document.getElementById('content');
+  content.innerHTML = '';
+  content.appendChild(getPageContent());
+  content.scrollTop = 0;
+  renderNav();
+  renderMoreDrawer();
+}
+
+// ── INIT ──────────────────────────────────────────────────────
+try {
+  render();
+} catch(e) {
+  document.body.style.cssText = 'background:#0d0b08;color:#e6cc84;font-family:monospace;padding:20px';
+  document.body.innerHTML = '<h2 style="color:#8b2828;margin-bottom:12px">Runtime Error</h2><p><strong>' + e.message + '</strong></p><pre style="color:#9a8a6a;font-size:12px;white-space:pre-wrap">' + e.stack + '</pre>';
+}
+</script>
+</body>
+</html>
