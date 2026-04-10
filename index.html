@@ -1867,35 +1867,19 @@ function MustKnow(){
 const TABS=[{id:"home",label:"Home",icon:"🏠"},{id:"party",label:"Party",icon:"⚔️"},{id:"sessions",label:"Sessions",icon:"📖"},{id:"mustknow",label:"Must Know",icon:"📌"},{id:"more",label:"More",icon:"✦"}];
 const MORE=[{id:"world",label:"World",icon:"🌍"},{id:"items",label:"Items",icon:"💎"},{id:"mysteries",label:"Mysteries",icon:"❓"},{id:"moments",label:"Moments",icon:"⭐"},{id:"bestiary",label:"Bestiary",icon:"🐉"},{id:"factions",label:"Factions",icon:"⚔️"},{id:"timeline",label:"Timeline",icon:"📅"},{id:"stats",label:"Campaign Stats",icon:"📊"},{id:"suggestions",label:"Suggestions",icon:"💬"},{id:"mustknow",label:"Must Know",icon:"📌"}];
 
-function useHash(){
-  const[hash,setHash]=useState(()=>window.location.hash.slice(1)||"home");
-  useEffect(()=>{
-    const onHash=()=>setHash(window.location.hash.slice(1)||"home");
-    window.addEventListener("hashchange",onHash);
-    return()=>window.removeEventListener("hashchange",onHash);
-  },[]);
-  const go=useCallback((h)=>{
-    window.location.hash=h;
-  },[]);
-  return[hash,go];
-}
 
 function App(){
-  const[hash,go]=useHash();
+  const[page,setPage]=useState("home");
+  const[detail,setDetail]=useState(null);
   const[worldTab,setWorldTab]=useState("npcs");
+  const[more,setMore]=useState(false);
   const[sugs,setSugs]=useState(()=>lsGet("mew-sugs")||[]);
   const[edits,setEdits]=useState(()=>lsGet("mew-edits")||{});
-  const[more,setMore]=useState(false);
 
-  // Parse hash into page + optional detail id
-  // Format: #page or #page/detail
-  const parts=hash.split("/");
-  const page=parts[0]||"home";
-  const detail=parts[1]||null;
-
-  const navigate=(target)=>{
+  const navigate=p=>{
     setMore(false);
-    go(target);
+    if(p&&p.includes("/")){const[pg,dt]=p.split("/");setPage(pg);setDetail(dt);}
+    else{setPage(p||"home");setDetail(null);}
   };
 
   const onSaveNote=(id,note)=>{const e={...edits,[id]:{...(edits[id]||{}),note}};setEdits(e);lsSet("mew-edits",e);};
@@ -1904,16 +1888,11 @@ function App(){
   const renderPage=()=>{
     if(page==="home")return<Home go={navigate}/>;
     if(page==="party"){
-      if(detail)return<CharDetail c={PARTY.find(p=>p.id===detail)||PARTY[0]} edits={edits} onBack={()=>navigate("party")} onSave={onSaveNote}/>;
+      if(detail){const c=PARTY.find(p=>p.id===detail);if(c)return<CharDetail c={c} edits={edits} onBack={()=>navigate("party")} onSave={onSaveNote}/>;}
       return<Party edits={edits} onSave={onSaveNote} go={navigate}/>;
     }
     if(page==="world"){
-      // world/loc = open locations tab directly
-      const initTab = detail==="loc" ? "locations" : worldTab;
-      if(detail&&detail!=="loc"){
-        const n=NPCS.find(x=>x.id===detail);
-        return<NpcDetail n={n} onBack={()=>navigate("world")}/>;
-      }
+      if(detail&&detail!=="loc"){const n=NPCS.find(x=>x.id===detail);return<NpcDetail n={n} onBack={()=>navigate("world")}/>;}
       return<div style={{display:"flex",flexDirection:"column",height:"100%",overflow:"hidden"}}>
         <div style={{display:"flex",gap:8,padding:"12px 16px 0",flexShrink:0}}>
           {[["npcs","NPCs"],["locations","Locations"]].map(([id,label])=><button key={id} onClick={()=>setWorldTab(id)} style={{flex:1,background:(detail==="loc"?id==="locations":worldTab===id)?C.gd:C.s2,border:`1px solid ${(detail==="loc"?id==="locations":worldTab===id)?C.gd:C.bd}`,color:(detail==="loc"?id==="locations":worldTab===id)?C.bg:C.dm,padding:8,borderRadius:6,cursor:"pointer",...cin,fontSize:12,letterSpacing:"0.05em",touchAction:"manipulation"}}>{label}</button>)}
@@ -1922,24 +1901,24 @@ function App(){
       </div>;
     }
     if(page==="sessions"){
-      if(detail)return<SessionDetail s={SESSIONS.find(x=>x.num===detail)} onBack={()=>navigate("sessions")}/>;
+      if(detail){const s=SESSIONS.find(x=>x.num===detail);return<SessionDetail s={s} onBack={()=>navigate("sessions")}/>;}
       return<Sessions go={navigate}/>;
     }
     if(page==="bestiary"){
-      if(detail)return<BestiaryDetail b={BESTIARY.find(x=>x.id===detail)} onBack={()=>navigate("bestiary")}/>;
+      if(detail){const b=BESTIARY.find(x=>x.id===detail);return<BestiaryDetail b={b} onBack={()=>navigate("bestiary")}/>;}
       return<Bestiary go={navigate}/>;
     }
     if(page==="factions"){
-      if(detail)return<FactionDetail f={FACTIONS.find(x=>x.id===detail)} onBack={()=>navigate("factions")}/>;
+      if(detail){const f=FACTIONS.find(x=>x.id===detail);return<FactionDetail f={f} onBack={()=>navigate("factions")}/>;}
       return<Factions go={navigate}/>;
     }
     if(page==="items")return<Items/>;
     if(page==="mysteries")return<Mysteries/>;
     if(page==="moments")return<Moments/>;
     if(page==="suggestions")return<Suggestions sugs={sugs} onAdd={onAddSug}/>;
-
     if(page==="timeline")return<Timeline/>;
     if(page==="stats")return<CampaignStats/>;
+    if(page==="search")return<Search go={navigate}/>;
     if(page==="mustknow")return<MustKnow/>;
     return<Home go={navigate}/>;
   };
@@ -1948,14 +1927,14 @@ function App(){
     {more&&<div onClick={()=>setMore(false)} style={{position:"absolute",inset:0,zIndex:15}}/>}
     {more&&<div style={{position:"absolute",bottom:60,left:0,right:0,background:C.s1,borderTop:`1px solid ${C.bd}`,padding:"12px 16px",zIndex:20}}>
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:9}}>
-        {MORE.map(m=><button key={m.id} onClick={()=>{navigate(m.id);setMore(false);}} style={{background:C.s2,border:`1px solid ${C.bd}`,color:C.gl,padding:"11px 10px",borderRadius:7,cursor:"pointer",...cin,fontSize:12,letterSpacing:"0.05em",textAlign:"left",display:"flex",alignItems:"center",gap:8}}><span style={{fontSize:16}}>{m.icon}</span>{m.label}</button>)}
+        {MORE.map(m=><button key={m.id} onClick={()=>navigate(m.id)} style={{background:C.s2,border:`1px solid ${C.bd}`,color:C.gl,padding:"11px 10px",borderRadius:7,cursor:"pointer",...cin,fontSize:12,letterSpacing:"0.05em",textAlign:"left",display:"flex",alignItems:"center",gap:8,touchAction:"manipulation"}}><span style={{fontSize:16}}>{m.icon}</span>{m.label}</button>)}
       </div>
     </div>}
     <div style={{flex:1,overflowY:"auto"}}>{renderPage()}</div>
     <nav style={{height:60,background:C.s1,borderTop:`1px solid ${C.bd}`,display:"flex",flexShrink:0}}>
       {TABS.map(t=>{
         const active=t.id==="more"?more:(page===t.id&&!more);
-        return<button key={t.id} onClick={()=>t.id==="more"?setMore(!more):navigate(t.id)} style={{flex:1,background:"none",border:"none",cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:3,color:active?C.gl:C.mt,borderTop:active?`2px solid ${C.g}`:"2px solid transparent",transition:"all 0.15s"}}>
+        return<button key={t.id} onClick={()=>t.id==="more"?setMore(!more):navigate(t.id)} style={{flex:1,background:"none",border:"none",cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:3,color:active?C.gl:C.mt,borderTop:active?`2px solid ${C.g}`:"2px solid transparent",transition:"all 0.15s",touchAction:"manipulation"}}>
           <span style={{fontSize:18}}>{t.icon}</span>
           <span style={{...cin,fontSize:9,letterSpacing:"0.05em"}}>{t.label}</span>
         </button>;
@@ -1963,7 +1942,6 @@ function App(){
     </nav>
   </div>;
 }
-
 
 ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
 </script>
