@@ -1,0 +1,296 @@
+{
+  "meta": {
+    "campaignName": "Wanderings In Middle Earth",
+    "lastSession": "Session 18",
+    "currentStatus": "The party climbs the Misty Mountains heading northeast toward Lake Town. ~150 miles to go. After the bear fight at the cove, Adrik Stone-Shield (a dwarf) joined the party — recovered his stolen necklace from a bear's stomach and reluctantly agreed to travel with them as a 'low-key hostage.' All party members are now level 6.",
+    "primaryMission": "Retrieve the Palantír from beneath the master's hall in Lake Town, as tasked by Elrond. Tyr holds the silver ring key. Tyr has stated in character that he will touch the stone."
+  },
+  "party": [
+    {
+      "id": "borin",
+      "name": "Borin \"The Tall\" Ironjaw",
+      "player": "Josh",
+      "race": "Dwarf Warden",
+      "emoji": "⚒️",
+      "tag": "Pragmatic, fatherly. Fights for his family back home.",
+      "bio": "Borin negotiated 2,000 gold from Mayor Graf before agreeing to anything, carried young Leah on his back until she fell asleep on his shoulders, and once hid behind a dead cow from three trolls while privately noting that urinating on himself was \"warm and comforting.\" He misses his wife and kids. Every burned farmstead reminds him why.",
+      "facts": [
+        "Negotiated 2,000 gold + shield + horses from Mayor Graf after the Battle of Bree",
+        "Carried Leah miles through the wilderness — waved until out of sight, then ran",
+        "Rumor of the Earth: touch the ground to sense orcs within 3 miles (once per rest)",
+        "Horic's Iron Hand Fang: +1 warhammer, DC 13 crowd-control on all nearby targets",
+        "Has a wife and children at home — every civilian death is personal",
+        "Session 18: Triggered Fell on a Nat 19 (via Keen) for 39 damage on a giant bear — the bear collapsed but didn't die. Tied for his biggest hit of the campaign."
+      ],
+      "funny": [
+        "Named a palm-leaf rain hat 'Leafster' and carried it through a thunderstorm",
+        "Urinated on himself hiding from trolls — noted it was 'actually warm and comforting'",
+        "Picked up Mungo and threw him at Gilgamesh to break up a fight (Gilgamesh caught him)",
+        "Session 18: Took 4 friendly-fire damage from Adrik's Nat 1 in the dark. In character: 'Like dirty little rats nibble at my feet.'"
+      ],
+      "arc": "Borin fights for his family. He is the party's anchor — pragmatic, decent, quietly terrified that orcs are reaching places they were never supposed to reach."
+    },
+    {
+      "id": "carl",
+      "name": "Carl Pickthron",
+      "player": "Tyler",
+      "race": "Human Fighter (Captain)",
+      "emoji": "🪓",
+      "tag": "Brave to the point of recklessness. Carries grief loudly.",
+      "bio": "Carl was drunk at the Prancing Pony talking about Mungo before the battle. He voluntarily served as living alligator bait because he trusted the party with his life. He declared \"Listen here, you stupid witch — you're not even a wizard!\" right before the crit that triggered Maldwin's phase 2.",
+      "facts": [
+        "Crits on 19-20 with extra damage dice equal to proficiency bonus",
+        "Holds the Horn of the Ruins (echolocation — 3D map of surroundings when blown loudly)",
+        "Accidentally knocked Dudo unconscious with his greataxe over a Horn dispute — sent to the barn",
+        "Volunteered as living alligator bait in the swamp; 15 gators converged and he was hauled back",
+        "'Listen here, you stupid witch — you're not even a wizard!' — pre-crit speech vs Maldwin",
+        "Session 18: Took 26 damage in one round from a giant bear's charge + bite (DM rolled double 6s on 2d6+5). Survived."
+      ],
+      "funny": [
+        "Crashed through the farmhouse fence at full sprint trying to pole vault — created a party-sized hole",
+        "Slumped onto Borin when poisoned mead hit while he was driving the wagon",
+        "Picked verbal fights with bandit captors until poked with a spear and knocked unconscious"
+      ],
+      "arc": "Carl is brave and loud about his grief. He runs toward danger as fast as his legs carry him."
+    },
+    {
+      "id": "dudo",
+      "name": "Dudo Maggot",
+      "player": "Calvin",
+      "race": "Halfling (Hobbit) Messenger",
+      "emoji": "🗡️",
+      "tag": "Tiny, lethal, almost certainly the party's most dangerous member.",
+      "bio": "Dudo is 3 feet tall, regularly rolls stealth 26, and wrote \"Santa's Little Helper\" on Tyr's forehead while he meditated — said nothing, and let the party return to Bree before Finn the blacksmith noticed. He skied off the back of a moving wagon during a rainstorm using a rope and a cooking pan for fun.",
+      "facts": [
+        "Stealth 26 — described as becoming 'one with the shadows'",
+        "Nat 20 sneak attack up through an orc's groin — the campaign's most dramatic opening kill",
+        "Jet-black dagger found inside a troll's thigh (+1 to hit, Constitution save on hit)",
+        "His blood activated Maldwin's bone altar — multiplied significantly on contact",
+        "Sword fell during ceiling climb, hit Tyr's neck, Tyr went to 0 HP from friendly fire",
+        "Session 18: Initiative 22 (with +9 expertise). Animal Handling 22 on bear butchering. Performance Nat 1 on the wake-the-party check — sleep paralysis, turn skipped."
+      ],
+      "funny": [
+        "Wrote 'Santa's Little Helper' on Tyr's forehead while meditating — Finn the blacksmith noticed in Bree",
+        "Skied off the moving wagon during a rainstorm using a rope and cooking pan — graceful success",
+        "Fashioned a walking stick from a smashed dresser panel after his knee injury — halfling height",
+        "Session 18: Tried to wake the party yelling 'Get up! Get up, Wood!' — Nat 1 Performance, instant sleep paralysis on his own turn"
+      ],
+      "arc": "Dudo is the party's quiet lethal engine. The blood altar responding specifically to his blood is a thread that hasn't been pulled yet."
+    },
+    {
+      "id": "gilgamesh",
+      "name": "Gilgamesh Artemis",
+      "player": "Aaron / AP",
+      "race": "Elf Scholar / Archer",
+      "emoji": "🏹",
+      "tag": "Artist. Tactician. The only one conscious during the mead incident.",
+      "bio": "Gilgamesh built a fully camouflaged sniper nest on the mayor's roof before the Battle of Bree, then painted it Nat 20 after the battle so it permanently looks like part of the architecture. He holds the Ring of Mending, which has revived party members at least four times.",
+      "facts": [
+        "Ring of Mending: revive 1 downed to 1 HP (1/long rest); cure poison (2/day)",
+        "Shortbow +6 (awarded as hunt prize from Mayor Graf)",
+        "Barrel explosion: cooking fuel off the roof + torch = gate destroyed + 15-20 orcs gone",
+        "One of only two who resisted the poisoned mead (Con save 17+ at disadvantage, with Tyr)",
+        "Watched Mungo kill three orcs in the burning farmhouse from 200 feet — saw bodies drop silently",
+        "Session 18: Healed Tyr for 24 HP twice in one fight using Leechcraft + Elvish skill (≈48 HP total). Nat 20 Nature check (27 total) found the trail back. Watercolor painted an owl that watched the party pass."
+      ],
+      "funny": [
+        "Got buzzed 'investigating' the farmstead wine barrel — Tyr's arrow then punctured it",
+        "Nearly fell off the mayor's 3-story roof building his sniper nest (acrobatics 14 — barely)",
+        "Protested Elrond giving Tyr the Palantír key ring — Elrond gave it to Tyr anyway",
+        "Session 18: Asked Adrik (a stranger they'd just met) if he could draw him. Then asked if he could draw him naked. Adrik refused both."
+      ],
+      "arc": "Gilgamesh brings an elf's long perspective. He knows something about the Dol Guldur corruption he hasn't said."
+    },
+    {
+      "id": "mayo",
+      "name": "Mayo (May O.)",
+      "player": "Alec",
+      "race": "Dwarf Champion",
+      "emoji": "🛡️",
+      "tag": "The reliable backbone. Makes sure things don't fall apart.",
+      "bio": "Mayo pumped the artesian well after the farmstead battle while still wounded at ~4 HP. He ran 30 feet across the room to slam the wardrobe shut on emerging zombies during Maldwin's fight (strength 12 — barely). Cool under pressure. Quietly keeps the party alive.",
+      "facts": [
+        "Protection fighting style: impose disadvantage on attacks against adjacent allies",
+        "Surge of Vigor: bonus action self-heal OR Attack/Dash/Disengage/Dodge once per rest",
+        "Ran 30 feet to slam the wardrobe shut mid-fight — strength 12, barely — prevented a zombie wave",
+        "Con save 21 operating the well pump at ~4 HP after the farmstead battle",
+        "Went down to a zombie bite in the stump — death save Nat 20 — stabilized at 1 HP",
+        "Let Tyr stand on his shoulders to reach the ceiling node"
+      ],
+      "funny": [
+        "Was woken by Tyr placing his feet on his face while he slept in the wagon",
+        "Tried repeatedly to tame an evil wolf using animal handling — it refused every time",
+        "Mungo kept nudging the wagon horses faster when he told him to slow down, grinning",
+        "Absent for Session 18 — DM said 'Mayo is the other dwarf and he's not here'"
+      ],
+      "arc": "Mayo is the party's quiet indispensable. The unglamorous calls — shut the wardrobe, pump the water — are always Mayo."
+    },
+    {
+      "id": "mungo",
+      "name": "Mungo Grubb",
+      "player": "Jesse (DM)",
+      "race": "Hobbit Treasure Hunter",
+      "emoji": "🔪",
+      "tag": "More dangerous than he looks. Much more.",
+      "bio": "Mungo is a cheerful hobbit who used to be a burglar and has a personal friendship with Beorn the skin-changer. He eliminated three orcs silently inside a burning farmhouse — kills witnessed only as bodies dropping from windows. He threw a dagger while completely blind, running, on disadvantage, and hit Maldwin in the side of the head for the killing blow.",
+      "facts": [
+        "Former burglar — Beorn caught him stealing and they became genuine friends over 7 years",
+        "Silent triple kill inside the burning farmhouse — Gilgamesh watched from 200 feet, never heard a sound",
+        "Catapulted to the ceiling by Tyr + Borin (strength check 24 + 21) to reach the ceiling node",
+        "Blind dagger throw, running, on disadvantage — hit Maldwin in the head. The killing blow.",
+        "Nat 20 stealth recorded multiple times throughout the campaign"
+      ],
+      "funny": [
+        "Health potion turned 'nasty yellow' after dipping a sanitizing finger in it",
+        "Kept nudging the wagon horses faster after being told to slow down, grinning",
+        "Yelled 'FOR CARL!' charging up a ravine cliff at the goblin that just dropped Carl",
+        "Session 18: Briefed Adrik on the mission inverted — told him 'if we see the stone, let Tyr touch it, nobody else' (the actual rule from Elrond is the opposite)"
+      ],
+      "arc": "Mungo is the campaign's wild card — cheerful, lethal, loyal, connected to Beorn in ways the party doesn't fully understand."
+    },
+    {
+      "id": "tyr",
+      "name": "Tyr",
+      "player": "Gabe",
+      "race": "Human Ranger of the North",
+      "emoji": "⚔️",
+      "tag": "Elrond knows his name. Aragorn files reports about him.",
+      "bio": "Tyr is a Dúnedain Ranger — one of the hidden guardians of the north. Elrond had heard of him through Aragorn before the party arrived at Rivendell. He carries the Iron of Death, a Númenórean greatsword made by his ancestors found in Maldwin's sacrifice pile. He has stated explicitly in character that he will touch the Palantír.",
+      "facts": [
+        "Ranger of the North (Dúnedain) — Aragorn personally files reports on him to Elrond",
+        "Iron of Death: Númenórean greatsword, bane vs. orcs and trolls, bonus action attack",
+        "Holds the silver ring key to the Palantír lockbox in Lake Town (given by Elrond)",
+        "Said in character: 'For sure gonna touch that Palantír' — despite Elrond's explicit warning",
+        "Shouted 'FUCK YOU!' at three trolls (speed 40) and sprinted into the night (speed 25)",
+        "Session 18: KILLED BOTH GIANT BEARS — Bear A by decapitation (31 dmg triple-attack), Bear B by sword-thrust through the jaw into the brain on its counter-bite. Leveled to 6 mid-combat."
+      ],
+      "funny": [
+        "Shouted 'FUCK YOU!' at three trolls — they gave chase at 40 speed vs his 25 — session cliffhanger",
+        "Had 'Santa's Little Helper' on his forehead — discovered in Bree by Finn the blacksmith",
+        "Beorn: 'You should have known better. A black obsidian pendant — nothing more obvious of a cursed item.'",
+        "Session 18: Took 26 damage from a bear in one round, then leveled up in character mid-combat ('I'm so pissed at this bear because he got the drop on me and made me look bad in front of this new guy') and immediately killed it."
+      ],
+      "arc": "Tyr carries the weight of Númenórean heritage. He leads, he navigates, he fights. And he is going to touch the Palantír."
+    },
+    {
+      "id": "adrik",
+      "name": "Adrik Stone-Shield",
+      "player": "Christian",
+      "race": "Dwarf Warden (Healing Hands)",
+      "emoji": "🪓",
+      "tag": "New arrival. Searching for something he won't talk about.",
+      "bio": "Adrik joined in Session 18 — found by the party in a mountain cove after his camp was ravaged by two giant bears. He'd been tracking them for six hours through the night, distraught, when he saw firelight from Tyr's arrow shot. He recovered a half-dollar-sized pendant from one bear's stomach and pocketed it secretively. He's traveling with the party as a 'low-key hostage' — grateful they killed the bears, but not telling them what the pendant does.",
+      "facts": [
+        "4'6\" dwarf, unusually tanned for a dwarf, scraggly red beard",
+        "Carries a locator pendant that 'pings' near broken shards he is searching for",
+        "Healing Hands background: advantage on Arcana, History, Investigation, Nature, Perception, Religion",
+        "Has not told the party what the shards are or why he wants them",
+        "Borin and Adrik both rolled history checks when they met — neither knows the other, but both feel a vague familiarity (DM-planted seed)",
+        "Session 18 debut: Two Nat 20s (one disregarded on reroll), two Nat 1s (one was friendly fire on Borin in the dark)"
+      ],
+      "funny": [
+        "Session 18: Closed 100 feet to melee in one turn (Dash + Dash + move), got a Nat 20 attack — and did exactly 4 damage. The hatchet bounced off the bear hide.",
+        "Session 18: Second swing was a Nat 1 — accidentally cut Borin's leg in the dark for 4 damage ('Welcome to the team' — table)",
+        "Session 18: When asked his name, just said 'Stone-Shield.' Carl: 'You don't have a shield, mate Stone. That's upsetting.'",
+        "Session 18: Refused Gilgamesh's offer to draw him naked. ('I don't want to waste resources on a stranger.')"
+      ],
+      "arc": "Adrik is searching for something. The party doesn't know what. The vague familiarity between him and Borin hasn't been pulled yet."
+    }
+  ],
+  "npcs": [
+    { "id": "halvar", "name": "Halvar Greycloak", "status": "Alive", "role": "Ranger Commander", "emoji": "🏹", "loc": "Bree area", "first": "Session 3", "desc": "Commander of Grey Watch Hollow. Marched all 5 of his rangers to Bree's defense when the party delivered the intercepted orc message. Seven Rangers of the North together at once was unprecedented and immediately boosted morale." },
+    { "id": "graf", "name": "Mayor Graf Woodfoot", "status": "Alive", "role": "Mayor of Bree", "emoji": "🏛️", "loc": "Bree", "first": "Session 3", "desc": "Practical and grateful. Commissioned the party after the Battle of Bree. Paid 2,000 gold (negotiated by Borin), provided horses and a letter to Elrond. Warned larger threats exist in the wider world." },
+    { "id": "finn", "name": "Finn", "status": "Alive", "role": "Blacksmith's Assistant, Bree", "emoji": "⚒️", "loc": "Bree", "first": "Session 3", "desc": "Young blacksmith's assistant mass-producing short swords for Bree's defense. First person to notice 'Santa's Little Helper' written on Tyr's forehead during the return march." },
+    { "id": "barliman", "name": "Barliman Butterbur", "status": "Alive", "role": "Innkeeper, The Prancing Pony", "emoji": "🍺", "loc": "Bree", "first": "Session 5", "desc": "Deeply decent innkeeper, deeply shaken by the battle. Gave useful intel about Rivendell elves ('noble but genuinely kind') vs. Wood Elves ('more standoffish'). Even 300 orcs is 'a small band' by fortress standards." },
+    { "id": "beorn", "name": "Beorn", "status": "Alive", "role": "Skin-changer — Mysterious Ally", "emoji": "🐻", "loc": "Unknown", "first": "Session 5 (revealed)", "desc": "A being who shifts between human and massive bear form. Known personally to Mungo from 7 years ago. Rescued the party from the briar-patch camp by killing all six bandits alone in the dark. Destroyed the second orc wave on the 30th." },
+    { "id": "elrond", "name": "Elrond Half-elven", "status": "Alive", "role": "Lord of Rivendell", "emoji": "⭐", "loc": "Rivendell", "first": "Session 13", "desc": "Ancient, grave, deeply knowledgeable. Had already heard of the party through Aragorn. Tasked them with retrieving the Palantír from Lake Town. Inscribed Tyr's sword personally. Gave Tyr the key ring over Gilgamesh's objection. Assembling a council: Gandalf, Aragorn, and Saruman." },
+    { "id": "leah", "name": "Leah", "status": "Alive — Safe", "role": "Young Survivor", "emoji": "🌿", "loc": "Weaver Cottage (hills off East Road)", "first": "Session 6", "desc": "Young girl whose family was slaughtered by orcs. Borin carried her on his back until she fell asleep on his shoulders. Now permanently with aunt Eowyn and uncle Halrick Weaver. Gave Borin a quiet hug before he left." },
+    { "id": "eli", "name": "Eli the Tinker", "status": "HOSTILE — At Large", "role": "Enemy Operative", "emoji": "⚠️", "loc": "Unknown", "first": "Session 10.2", "desc": "Appeared helpful. Was lying. Distributed cursed obsidian pendants, engineered capture via poisoned mead, offered a 'join or die' ultimatum. Escaped with the Black Speech booklet before Beorn arrived. Reports to an unknown 'boss.'" },
+    { "id": "maldwin", "name": "Maldwin", "status": "DECEASED", "role": "The Last Sea Warden", "emoji": "💀", "loc": "The Stump (destroyed)", "first": "Session 15", "desc": "A human centuries old — once a healer, driven mad by grief. Planted a Valinor seed in a swamp stump and fed it blood for 19 winters to build a zombie army aimed at Rivendell. Killed by Mungo's blind dagger throw. The party was two days from Rivendell the whole time." },
+    { "id": "ben", "name": "Ben", "status": "DECEASED", "role": "Civilian Companion", "emoji": "💀", "loc": "The Stump (deceased)", "first": "Session 14", "desc": "19 years old. Brother of Tom — the boy drawn in the village lottery and sacrificed. When he saw Maldwin, he charged without words and without hesitation. Killed instantly. He died doing the only thing he had left to do." },
+    { "id": "mez", "name": "Mez", "status": "UNKNOWN", "role": "Innkeeper, Sacrificial Village", "emoji": "❓", "loc": "Unknown — village raided", "first": "Session 13", "desc": "Innkeeper of the unnamed sacrificial village. Meek, traumatized, grateful for kindness. His wife was sacrificed five moons before the party arrived. Status unknown after the bat swarm raided the village." },
+    { "id": "bonkey", "name": "Bonkey", "status": "UNKNOWN", "role": "Water-Fetcher, Sacrificial Village", "emoji": "❓", "loc": "Unknown — village raided", "first": "Session 13", "desc": "The only villager permitted outside — assigned to fetch water. Found by the party muttering 'just gotta make it through another night.' Led them unknowingly to the village. Status unknown after the bat raid." }
+  ],
+  "locations": [
+    { "id": "bree", "name": "Bree", "emoji": "🏘️", "status": "Standing — recovering", "desc": "A crossroads town. Site of the Battle of Bree. Home of the Prancing Pony. Most people don't know the Rangers exist.", "facts": ["~175 orcs killed; ~75 townspeople dead", "Gate was destroyed and rebuilt", "Mayor Graf, Barliman, Finn, and Whitman are based here"] },
+    { "id": "chetwood", "name": "The Chetwood Ruins", "emoji": "🏚️", "status": "Cleared", "desc": "The campaign's starting location. Cellar connects to the orc tunnel network. Horn of the Ruins and Ring of Mending found here.", "facts": ["Horn of the Ruins found here", "Ring of Mending retrieved from an underground pool", "Beorn was monitoring orc activity here — his footprints were the 'Vanisher' mystery"] },
+    { "id": "rivendell", "name": "Rivendell (Imladris)", "emoji": "⭐", "status": "Safe — party departed", "desc": "'A bowl of peace, tucked beneath the immense shoulders of the mountains.' Healing pool cleared every ailment. Elrond gave them their mission.", "facts": ["Healing pool cleared every wound, ailment, curse, and scar for everyone", "Elrond inscribed Tyr's sword personally (+1 to hit)", "Party's horses stabled here — sent back on Elrond's advice", "Everyone except Gilgamesh fell unconscious during the informal drinking contest"] },
+    { "id": "farmstead", "name": "The Farmstead Valley", "emoji": "🔥", "status": "Cleared — house burned", "desc": "A civilian farmstead used by Red Claw orcs as a fortified position. Dudo burned it. Mungo killed three orcs silently inside.", "facts": ["Black Speech booklet found on the Chieftain's body here", "Beneath the barn: tunnels leading east toward troll country", "Leah's family was killed here — she survived in the barn loft"] },
+    { "id": "stump", "name": "The Corrupted Stump", "emoji": "🌿", "status": "Cleared — destroyed", "desc": "An 80-100 foot corrupted tree stump on a lake island. Bone altar, zombie wardrobe, Maldwin's quarters. The party was two days from Rivendell the entire time.", "facts": ["Dudo's blood activated the bone altar — multiplied on contact", "A BOAT was tied to the far side THE ENTIRE TIME. Carl had seen it. Said nothing.", "All zombies dropped when Dudo carved the ceiling node free with a Nat 20"] },
+    { "id": "cove", "name": "The Bear Cove", "emoji": "🐻", "status": "Cleared — abandoned", "desc": "A small overhang/enclave on the Misty Mountain ascent. Where the party camped on the night of Session 17.2 and where two giant bears attacked. Tyr killed both. Adrik joined the party here.", "facts": ["Two 2,000-lb giant bears killed by Tyr (decapitation + sword-through-jaw)", "Adrik Stone-Shield joined here — recovered his pendant from a bear's stomach", "Party left ~3 AM after harvesting ~20 lbs of bear meat (full harvest would have taken until noon)"] },
+    { "id": "mountains", "name": "The Misty Mountains", "emoji": "⛰️", "status": "⚠️ CURRENT LOCATION", "desc": "The party is ascending the High Pass heading northeast toward Lake Town. ~1,000 feet elevation. Adrik is now traveling with them.", "facts": ["Orc ping within 3 miles at dusk camp (living or carried by bats — unknown)", "Giant bat creatures observed flying north carrying humanoid corpses", "The bears at the cove were the source of the S17.2 cliffhanger — confirmed and resolved S18"] }
+  ],
+  "sessions": [
+    { "num": "1-2", "title": "The Beginning", "date": "Day 1", "summary": "Annual hunt at the Prancing Pony. The Chetwood Ruins investigated. Orc tunnel network discovered underground. Ring of Mending retrieved from an underground pool. Horn of the Ruins found. Someone yelled 'Echo' into the abyss — hundreds of orcs gave chase. Narrow escape. Party split: Borin/Mayo/Mungo west to warn Bree; Tyr/Carl/Gilgamesh/Dudo east to Grey Watch Hollow." },
+    { "num": "3", "title": "The Night March", "date": "Days 2-3", "summary": "Tyr led a 15-mile night march to Grey Watch Hollow. Orc ambush — intercepted message revealed attack moved to the 27th. Wolf pack at camp — chieftain escaped with 2 HP. Dudo wrote 'Santa's Little Helper' on Tyr's forehead while he meditated. Halvar Greycloak marched 5 rangers to Bree." },
+    { "num": "4", "title": "The Battle of Bree", "date": "Day 3 (27th)", "summary": "~250-300 orcs attacked Bree in formation. ~175 killed; ~75 townspeople dead. Gilgamesh's barrel explosion destroyed the gate and 15-20 orcs simultaneously. Borin negotiated 2,000 gold + shield + horses from Mayor Graf. Black Speech booklet found on the Chieftain's body. Party formally commissioned." },
+    { "num": "5", "title": "Morning After / Mungo Returns", "date": "Day 4", "summary": "Mungo returned alive — revealed as taken by Beorn, a skin-changer who knew him personally from 7 years ago. Beorn was the 'Vanisher' behind the disappearing bodies in Sessions 1-2. Party's destination confirmed: Rivendell, ~150 miles east." },
+    { "num": "6", "title": "The Road East", "date": "Days 5-6", "summary": "Dudo skied off the wagon during a rainstorm using a cooking pan. Lightning fire red herring investigated. Leah ('Isabel' at first) found on the road — family slaughtered by orcs. Borin separated to escort her; rest charged the farmstead. Both horses hit by orc arrows. Combat begins." },
+    { "num": "7", "title": "The Farmstead Battle", "date": "Day 7", "summary": "Dudo lit fire arrows — the building burned to stone walls. Mungo slipped inside and silently killed three orcs (seen only as bodies dropping from windows). Tyr killed the Chieftain with a greatsword throw. Mayo saved the barn with a bucket brigade while still wounded." },
+    { "num": "8", "title": "Into the Hill", "date": "Days 7-8", "summary": "Orc tunnels discovered beneath the barn floor. Party followed them east to a troll cave. Tyr was spotted by returning trolls, shouted 'FUCK YOU!' at three trolls (speed 40), and sprinted into the night (speed 25). Session cliffhanger." },
+    { "num": "9.1", "title": "The Walk to the Weavers (Borin's Arc)", "date": "Day 7 (parallel)", "summary": "Borin's solo arc played in parallel. Carried Leah on his back when her legs gave out — she fell asleep on his shoulders. Delivered her safely to the Weavers. Rolled a dirty 20 at dusk — saw smoke column 10 miles away in the direction of the party." },
+    { "num": "9.2", "title": "The Troll Fight / Borin Returns", "date": "Days 7-8", "summary": "Three trolls killed in the cave. Jet-black dagger found inside one troll's thigh (body had grown flesh around it). Halrick gifted Borin a +1 warhammer as thanks. Borin returned through a thunderstorm, named his palm-leaf rain hat 'Leafster,' hid behind a dead cow from the trolls, and rejoined the party." },
+    { "num": "10.2", "title": "The Long Night After", "date": "Days 8-9", "summary": "Horn of the Ruins conflict: Carl grabbed it back, swung his greataxe at Dudo, accidentally knocked him unconscious and broke his kneecap. Carl sent to the barn. Borin physically placed them face-to-face and forced reconciliation. Ravine ambush — Carl's liver wound. Eli the Tinker appeared with the recovered wagon." },
+    { "num": "11", "title": "The Tinker's Teeth", "date": "Days 9-10", "summary": "Eli distributed cursed obsidian pendants. Poisoned mead from bandit merchants. Party captured — imprisoned in a pit. Overheard: Eli's organization searched for a specific item in Bree; reports to 'the boss.' 'Join or die' ultimatum. Beorn arrived, killed all six bandits alone in the dark. Eli escaped with the Black Speech booklet." },
+    { "num": "12", "title": "The Last Road to Rivendell", "date": "Days 10-12", "summary": "Corrupted wolves producing toxic green mist (do NOT burn these). Illusory waterfall entrance to Rivendell. The healing pool cleared every ailment, wound, and scar any party member carried." },
+    { "num": "13", "title": "The Last Homely House", "date": "Days 12-13", "summary": "Elrond revealed: the Enemy possesses a Palantír and used it to locate the Bree stone — explaining the entire orc assault. Mission: travel to Lake Town (~300 miles) and retrieve it. Tyr given the key ring — response: 'For sure gonna touch that Palantír.' Party fully equipped. Then: sacrificial village found at the Misty Mountain foot. Lottery witnessed. A 16-year-old boy sacrificed. Salted pork feast used to escape." },
+    { "num": "14", "title": "Into the Green Dark", "date": "Days 13-14", "summary": "Fled the village through swampy terrain. Alligator ambush — Mungo grappled underwater; Gilgamesh critical saved him. Dead Marshes water hazard: ghostly faces paralyzed viewers. Ben (Tom's brother, 19 years old) joined. Carl volunteered as living alligator bait — 15 gators converged; hauled back in time." },
+    { "num": "15", "title": "Blood for Bloom", "date": "Day 14", "summary": "The Stump. Bone altar: Dudo's blood activated it, multiplied on contact. Zombie combat. Ben charged Maldwin the instant he saw him — no words — killed instantly. Two-phase Maldwin fight. 'Listen here, you stupid witch — you're not even a wizard!' Mungo: blind dagger throw, running, disadvantage — hit Maldwin in the head. The killing blow." },
+    { "num": "16", "title": "The Seed of the Fallen Trees", "date": "Days 14-15", "summary": "Second zombie wave through the walls. Dudo's sword fell during ceiling climb — hit Tyr's neck — Tyr went to 0 HP from friendly fire. Mungo catapulted to ceiling by Tyr + Borin (strength 24 + 21). Dudo carved the node free with a Nat 20 — all zombies dropped instantly. Tyr found the Iron of Death in the weapon pile. Party leveled up." },
+    { "num": "17.2", "title": "Out of the Stump, Into the Mountains", "date": "Day 15", "summary": "Discovery: a boat was tied to the far side of the stump THE ENTIRE TIME. Carl had seen it. Said nothing. Borin nearly drowned under the weight of his gold — Mayo dove in. Mountain ascent. Giant bat creatures flying north with humanoid corpses. Orc ping within 3 miles. Two large unknown creatures at camp — Tyr hit one for 20 damage with a blind flaming arrow. Session ends mid-initiative." },
+    { "num": "18", "title": "Adrik's Arrival / The Bears in the Cove", "date": "Day 15 → Day 16", "summary": "Cold open: Adrik Stone-Shield (Christian, NEW PLAYER) tracking the bears that destroyed his camp. He converged on the party fight uphill, watching Tyr's flaming arrow — the 'large unknown creatures' from S17.2 confirmed as two giant bears. Combat: Tyr took 26 damage in one round (DM rolled double 6s on 2d6+5). Gilgamesh healed Tyr for 24 HP twice. Borin's Fell trigger: 39 damage on a Nat 19 Keen. Tyr leveled up mid-fight to 6 and killed both bears (decapitation, then sword through the jaw). Adrik closed 90 ft, Nat 20 attack — only 4 damage — then Nat 1 friendly-fire on Borin. Adrik recovered his pendant from a bear's stomach. Joined the party as 'low-key hostage.' Borin and Adrik feel a vague familiarity but don't know each other. Party continues climbing at 3 AM." }
+  ],
+  "items": [
+    { "name": "Iron of Death", "holder": "Tyr", "hostile": false, "emoji": "⚔️", "desc": "Númenórean greatsword made by Tyr's ancestors. Found in Maldwin's pile of weapons from 19 winters of village sacrifices. Bane vs. orcs and trolls. Bonus action attack.", "q": "How did Tyr's ancestral sword end up in a remote swamp wizard's sacrifice pile?" },
+    { "name": "Ring of Mending", "holder": "Gilgamesh", "hostile": false, "emoji": "💍", "desc": "The party's most critical defensive item. Retrieved by Carl from a pool in the Chetwood Ruins in Sessions 1-2. Has revived party members from 0 HP at least four times. Revive 1 downed creature to 1 HP (once/long rest). Cure poison (2/day).", "q": "Why was a healing ring in a Red Claw orc tunnel pool? Still unexplained." },
+    { "name": "Jet-Black Dagger", "holder": "Dudo", "hostile": false, "emoji": "🗡️", "desc": "Ancient ~4-5 inch black blade, no runes, unknown make. Found inside a troll's thigh in Session 10.2 — the body had grown flesh around it. +1 to hit; Constitution save on hit.", "q": "Who made this? How did it get inside a troll? Why is it perfectly sized for a halfling?" },
+    { "name": "Horn of the Ruins", "holder": "Carl (primary)", "hostile": false, "emoji": "📯", "desc": "Found in the Chetwood Ruins. When blown clearly (Performance DC ~12+), the blower perceives a 3D echolocation map of surroundings within ~15-20 feet. Only the blower perceives this.", "q": "Carl blew it at Mungo's disappearance site and wept while holding the note. Ownership caused the most dramatic intra-party conflict of the campaign." },
+    { "name": "Black Speech Booklet", "holder": "ELI — STOLEN", "hostile": true, "emoji": "📖", "desc": "Found on the Orc Chieftain's body in Session 7. Written in Black Speech. First half: written orders. Second half: maps with X markings. Stolen by Eli in Session 11.", "q": "Confirms Red Claw orcs received written orders from a literate authority. Currently in enemy hands." },
+    { "name": "Corrupted Seed Pod", "holder": "Party (Tyr carries it)", "hostile": false, "emoji": "🌱", "desc": "A foot-tall gray pod. Tyr's Nat 20 lore check identified it as corrupted lineage of the Two Trees of Valinor. Maldwin found it in Dol Guldur's ruins, planted it, and fed it blood for 19 winters.", "q": "Being brought to Elrond. The tree the party fought inside is dead. There are likely more seeds." },
+    { "name": "Adrik's Pendant", "holder": "Adrik", "hostile": false, "emoji": "🔮", "desc": "A half-dollar-sized pendant on a chain. Recovered from a giant bear's stomach in Session 18. Adrik says it 'pings' when he is near 'broken shards' he is searching for. He has not explained what the shards are.", "q": "What are the shards? Why is Adrik searching for them? What happens when the pendant pings?" }
+  ],
+  "mysteries": [
+    "Who is the true mastermind behind the village's 19-winter sacrifice pact? The players believe it was Maldwin — but was Maldwin the instrument rather than the hand?",
+    "What does the Black Speech booklet actually say? It's in Eli's hands now.",
+    "Where is Eli the Tinker — and who is 'the boss' he reports to?",
+    "What happened to the sacrificial village after the bat raid? Are Mez and Bonkey alive?",
+    "What are the giant bat creatures, and what are they connected to?",
+    "Are the orcs Borin pinged in the mountains living — or corpses carried by the bats?",
+    "What will happen when Tyr touches the Palantír? He has stated in character that he absolutely will.",
+    "Why did the blood altar respond specifically to Dudo's blood?",
+    "Is the master of Lake Town already compromised? Elrond feared it was possible.",
+    "How did Tyr's ancestral Númenórean sword (Iron of Death) end up in Maldwin's sacrifice pile?",
+    "What are the 'broken shards' Adrik is searching for? And why do he and Borin look vaguely familiar to each other?"
+  ],
+  "funny": [
+    { "who": "Dudo", "s": "3", "t": "Wrote 'Santa's Little Helper' on Tyr's forehead while he meditated — discovered by Finn the blacksmith in Bree" },
+    { "who": "Borin", "s": "9.2", "t": "Named his palm-leaf rain hat 'Leafster' and carried it through a thunderstorm" },
+    { "who": "Borin", "s": "9.2", "t": "Urinated on himself hiding from trolls — noted it was 'actually warm and somewhat comforting'" },
+    { "who": "Dudo", "s": "6", "t": "Skied off the moving wagon during a rainstorm using a rope and cooking pan — graceful acrobatics success" },
+    { "who": "Carl", "s": "14", "t": "Voluntarily served as living alligator bait — waded into a lake with 15 gators converging, trusted the party to haul him back" },
+    { "who": "Borin", "s": "10.2", "t": "Picked up Mungo and threw him at Gilgamesh (caught him). Then physically placed Carl and Dudo facing each other to force reconciliation." },
+    { "who": "Carl", "s": "15", "t": "'Listen here, you stupid witch — you're not even a wizard!' — right before the crit that triggered Maldwin's phase 2" },
+    { "who": "Mungo", "s": "10.2", "t": "Yelled 'FOR CARL!' charging up a ravine cliff at the goblin that just dropped Carl" },
+    { "who": "Party", "s": "17.2", "t": "There was a BOAT tied to the far side of the stump THE ENTIRE TIME. Carl had seen it. Said nothing." },
+    { "who": "Tyr", "s": "8", "t": "Shouted 'FUCK YOU!' at three trolls with 40 movement speed, then sprinted into the night with 25" },
+    { "who": "Borin", "s": "17.2", "t": "Nearly drowned in the alligator lake under the weight of his own gold — Mayo dove in after him" },
+    { "who": "Adrik", "s": "18", "t": "Stuck a Nat 20 landing into bear melee after a 90-foot dash — and dealt exactly 4 damage. The hatchet bounced off the hide." },
+    { "who": "Adrik", "s": "18", "t": "Second swing was a Nat 1 — accidentally cut Borin's leg in the dark for 4 damage. Borin: 'Like dirty little rats nibble at my feet.'" },
+    { "who": "Dudo", "s": "18", "t": "Yelled 'Get up! Get up, Wood! There's trouble!' to wake the party — Nat 1 Performance, instant sleep paralysis on his own turn" },
+    { "who": "Gilgamesh", "s": "18", "t": "Asked Adrik (a stranger they'd just met) if he could draw him. Then asked if he could draw him naked. Adrik refused both." }
+  ],
+  "greatest": [
+    { "who": "Mungo", "s": "15", "t": "Threw a dagger while completely blind, running across the room, on disadvantage — hit Maldwin in the side of the head. The killing blow." },
+    { "who": "Tyr", "s": "18", "t": "Killed both giant bears solo — Bear A by decapitation (31 dmg triple-attack post-level-up), Bear B by sword-thrust through the jaw into the brain on its counter-bite" },
+    { "who": "Tyr", "s": "7", "t": "Killed the Orc Chieftain with a greatsword throw, then shouted 'FUCK YOU!' at three trolls and sprinted into the night with them in pursuit" },
+    { "who": "Borin", "s": "18", "t": "Triggered Fell on a Nat 19 (via Keen) — rolled d12 ×5 = 39 damage on a giant bear. The bear collapsed but didn't die. Tied for his biggest hit of the campaign." },
+    { "who": "Dudo", "s": "3", "t": "Nat 20 Sneak Attack — short sword up through an orc's groin. The campaign's most dramatic opening kill." },
+    { "who": "Gilgamesh", "s": "4", "t": "Barrel explosion — cooking fuel off the roof, torch dropped — gate destroyed and 15-20 orcs gone simultaneously" },
+    { "who": "Gilgamesh", "s": "18", "t": "Healed Tyr for 24 HP twice in one fight (Leechcraft + Elvish skill, ~48 HP total) — kept him alive through 26 damage in one round" },
+    { "who": "Borin", "s": "9.1", "t": "Carried Leah on his back until she fell asleep on his shoulders. Waved until out of sight. Then ran." },
+    { "who": "Mayo", "s": "15", "t": "Ran 30 feet and slammed the wardrobe shut on the zombie horde — strength 12, barely — prevented a fight-ending wave" },
+    { "who": "Beorn", "s": "11", "t": "Arrived at the briar-patch camp, killed all six bandits alone in the dark, lifted the stone grate, pulled Mungo out first" },
+    { "who": "Mungo", "s": "7", "t": "Slipped alone into the burning farmhouse. Three orcs dropped from windows silently. Gilgamesh watched from 200 feet and never heard a sound." },
+    { "who": "Mungo+Tyr+Borin", "s": "16", "t": "'You think you can throw me up there?' — catapulted to ceiling, strength 24+21, node carved free, all zombies dropped" }
+  ]
+}
